@@ -938,11 +938,34 @@ function renderDayPolls() {
   });
 }
 
+// Running votes come right under the downloads, finished ones go back under the calendar.
+// A section is only moved when its place changes, moving it would take the focus out of its fields.
+function placeVotingSections() {
+  const calendar = $("#kalender");
+  const shown = linkedVoting || state.voting;
+  const sections = [
+    [$("#voting"), shown?.status === "open"],
+    [$("#termine"), (state.day_polls || []).some((poll) => poll.status === "open")],
+  ];
+  const before = sections.filter(([, active]) => active).map(([section]) => section);
+  const after = sections.filter(([, active]) => !active).map(([section]) => section);
+  const wanted = [$("#downloads"), ...before, calendar, ...after, $("#builder")];
+  const current = [...calendar.parentElement.children];
+  wanted.forEach((section, index) => {
+    if (index > 0 && current.indexOf(section) !== current.indexOf(wanted[index - 1]) + 1) {
+      wanted[index - 1].after(section);
+      current.splice(current.indexOf(section), 1);
+      current.splice(current.indexOf(wanted[index - 1]) + 1, 0, section);
+    }
+  });
+}
+
 function renderShared() {
   renderAccount();
   renderCalendar();
   renderVoting();
   renderDayPolls();
+  placeVotingSections();
 }
 
 async function refresh() {
@@ -967,6 +990,7 @@ async function poll() {
     renderCalendar();
     renderVoting();
     if (!$("#polls-body").contains(document.activeElement)) renderDayPolls();
+    placeVotingSections();
   } catch { /* the next poll tries again */ }
 }
 
