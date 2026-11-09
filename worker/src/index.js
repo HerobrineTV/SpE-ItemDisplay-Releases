@@ -278,6 +278,8 @@ async function submitProposal(env, user, body) {
   const name = text(body.name, "Name", 64, { required: true });
   const description = text(body.description, "Beschreibung", 1000);
   const config = checkConfig(body.config);
+  // Only admins may submit a challenge which keeps the server running
+  if (user.role !== "admin") config.toggles.auto_stop = { value: true };
 
   const catalog = await loadCatalog(env);
   const key = setupKey(config, catalog);

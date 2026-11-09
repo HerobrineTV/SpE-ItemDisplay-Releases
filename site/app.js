@@ -352,6 +352,7 @@ function relevant(toggle, toggles) {
 function blockReason(toggle) {
   const toggles = draft.toggles;
   const entry = toggles[toggle.id];
+  if (toggle.id === "auto_stop" && !isAdmin()) return "Nur Admins können Auto Stop ausschalten.";
   if (toggle.kind === "challenge" && !entry.value) {
     const conflict = (toggle.conflicts || []).find((id) => toggles[id]?.value);
     if (conflict) return `Nicht kombinierbar mit ${name(byId[conflict])}.`;
@@ -388,7 +389,7 @@ function cardHtml(toggle) {
   const submenuItems = SUBMENUS[toggle.id] && entry.value ? catalog.filter((item) => item.group === SUBMENUS[toggle.id]).sort((a, b) => a.page - b.page || a.slot - b.slot) : [];
   const submenu = submenuItems.length ? `<div class="submenu"><div class="cards">${submenuItems.map(cardHtml).join("")}</div></div>` : "";
   const kit = toggle.id === "starter_kit" && entry.value ? kitHtml() : "";
-  return `<article class="card${entry.value ? " on" : ""}${block && !entry.value ? " blocked" : ""}${submenu || kit ? " wide" : ""}">
+  return `<article class="card${entry.value ? " on" : ""}${block && (!entry.value || toggle.id === "auto_stop") ? " blocked" : ""}${submenu || kit ? " wide" : ""}">
     <div class="card-head">${icon(toggle.id, toggle.kind === "challenge")}<h3>${esc(name(toggle))}${info.mod ? MOD_TAG : ""}</h3>${switcher}</div>
     ${info.summary ? `<p>${esc(info.summary)}</p>` : ""}
     ${more}
@@ -545,6 +546,7 @@ function editSlot(slot) {
 }
 
 function renderBuilder() {
+  if (!isAdmin() && draft.toggles.auto_stop) draft.toggles.auto_stop.value = true;
   const open = new Set([...document.querySelectorAll("#builder-body details[open]")].map((item) => item.dataset.detail));
   const challenges = catalog.filter((toggle) => toggle.kind === "challenge").sort((a, b) => a.page - b.page || a.slot - b.slot);
   const submenuGroups = Object.values(SUBMENUS);
