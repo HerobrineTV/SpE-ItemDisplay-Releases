@@ -1,0 +1,21 @@
+name: Discord voting notification
+
+on:
+  repository_dispatch:
+    types: [voting-started]
+
+permissions: {}
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          VOTING_ID: ${{ github.event.client_payload.voting_id }}
+        run: |
+          [[ "$VOTING_ID" =~ ^[0-9]+$ ]] || { echo "Invalid voting id"; exit 1; }
+          link="https://herobrinetv.github.io/SpE-ItemDisplay-Releases/?voting=${VOTING_ID}"
+          jq -n --arg link "$link" '{content: ("A new Challenge Voting has been started\n" + $link), allowed_mentions: {parse: []}}' \
+            | curl -fsS -H "Content-Type: application/json" -d @- "$DISCORD_WEBHOOK_URL"

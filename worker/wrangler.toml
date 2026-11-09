@@ -1,0 +1,17 @@
+name = "spe-challenges-api"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+SITE_URL = "https://herobrinetv.github.io/SpE-ItemDisplay-Releases/"
+ALLOWED_ORIGINS = "https://herobrinetv.github.io"
+OWNER_USERNAME = "nintendo_switch"
+GITHUB_REPO = "HerobrineTV/SpE-ItemDisplay-Releases"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "spe-challenges"
+database_id = "c7d206cd-2a2c-4b44-8d6a-872f67eac41d"
+
+# Secrets (wrangler secret put): DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, SESSION_SECRET, GITHUB_DISPATCH_TOKEN
+# The Discord webhook is deliberately not here: it only exists as a GitHub secret.

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SpE Challenges</title>
+  <meta name="description" content="Kalender, Voting und Challenge Builder für SpE Challenges">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="./">SpE <span>Challenges</span></a>
+    <nav>
+      <a href="#kalender">Kalender</a>
+      <a href="#voting">Voting</a>
+      <a href="#builder">Builder</a>
+      <a href="#vorschlaege">Vorschläge</a>
+      <a href="#admin" id="nav-admin" hidden>Admin</a>
+    </nav>
+    <div id="account"></div>
+  </header>
+
+  <main>
+    <section id="kalender" aria-labelledby="h-kalender">
+      <div class="section-head">
+        <h2 id="h-kalender">Kalender</h2>
+        <div class="month-nav">
+          <button class="ghost" id="prev-month" aria-label="Vorheriger Monat">‹</button>
+          <strong id="month-label"></strong>
+          <button class="ghost" id="next-month" aria-label="Nächster Monat">›</button>
+        </div>
+      </div>
+      <div id="calendar"></div>
+      <p class="hint" id="calendar-hint"></p>
+    </section>
+
+    <section id="voting" aria-labelledby="h-voting">
+      <div class="section-head"><h2 id="h-voting">Aktuelles Voting</h2></div>
+      <div id="voting-body"></div>
+    </section>
+
+    <section id="builder" aria-labelledby="h-builder">
+      <div class="section-head"><h2 id="h-builder">Challenge Builder</h2></div>
+      <p class="lead">Stelle eine Challenge mit allen Einstellungen zusammen und schlage sie vor. Admins können Vorschläge in ein Voting aufnehmen.</p>
+      <div id="builder-body"></div>
+    </section>
+
+    <section id="vorschlaege" aria-labelledby="h-proposals">
+      <div class="section-head"><h2 id="h-proposals">Vorschläge</h2></div>
+      <div id="proposals-body"></div>
+    </section>
+
+    <section id="admin" aria-labelledby="h-admin" hidden>
+      <div class="section-head"><h2 id="h-admin">Admin</h2></div>
+      <div id="admin-body"></div>
+    </section>
+  </main>
+
+  <dialog id="dialog"></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

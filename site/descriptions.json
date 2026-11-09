@@ -1,0 +1,195 @@
+{
+  "block_drop_randomizer": {
+    "summary": "Jeder Blocktyp lässt beim Abbauen ein fest zugeordnetes zufälliges anderes Item fallen.",
+    "details": "Beim Start wird jedem Blocktyp ein zufälliges Item zugewiesen, das während der gesamten Runde gleich bleibt; doppelte Zuordnungen gibt es erst, wenn alle Items vergeben sind. Meist fällt 1 Item, bei Ton und Lapiserz 3, bei Netherquarzerz 2 und bei Redstone-Erz 4; bei bestimmten Erzen multipliziert Glück die Menge. Es gibt kein eigenes Siegziel, die Challenge endet mit dem Timer und lässt sich mit allen Modi außer Lie Fight kombinieren.",
+    "modes": {
+      "Global": "Alle Spieler teilen sich dieselbe Zuordnung von Blöcken zu Items.",
+      "Per Player": "Jeder Spieler erhält eine eigene zufällige Zuordnung, auch bei späterem Beitritt."
+    }
+  },
+  "lie_fight": {
+    "summary": "In wiederkehrenden Runden erzählen die Spieler Geschichten über ihr Thema, und die anderen stimmen ab, ob sie wahr oder gelogen sind.",
+    "details": "Etwa 40 Sekunden nach Rundenbeginn entscheidet der Zufall für jeden Spieler mit Thema, ob gelogen werden muss oder die Wahrheit gilt. Nach Ablauf des Timers erzählen alle nacheinander und die anderen stimmen mit grüner Wolle für Wahrheit oder roter Wolle für Lüge ab; Items aus dem Inventar können als Beweis gezeigt werden. Wer richtig liegt, erhält 1 Punkt, bei falschem Tipp erhält der Erzähler 1 Punkt, danach startet automatisch die nächste Runde. Der Timer gilt pro Runde, Werte ab 10 Minuten werden beim Start auf 3 Minuten gesetzt, und Lie Fight lässt sich mit keinem anderen Modus außer Chained Together kombinieren.",
+    "modes": {
+      "Mobs": "Jeder Spieler wird zu einem zufälligen, leuchtenden und unbeweglichen Mob an einem passenden Ort teleportiert.",
+      "Structures": "Jeder Spieler wird zu einer zufälligen Struktur in der passenden Dimension teleportiert."
+    }
+  },
+  "force_item_battle": {
+    "summary": "Spieler oder Teams erledigen nacheinander zufällige Aufgaben und sammeln dafür Punkte.",
+    "details": "Jede erledigte Aufgabe bringt 1 Punkt und sofort die nächste; dieselbe Aufgabe kommt für einen Spieler oder ein Team nicht erneut vor. Es gewinnt, wer beim Ablauf des Timers die meisten Aufgaben geschafft hat. Liegt das nächste gesuchte Item bereits im Inventar, zählt es sofort. Am Ende werden die Ergebnisse Item für Item im Halbsekundentakt aufgedeckt, beginnend mit dem Letztplatzierten.",
+    "modes": {
+      "Solo": "Jeder Spieler sammelt eigene Punkte und hat eine eigene Aufgabe.",
+      "Teams": "Teammitglieder teilen sich Aufgabe und Punkte, Spieler ohne Team spielen einzeln."
+    }
+  },
+  "monster_army": {
+    "summary": "Teams farmen Mobs, planen daraus drei Wellen und bekämpfen in einer Arena die Armeen der gegnerischen Teams.",
+    "details": "Während der Timer läuft, zählt jeder Kill mit Ausnahme des Enderdrachen für die Armee des Teams, Baby-Mobs werden gesondert geführt. Danach verteilen die Teams ihre Mobs in der Lobby auf 3 Wellen und bestätigen mit /ready; ohne Planung wird die Armee zufällig aufgeteilt. Zwischen den Wellen liegen 5 Sekunden Pause, und nach einem Tod in der Arena beträgt die Wartezeit 5 Sekunden mal Anzahl der eigenen Tode, wobei das Inventar erhalten bleibt. Es gewinnt das Team, das alle Wellen am schnellsten besiegt, 30 Sekunden nach der Rangliste endet die Challenge.",
+    "modes": {
+      "Random Army": "Jedes Team kämpft gegen die Wellen genau eines anderen Teams, und jede Armee wird genau einmal bekämpft.",
+      "All Armies": "Ab 3 Teams kämpft jedes Team nacheinander gegen die Armeen aller anderen Teams."
+    }
+  },
+  "oneblock_race": {
+    "summary": "Von einem einzelnen Bedrock-Block in einer leeren Welt aus baut jeder Spieler mit zufälligen Items so weit wie möglich nach vorne.",
+    "details": "Alle 30 Sekunden erhält jeder Spieler ein zufälliges Item. Jeder Spieler hat eine eigene, 11 Blöcke breite Bahn mit unsichtbaren Wänden an den Seiten und 5 Blöcke hinter dem Bedrock, die weder Spieler noch Blöcke, Flüssigkeiten oder Explosionen durchlassen. Beim Ablauf des Timers zählt der am weitesten entfernte noch vorhandene Block der Bahn, in Teams werden die Distanzen addiert. Die Challenge erzeugt ihre eigene Welt, Portale sind deaktiviert, und sie endet 30 Sekunden nach der Rangliste."
+  },
+  "vanishing_blocks": {
+    "summary": "Wer von einer Blockart auf eine andere tritt, lässt die verlassene Blockart aus der gesamten Challenge-Welt verschwinden.",
+    "details": "Der Blocktyp wird in allen Challenge-Welten entfernt, auch in Chunks, die erst später geladen oder generiert werden. Nur echtes Betreten zählt, in der Luft und für Zuschauer passiert nichts; Bedrock und Barrieren bleiben immer erhalten. Blöcke werden ohne Block-Updates entfernt, Sand fällt also nicht nach und Wasser fließt nicht. Es gibt kein eigenes Siegziel, die Challenge endet mit dem Timer."
+  },
+  "item_bingo": {
+    "summary": "Auf einer 5x5-Karte müssen Aufgaben erledigt werden, bis eine Reihe oder die ganze Karte voll ist.",
+    "details": "Die 25 Felder enthalten standardmäßig Items und optional Achievements oder Strukturen; es genügt, ein Item einmal im Inventar zu haben. Teammitglieder teilen sich eine Karte und ihren Fortschritt, Spieler ohne Team spielen allein. Standardmäßig gewinnt die erste vollständige Reihe, Spalte oder Diagonale, 10 Sekunden später endet die Challenge. Läuft vorher die Zeit ab, wird eine Rangliste nach erledigten Feldern ausgegeben, die Karte öffnet sich mit /ch bingo.",
+    "modes": {
+      "Same Cards": "Alle Spieler und Teams erhalten dieselben Aufgaben, jeweils mit eigenem Fortschritt.",
+      "Different Cards": "Jeder Spieler oder jedes Team erhält eine eigene zufällige Karte."
+    }
+  },
+  "manhunt": {
+    "summary": "Speedrunner müssen den Enderdrachen töten, während Hunter sie mit einem Kompass jagen.",
+    "details": "Speedrunner werden mit /ch manhunt runner festgelegt, sonst wird einer zufällig bestimmt. Hunter erhalten einen Kompass, der sich jede Sekunde auf den nächsten Speedrunner in derselben Dimension ausrichtet und Distanz sowie Höhenunterschied anzeigt. Stirbt ein Speedrunner, ist er ausgeschieden, Hunter spawnen immer neu. Die Speedrunner gewinnen mit dem Tod des Drachen, die Hunter, wenn alle Speedrunner tot sind oder der Timer abläuft; beim Start werden PvP und Respawn aktiviert, Hardcore deaktiviert und eine eventuelle Weltgenerierung auf eine gemeinsame Welt gesetzt."
+  },
+  "mob_randomizer": {
+    "summary": "Jede Mob-Art spawnt als eine fest zugeordnete andere Mob-Art.",
+    "details": "Beim Start wird eine zufällige Zuordnung erstellt, die für die gesamte Runde gleich bleibt. Spieler, Rüstungsständer, Enderdrache, Wither, Warden und Riese werden weder ersetzt noch als Ersatz gewählt. Spawns per Befehl oder durch Plugins sowie die Lobby sind ausgenommen. Es gibt kein eigenes Siegziel, die Challenge endet mit dem Timer und lässt sich mit allen Modi außer Lie Fight kombinieren."
+  },
+  "inventory_lock": {
+    "summary": "Zu Beginn ist nur ein Inventarplatz frei, und jedes Achievement schaltet einen weiteren frei.",
+    "details": "Pro Spieler werden bis zu 36 Plätze freigeschaltet, zuerst die Hotbar, danach das restliche Inventar. Rüstungsplätze und Zweithand bleiben frei, gesperrte Plätze sind mit nicht bewegbaren Sperr-Items gefüllt. Rezept-Freischaltungen zählen nicht, und Achievements funktionieren auch dann, wenn die Einstellung Achievements deaktiviert ist. Es gibt kein eigenes Siegziel, die Challenge endet mit dem Timer."
+  },
+  "damage_effects": {
+    "summary": "Jeder Schaden an einem Spieler gibt allen Spielern denselben zufälligen Trank-Effekt.",
+    "details": "Bei Schaden wird einer von 21 Effekten ausgelost und für 30 Sekunden auf Stufe I an alle Spieler außerhalb der Lobby verteilt. Zwischen zwei Auslösungen liegt mindestens 1 Sekunde, Giftschaden löst keinen neuen Effekt aus. Die Palette reicht von hilfreichen Effekten wie Regeneration bis zu Blindheit, Schwebekraft oder Dunkelheit. Es gibt kein eigenes Siegziel, die Challenge endet mit dem Timer."
+  },
+  "chained_together": {
+    "summary": "Die Spieler hängen für die gesamte Challenge an einer physikalischen Kette zusammen.",
+    "details": "Jedes Kettenglied zwischen zwei Nachbarn ist so lang wie die Herzen beider Spieler zusammen geteilt durch 2, bei voller Gesundheit und 10 Herzen also 10 Blöcke, mindestens aber 2 Blöcke. Wer schleicht und einen Nachbarn ansieht, zieht die Kette ein und kann ihn so heranziehen. Durch Portale reist die gesamte Kettengruppe mit, und wer sich sehr weit entfernt, wird zur Kette zurückteleportiert. In Manhunt sind nur die Hunter angekettet.",
+    "modes": {
+      "All": "Alle Spieler hängen an einer gemeinsamen Kette.",
+      "Teams": "Jedes Team hat seine eigene Kette."
+    }
+  },
+  "respawn": {
+    "summary": "Legt fest, ob Spieler nach dem Tod wieder einsteigen oder ausscheiden.",
+    "details": "Standardmäßig aktiv. Ist die Einstellung aus, scheidet ein gestorbener Spieler aus und bleibt auch nach einem erneuten Beitritt Zuschauer. In der Arena von Monster Army Battle gilt das nicht, dort wird immer mit Wartezeit respawnt, und Manhunt aktiviert Respawn beim Start automatisch."
+  },
+  "linked_hearts": {
+    "summary": "Alle Spieler teilen sich Schaden, Heilung und Hunger.",
+    "details": "Erhält ein Spieler Schaden, bekommen alle anderen Online-Spieler ebenfalls Schaden, Heilung und Hungerwerte werden auf die anderen übertragen. Spieler, die während einer laufenden Challenge beitreten, übernehmen Gesundheit, Maximalgesundheit und Hunger der übrigen Spieler. Standardmäßig deaktiviert."
+  },
+  "heart_amount": {
+    "summary": "Legt die maximale Gesundheit aller Spieler fest.",
+    "details": "Der Wert wird in Lebenspunkten angegeben, 20 entspricht dem Standard von 10 Herzen, und das Minimum ist 1. In Chained Together beeinflusst die aktuelle Gesundheit zudem die Kettenlänge."
+  },
+  "hardcore": {
+    "summary": "Setzt die Challenge-Welten auf den Hardcore-Status.",
+    "details": "Beim Start wird der Hardcore-Status der Welt entsprechend dieser Einstellung gesetzt, standardmäßig ist er deaktiviert. Das Ausscheiden nach dem Tod steuert die Einstellung Respawn. Manhunt deaktiviert Hardcore beim Start automatisch."
+  },
+  "timer_amount": {
+    "summary": "Legt die Dauer des Timers in Minuten fest.",
+    "details": "Der Mindestwert ist 1 Minute. Mit Weltgenerierung kommen 30 Sekunden Vorbereitungszeit hinzu. Bei Lie Fight gilt der Wert pro Runde und bei Monster Army Battle für die Farmphase."
+  },
+  "timer_count_up": {
+    "summary": "Der Timer zählt hoch, statt ein Zeitlimit herunterzuzählen.",
+    "details": "Es gibt dann kein Zeitlimit, die Challenge wird mit /stop beendet. Lie Fight, Monster Army Battle und OneBlock Race benötigen ein Zeitlimit und sind deshalb nicht damit kombinierbar."
+  },
+  "bingo_achievements": {
+    "summary": "Bingo-Karten können auch Achievements enthalten.",
+    "details": "Für jedes Feld wird zuerst zufällig die Aufgabenart gewählt, damit Items die übrigen Arten nicht verdrängen. Bereits abgeschlossene Achievements zählen, und sie funktionieren auch bei deaktivierter Einstellung Achievements, ohne Meldung im Chat. Standardmäßig deaktiviert."
+  },
+  "bingo_structures": {
+    "summary": "Bingo-Karten können auch Strukturen enthalten.",
+    "details": "Das Feld gilt als erledigt, sobald sich ein Spieler in einem Teil der gesuchten Struktur befindet, die Prüfung erfolgt jede Sekunde. Für jedes Feld wird zuerst zufällig die Aufgabenart gewählt. Standardmäßig deaktiviert."
+  },
+  "bingo_armor_trims": {
+    "summary": "Legt fest, ob Rüstungsbesatz-Schmiedevorlagen auf Bingo-Karten vorkommen können.",
+    "details": "Standardmäßig aktiv. Ist die Einstellung aus, werden alle Rüstungsbesatz-Schmiedevorlagen aus dem Item-Pool der Karten entfernt."
+  },
+  "bingo_full_card": {
+    "summary": "Zum Sieg muss die gesamte Bingo-Karte statt einer Linie erledigt werden.",
+    "details": "Ist die Einstellung aktiv, sind alle 25 Felder nötig. Ist sie aus, wie standardmäßig, reicht eine vollständige Reihe, Spalte oder Diagonale."
+  },
+  "fb_items": {
+    "summary": "Force Battle enthält Aufgaben, bei denen zufällige Items gefunden werden müssen.",
+    "details": "Standardmäßig aktiv. Die Aufgabe ist erledigt, sobald das gesuchte Item ins Inventar gelangt, ein bereits vorhandenes nächstes Item zählt sofort. Mindestens eine Aufgabenart muss eingeschaltet bleiben."
+  },
+  "fb_mobs": {
+    "summary": "Force Battle enthält Aufgaben, bei denen zufällige Mobs getötet werden müssen.",
+    "details": "Die Aufgabe ist erledigt, sobald ein Spieler oder Teammitglied den gesuchten Mob tötet. Bei mehreren aktiven Arten wird zuerst zufällig die Art und dann die Aufgabe gewählt. Standardmäßig deaktiviert."
+  },
+  "fb_achievements": {
+    "summary": "Force Battle enthält Aufgaben, bei denen zufällige Achievements erreicht werden müssen.",
+    "details": "Hat bereits ein Spieler oder Teammitglied das Achievement, zählt die Aufgabe sofort. Achievements funktionieren dafür auch bei deaktivierter Einstellung Achievements, ohne Meldung im Chat. Standardmäßig deaktiviert."
+  },
+  "fb_structures": {
+    "summary": "Force Battle enthält Aufgaben, bei denen zufällige Strukturen betreten werden müssen.",
+    "details": "Die Aufgabe ist erledigt, sobald sich ein Spieler in einem Teil der gesuchten Struktur befindet, geprüft wird jede Sekunde. Standardmäßig deaktiviert."
+  },
+  "generate_world": {
+    "summary": "Erzeugt für die Challenge neue temporäre Welten mit Overworld, Nether und End.",
+    "details": "Jede neue Welt erhält einen zufälligen Seed, die Portale führen innerhalb der zugehörigen Dimensionen. Beim Start kommen 30 Sekunden Vorbereitungszeit hinzu. OneBlock Race nutzt seine eigene Welt und überspringt diese Einstellung, bei Lie Fight werden die Welten für jede Runde neu erzeugt.",
+    "modes": {
+      "One Per Player": "Jeder Spieler erhält eine eigene Welt.",
+      "One Per Team": "Jedes Team erhält eine gemeinsame Welt, Spieler ohne Team jeweils eine eigene.",
+      "One for All": "Alle Spieler spielen in derselben Welt."
+    }
+  },
+  "disable_pvp": {
+    "summary": "Verhindert, dass sich Spieler gegenseitig angreifen.",
+    "details": "Standardmäßig deaktiviert, PvP ist also erlaubt. In OneBlock Race werden bei aktiver Einstellung auch Fernkampftreffer anderer Spieler blockiert. Manhunt erlaubt PvP beim Start immer."
+  },
+  "fly": {
+    "summary": "Erlaubt allen Spielern das Fliegen.",
+    "details": "Alle Spieler dürfen fliegen, auch später beitretende. Standardmäßig deaktiviert."
+  },
+  "team_backpack": {
+    "summary": "Stellt während der Challenge einen gemeinsamen Team-Rucksack bereit.",
+    "details": "Der Rucksack hat 27 Plätze und öffnet sich mit /bp, Spieler ohne Team erhalten einen eigenen gleich großen Rucksack. Er ist nur während einer laufenden Challenge nutzbar. Standardmäßig aktiv."
+  },
+  "achievements": {
+    "summary": "Legt fest, ob Spieler Achievements erhalten können.",
+    "details": "Standardmäßig deaktiviert, Rezept-Freischaltungen bleiben davon ausgenommen. Inventory Lock sowie Force Battle und Item Bingo mit aktiven Achievement-Aufgaben benötigen Achievements und lassen sie während der Challenge trotzdem zu, die Chat-Meldungen bleiben dann verborgen."
+  },
+  "joker": {
+    "summary": "Gibt jedem Spieler in Force Battle Joker, mit denen die aktuelle Aufgabe sofort als erledigt zählt.",
+    "details": "Standardmäßig deaktiviert, die voreingestellte Menge beträgt 3. Ein Joker wertet die Aufgabe als geschafft und gibt bei Item-Aufgaben zusätzlich das gesuchte Item. Die Aufgabe wird in den Ergebnissen als Joker markiert."
+  },
+  "item_swapper": {
+    "summary": "Tauscht in Force Battle die eigene Aufgabe mit der Aufgabe eines zufälligen anderen Teams.",
+    "details": "Standardmäßig deaktiviert, die voreingestellte Menge beträgt 1 pro Spieler. Der Tausch benötigt ein anderes Team oder einen anderen Spieler mit aktueller Aufgabe, sonst wird nichts verbraucht."
+  },
+  "item_reroll_all": {
+    "summary": "Gibt in Force Battle allen Online-Teams eine neue zufällige Aufgabe.",
+    "details": "Standardmäßig deaktiviert, die voreingestellte Menge beträgt 1 pro Spieler. Die alten Aufgaben zählen dabei nicht als erledigt."
+  },
+  "auto_stop": {
+    "summary": "Stoppt den Server automatisch nach dem Ende einer Challenge oder wenn er leer ist.",
+    "details": "Der Server stoppt 10 Minuten nach Challenge-Ende oder 60 Sekunden, nachdem der letzte Spieler den Server verlassen hat, sofern bereits eine Challenge gestartet wurde. Standardmäßig aktiv."
+  },
+  "keep_inventory": {
+    "summary": "Spieler behalten beim Tod Inventar und Level.",
+    "details": "Während einer laufenden Challenge fallen beim Tod weder Items noch Erfahrung auf den Boden. Standardmäßig deaktiviert."
+  },
+  "team_outlines": {
+    "summary": "Teammitglieder werden in ihrer Teamfarbe umrandet.",
+    "details": "Die Umrandung ist nur mit der SpE-Mod sichtbar und funktioniert auch in der Lobby. Standardmäßig aktiv."
+  },
+  "starter_kit": {
+    "summary": "Alle Spieler erhalten beim Start ein vorher festgelegtes Starter-Kit.",
+    "details": "Das Kit umfasst bis zu 36 Plätze und übernimmt vollständige Items mit Namen, Verzauberungen und Menge in ihre festgelegten Inventarplätze. Der Inhalt lässt sich nicht auf der Website festlegen, sondern wird im Spiel in einem Kistenmenü angeordnet. Später beitretende Spieler erhalten kein Kit. Standardmäßig deaktiviert."
+  },
+  "auto_pause": {
+    "summary": "Pausiert die Challenge, wenn ein Spieler den Server verlässt.",
+    "details": "Sobald alle fehlenden Spieler zurück sind, läuft die Challenge automatisch weiter. Ausgeschiedene Spieler lösen keine Pause aus. Standardmäßig deaktiviert."
+  },
+  "death_point": {
+    "summary": "Zeigt Spielern den Ort ihres letzten Todes an.",
+    "details": "Nach dem Tod erhält der Spieler eine private Chat-Nachricht mit Koordinaten und Weltname. Der gespeicherte Punkt wird verworfen, sobald sich der Spieler ihm auf weniger als 5 Blöcke nähert. Standardmäßig deaktiviert."
+  },
+  "damage_log": {
+    "summary": "Meldet erlittenen Schaden aller Spieler im Chat.",
+    "details": "Die Nachricht nennt für alle sichtbar den Spieler, den Schaden in Herzen und die Ursache oder den Verursacher. Das gilt nur während einer laufenden Challenge außerhalb der Lobby. Standardmäßig deaktiviert."
+  }
+}
