@@ -5,23 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SpE Challenges</title>
   <meta name="description" content="Kalender, Voting und Challenge Builder für SpE Challenges">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=__BUILD__">
 </head>
 <body>
   <header class="top">
     <a class="brand" href="./">SpE <span>Challenges</span></a>
     <nav>
+      <a href="#downloads">Downloads</a>
       <a href="#kalender">Kalender</a>
       <a href="#voting">Voting</a>
       <a href="#builder">Builder</a>
       <a href="#vorschlaege">Vorschläge</a>
-      <a href="#downloads">Downloads</a>
       <a href="#admin" id="nav-admin" hidden>Admin</a>
     </nav>
     <div id="account"></div>
   </header>
 
   <main>
+    <section id="downloads" aria-labelledby="h-downloads">
+      <div class="section-head"><h2 id="h-downloads">Downloads</h2></div>
+      <div class="panel row">
+        <p class="grow" style="margin:0">Immer die neueste Version<span id="latest-version"></span>. Der Updater installiert und aktualisiert die Mod automatisch.</p>
+        <div class="row-actions">
+          <a class="button" href="download/updater/">Updater herunterladen</a>
+          <a class="button" href="download/mod/">Mod herunterladen</a>
+        </div>
+      </div>
+    </section>
+
     <section id="kalender" aria-labelledby="h-kalender">
       <div class="section-head">
         <h2 id="h-kalender">Kalender</h2>
@@ -51,26 +62,17 @@
       <div id="proposals-body"></div>
     </section>
 
-    <section id="downloads" aria-labelledby="h-downloads">
-      <div class="section-head"><h2 id="h-downloads">Downloads</h2></div>
-      <div class="panel row">
-        <p class="grow" style="margin:0">Immer die neueste Version<span id="latest-version"></span>. Der Updater installiert und aktualisiert die Mod automatisch.</p>
-        <div class="row-actions">
-          <a class="button" href="download/updater/">Updater herunterladen</a>
-          <a class="button" href="download/mod/">Mod herunterladen</a>
-        </div>
-      </div>
-    </section>
-
     <section id="admin" aria-labelledby="h-admin" hidden>
       <div class="section-head"><h2 id="h-admin">Admin</h2></div>
       <div id="admin-body"></div>
     </section>
   </main>
 
+  <footer class="credits">Item-Icons von <a href="https://mc.nerothe.com/" rel="noopener">mc.nerothe.com</a> und dem <a href="https://minecraft.wiki/" rel="noopener">Minecraft Wiki</a>. Minecraft ist eine Marke von Mojang Studios. Diese Seite ist kein offizielles Minecraft-Produkt und steht in keiner Verbindung zu Mojang oder Microsoft.</footer>
+
   <dialog id="dialog"></dialog>
   <div id="toast" role="status" aria-live="polite"></div>
-  <script src="config.js"></script>
-  <script src="app.js"></script>
+  <script src="config.js?v=__BUILD__"></script>
+  <script src="app.js?v=__BUILD__"></script>
 </body>
 </html>

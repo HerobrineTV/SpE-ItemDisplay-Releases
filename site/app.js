@@ -404,11 +404,33 @@ function kitHtml() {
   let slots = "";
   for (let slot = 0; slot < KIT_SLOTS; slot++) {
     const item = draft.starter_kit.find((entry) => entry.slot === slot);
-    const label = item ? item.type.split("_").slice(0, 2).map((word) => word[0].toUpperCase()).join("") : "";
     const title = item ? `${prettyId(item.type)} x${item.amount}${item.name ? ` (${item.name})` : ""}` : `Feld ${slot + 1}: leer`;
-    slots += `<button type="button" class="slot${item ? " filled" : ""}" data-slot="${slot}" title="${esc(title)}" aria-label="${esc(title)}">${esc(label)}${item && item.amount > 1 ? `<small>${item.amount}</small>` : ""}${item && Object.keys(item.enchantments || {}).length ? "<i></i>" : ""}</button>`;
+    slots += `<button type="button" class="slot${item ? " filled" : ""}" data-slot="${slot}" title="${esc(title)}" aria-label="${esc(title)}">${item ? esc(itemLetters(item.type)) + itemIcon(item.type) : ""}${item && item.amount > 1 ? `<small>${item.amount}</small>` : ""}${item && Object.keys(item.enchantments || {}).length ? "<i></i>" : ""}</button>`;
   }
   return `<div class="submenu"><div class="kit">${slots}</div><p class="hint">Klicke auf ein Feld, um ein Item zu wählen. Die Anordnung entspricht dem Kistenmenü im Spiel.</p></div>`;
+}
+
+const ITEM_ICON_VERSION = "1.21.8";
+
+function wikiIconUrl(id) {
+  const lower = new Set(["of", "the", "on", "and", "a"]);
+  const title = id.split("_").map((word, index) => (index > 0 && lower.has(word) ? word : word[0].toUpperCase() + word.slice(1))).join("_");
+  return `https://minecraft.wiki/images/Invicon_${title}.png`;
+}
+
+// Newer items are missing at the first source, the wiki has them. Without any image the letters stay.
+function itemIconFailed(image) {
+  if (image.dataset.fallback) { image.remove(); return; }
+  image.dataset.fallback = "1";
+  image.src = wikiIconUrl(image.dataset.item);
+}
+
+function itemIcon(id) {
+  return `<img loading="lazy" alt="" data-item="${esc(id)}" src="https://mc.nerothe.com/img/${ITEM_ICON_VERSION}/minecraft_${esc(id)}.png" onerror="itemIconFailed(this)">`;
+}
+
+function itemLetters(id) {
+  return id.split("_").slice(0, 2).map((word) => word[0].toUpperCase()).join("");
 }
 
 function editSlot(slot) {
@@ -417,67 +439,107 @@ function editSlot(slot) {
   item.enchantments ||= {};
   const isPotion = () => /potion|tipped_arrow/.test(item.type);
 
-  const sync = (dialog) => {
-    item.type = dialog.querySelector("#kit-type").value.trim().toLowerCase().replace(/^minecraft:/, "").replace(/\s+/g, "_");
-    item.amount = Math.round(Number(dialog.querySelector("#kit-amount").value)) || 1;
-    item.name = dialog.querySelector("#kit-name").value.trim();
-    const potion = dialog.querySelector("#kit-potion");
+  const dialog = openDialog(`<h3>Feld ${slot + 1}</h3>
+    <div class="picked" id="kit-picked"></div>
+    <input type="search" id="kit-search" placeholder="Item suchen (englische Namen) …" aria-label="Item suchen" autocomplete="off">
+    <div class="picker" id="kit-picker">${kitOptions.items.map((entry) => `<button type="button" class="pick" data-pick="${entry.id}" title="${esc(prettyId(entry.id))}" aria-label="${esc(prettyId(entry.id))}">${esc(itemLetters(entry.id))}${itemIcon(entry.id)}</button>`).join("")}</div>
+    <p class="meta" id="kit-empty" hidden>Kein Item gefunden.</p>
+    <div id="kit-details"></div>
+    <div class="dialog-actions">
+      ${existing ? `<button type="button" class="danger" id="kit-clear">Leeren</button>` : ""}
+      <button type="button" class="ghost" id="kit-cancel">Abbrechen</button>
+      <button type="button" id="kit-save">Übernehmen</button>
+    </div>`);
+  const details = dialog.querySelector("#kit-details");
+  const picks = [...dialog.querySelectorAll("[data-pick]")];
+
+  const sync = () => {
+    const amount = details.querySelector("#kit-amount");
+    if (!amount) return;
+    item.amount = Math.round(Number(amount.value)) || 1;
+    item.name = details.querySelector("#kit-name").value.trim();
+    const potion = details.querySelector("#kit-potion");
     if (potion) item.potion = potion.value;
-    dialog.querySelectorAll("[data-ench-level]").forEach((input) => { item.enchantments[input.dataset.enchLevel] = Number(input.value) || 1; });
+    details.querySelectorAll("[data-ench-level]").forEach((input) => { item.enchantments[input.dataset.enchLevel] = Number(input.value) || 1; });
   };
 
-  const draw = () => {
+  const drawPicked = () => {
+    dialog.querySelector("#kit-picked").innerHTML = item.type
+      ? `<span class="slot filled">${esc(itemLetters(item.type))}${itemIcon(item.type)}</span><strong>${esc(prettyId(item.type))}</strong>`
+      : `<span class="meta">Noch kein Item ausgewählt.</span>`;
+    dialog.querySelector("#kit-save").disabled = !item.type;
+    picks.forEach((button) => button.classList.toggle("selected", button.dataset.pick === item.type));
+  };
+
+  // Only this part is drawn again, the search and its scroll position stay
+  const drawDetails = () => {
     const free = kitOptions.enchantments.filter((enchantment) => !(enchantment.id in item.enchantments));
-    const dialog = openDialog(`<h3>Feld ${slot + 1}</h3>
-      <label class="field"><span>Item (tippen zum Suchen)</span><input type="text" id="kit-type" list="kit-items" value="${esc(item.type)}" autocomplete="off"></label>
-      <datalist id="kit-items">${kitOptions.items.map((entry) => `<option value="${entry.id}"></option>`).join("")}</datalist>
-      <label class="field"><span>Menge</span><input type="number" id="kit-amount" min="1" max="99" value="${item.amount}"></label>
-      <label class="field"><span>Name (optional)</span><input type="text" id="kit-name" maxlength="50" value="${esc(item.name)}"></label>
+    const maxStack = kitOptions.itemById[item.type]?.maxStack ?? 64;
+    details.innerHTML = `
+      <div class="row" style="margin-top:12px">
+        <label class="field" style="flex:0 0 90px"><span>Menge</span><input type="number" id="kit-amount" min="1" max="${maxStack}" value="${Math.min(item.amount, maxStack)}"></label>
+        <label class="field grow"><span>Name (optional)</span><input type="text" id="kit-name" maxlength="50" value="${esc(item.name)}"></label>
+      </div>
       ${isPotion() ? `<label class="field"><span>Trank</span><select id="kit-potion">${kitOptions.potions.map((potion) => `<option value="${potion}"${potion === item.potion ? " selected" : ""}>${esc(prettyId(potion))}</option>`).join("")}</select></label>` : ""}
       <div class="field"><span class="meta">Verzauberungen</span>
-        <div class="row-list">${Object.entries(item.enchantments).map(([id, level]) => {
-          const max = kitOptions.enchantments.find((enchantment) => enchantment.id === id)?.maxLevel ?? 255;
-          return `<div class="row"><span class="grow">${esc(prettyId(id))}</span><input type="number" min="1" max="${Math.max(max, 255)}" value="${level}" data-ench-level="${esc(id)}" aria-label="Stufe" style="width:80px"><button type="button" class="ghost" data-ench-remove="${esc(id)}" aria-label="Entfernen">×</button></div>`;
-        }).join("")}</div>
-        <div class="row" style="margin-top:6px"><select id="kit-ench-new" class="grow" style="flex:1" aria-label="Verzauberung">${free.map((enchantment) => `<option value="${enchantment.id}">${esc(prettyId(enchantment.id))}</option>`).join("")}</select><button type="button" class="ghost" id="kit-ench-add">Hinzufügen</button></div>
-      </div>
-      <div class="dialog-actions">
-        ${existing ? `<button type="button" class="danger" id="kit-clear">Leeren</button>` : ""}
-        <button type="button" class="ghost" id="kit-cancel">Abbrechen</button>
-        <button type="button" id="kit-save">Übernehmen</button>
-      </div>`);
-    dialog.querySelector("#kit-cancel").onclick = () => dialog.close();
-    dialog.querySelector("#kit-type").onchange = () => { sync(dialog); draw(); };
-    dialog.querySelector("#kit-ench-add").onclick = () => {
-      sync(dialog);
-      const id = dialog.querySelector("#kit-ench-new").value;
+        <div class="row-list">${Object.entries(item.enchantments).map(([id, level]) =>
+          `<div class="row"><span class="grow">${esc(prettyId(id))}</span><input type="number" min="1" max="255" value="${level}" data-ench-level="${esc(id)}" aria-label="Stufe" style="width:80px"><button type="button" class="ghost" data-ench-remove="${esc(id)}" aria-label="Entfernen">×</button></div>`).join("")}</div>
+        <div class="row" style="margin-top:6px"><select id="kit-ench-new" style="flex:1;min-width:140px" aria-label="Verzauberung">${free.map((enchantment) => `<option value="${enchantment.id}">${esc(prettyId(enchantment.id))}</option>`).join("")}</select><button type="button" class="ghost" id="kit-ench-add">Hinzufügen</button></div>
+      </div>`;
+    details.querySelector("#kit-ench-add").onclick = () => {
+      sync();
+      const id = details.querySelector("#kit-ench-new").value;
       if (id) item.enchantments[id] = 1;
-      draw();
+      drawDetails();
     };
-    dialog.querySelectorAll("[data-ench-remove]").forEach((button) => {
-      button.onclick = () => { sync(dialog); delete item.enchantments[button.dataset.enchRemove]; draw(); };
+    details.querySelectorAll("[data-ench-remove]").forEach((button) => {
+      button.onclick = () => { sync(); delete item.enchantments[button.dataset.enchRemove]; drawDetails(); };
     });
-    const commit = (entries) => {
-      draft.starter_kit = entries.sort((a, b) => a.slot - b.slot);
-      saveDraft();
-      dialog.close();
-      renderBuilder();
-    };
-    const others = () => draft.starter_kit.filter((entry) => entry.slot !== slot);
-    const clear = dialog.querySelector("#kit-clear");
-    if (clear) clear.onclick = () => commit(others());
-    dialog.querySelector("#kit-save").onclick = () => {
-      sync(dialog);
-      const known = kitOptions.itemById[item.type];
-      if (!known) { toast("Dieses Item gibt es nicht.", true); return; }
-      const result = { slot, type: item.type, amount: Math.max(1, Math.min(item.amount, known.maxStack)) };
-      if (item.name) result.name = item.name;
-      if (Object.keys(item.enchantments).length) result.enchantments = item.enchantments;
-      if (isPotion()) result.potion = item.potion || kitOptions.potions[0];
-      commit([...others(), result]);
-    };
   };
-  draw();
+
+  dialog.querySelector("#kit-picker").onclick = (event) => {
+    const button = event.target.closest("[data-pick]");
+    if (!button) return;
+    sync();
+    item.type = button.dataset.pick;
+    drawPicked();
+    drawDetails();
+  };
+
+  dialog.querySelector("#kit-search").oninput = (event) => {
+    const words = event.target.value.toLowerCase().trim().replace(/^minecraft:/, "").split(/[\s_]+/).filter(Boolean);
+    let shown = 0;
+    for (const button of picks) {
+      const match = words.every((word) => button.dataset.pick.includes(word));
+      button.hidden = !match;
+      if (match) shown++;
+    }
+    dialog.querySelector("#kit-empty").hidden = shown > 0;
+    dialog.querySelector("#kit-picker").scrollTop = 0;
+  };
+
+  const commit = (entries) => {
+    draft.starter_kit = entries.sort((a, b) => a.slot - b.slot);
+    saveDraft();
+    dialog.close();
+    renderBuilder();
+  };
+  const others = () => draft.starter_kit.filter((entry) => entry.slot !== slot);
+  dialog.querySelector("#kit-cancel").onclick = () => dialog.close();
+  const clear = dialog.querySelector("#kit-clear");
+  if (clear) clear.onclick = () => commit(others());
+  dialog.querySelector("#kit-save").onclick = () => {
+    sync();
+    const result = { slot, type: item.type, amount: Math.max(1, Math.min(item.amount, kitOptions.itemById[item.type].maxStack)) };
+    if (item.name) result.name = item.name;
+    if (Object.keys(item.enchantments).length) result.enchantments = item.enchantments;
+    if (isPotion()) result.potion = item.potion || kitOptions.potions[0];
+    commit([...others(), result]);
+  };
+
+  drawPicked();
+  drawDetails();
+  dialog.querySelector("#kit-search").focus();
 }
 
 function renderBuilder() {
