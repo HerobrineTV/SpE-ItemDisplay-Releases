@@ -737,8 +737,16 @@ function bindCalendar() {
   };
 }
 
+async function showLatestVersion() {
+  try {
+    const response = await fetch("https://api.github.com/repos/HerobrineTV/SpE-ItemDisplay-Releases/releases/latest");
+    if (response.ok) $("#latest-version").textContent = ` (${(await response.json()).tag_name})`;
+  } catch { /* the buttons work without the version */ }
+}
+
 async function init() {
   takeTokenFromUrl();
+  showLatestVersion();
   const [catalogData, descriptionData] = await Promise.all([
     fetch("catalog.json", { cache: "no-cache" }).then((response) => response.json()),
     fetch("descriptions.json", { cache: "no-cache" }).then((response) => response.json()),
