@@ -1,6 +1,8 @@
 name = "spe-challenges-api"
 main = "src/index.js"
 compatibility_date = "2026-10-01"
+workers_dev = true
+preview_urls = false
 
 [vars]
 SITE_URL = "https://herobrinetv.github.io/SpE-ItemDisplay-Releases/"
