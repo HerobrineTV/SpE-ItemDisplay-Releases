@@ -1034,8 +1034,39 @@ async function showLatestVersion() {
   } catch { /* the buttons work without the version */ }
 }
 
+const SERVER_ADDRESS = "spieleecke.com";
+
+async function showServerStatus() {
+  const dot = $("#server-dot");
+  const label = $("#server-status");
+  try {
+    const response = await fetch(`https://api.mcstatus.io/v2/status/java/${SERVER_ADDRESS}`);
+    if (!response.ok) throw new Error(String(response.status));
+    const status = await response.json();
+    dot.className = `server-dot ${status.online ? "online" : "offline"}`;
+    label.textContent = status.online ? `Online · ${status.players.online}/${status.players.max}` : "Offline";
+  } catch {
+    dot.className = "server-dot";
+    label.textContent = "Status unbekannt";
+  }
+}
+
+function bindServer() {
+  $("#server").onclick = async () => {
+    try {
+      await navigator.clipboard.writeText(SERVER_ADDRESS);
+      toast("Server-IP kopiert.");
+    } catch {
+      toast(`Server-IP: ${SERVER_ADDRESS}`);
+    }
+  };
+  showServerStatus();
+  setInterval(showServerStatus, 60000);
+}
+
 async function init() {
   takeTokenFromUrl();
+  bindServer();
   showLatestVersion();
   const [catalogData, descriptionData] = await Promise.all([
     fetch("catalog.json", { cache: "no-cache" }).then((response) => response.json()),

@@ -27,6 +27,12 @@ a { color: var(--accent); }
 }
 .brand { font-weight: 800; font-size: 1.15rem; color: var(--text); text-decoration: none; white-space: nowrap; }
 .brand span { color: var(--accent); }
+.server { display: inline-flex; align-items: center; gap: 7px; padding: 4px 10px; background: var(--panel-2); border-color: var(--line); color: var(--text); font-weight: 400; font-size: .88rem; white-space: nowrap; }
+.server-ip { font-weight: 700; }
+.server-status { color: var(--muted); }
+.server-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); flex: none; }
+.server-dot.online { background: #4fd17a; }
+.server-dot.offline { background: var(--danger); }
 .top nav { display: flex; gap: 16px; flex: 1; overflow-x: auto; }
 .top nav a { color: var(--muted); text-decoration: none; white-space: nowrap; }
 .top nav a:hover { color: var(--text); }
