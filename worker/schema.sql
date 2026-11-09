@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS users (
   display_name TEXT,
   avatar TEXT,
   role TEXT NOT NULL DEFAULT 'user' CHECK (role IN ('user', 'admin')),
+  multi_submit INTEGER NOT NULL DEFAULT 0,
   created_at INTEGER NOT NULL
 );
 
@@ -20,6 +21,14 @@ CREATE TABLE IF NOT EXISTS proposals (
   config TEXT NOT NULL,
   created_at INTEGER NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS proposal_authors (
+  proposal_id INTEGER NOT NULL REFERENCES proposals(id) ON DELETE CASCADE,
+  user_id TEXT NOT NULL REFERENCES users(id),
+  created_at INTEGER NOT NULL,
+  PRIMARY KEY (proposal_id, user_id)
+);
+CREATE INDEX IF NOT EXISTS proposal_authors_user ON proposal_authors(user_id, created_at);
 
 CREATE TABLE IF NOT EXISTS events (
   id INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -1,5 +1,5 @@
 const SESSION_DAYS = 30;
-const MAX_PROPOSALS_PER_USER = 25;
+const GROUP_NEEDS = { force_battle: "force_item_battle", bingo_options: "item_bingo" };
 const encoder = new TextEncoder();
 
 class HttpError extends Error {
@@ -50,7 +50,7 @@ async function currentUser(request, env) {
   const payload = await readToken(env, header.slice(7));
   if (!payload) return null;
   // The role comes from the database on every request, so a removed admin loses access at once
-  return env.DB.prepare("SELECT id, username, display_name, avatar, role FROM users WHERE id = ?").bind(payload.sub).first();
+  return env.DB.prepare("SELECT id, username, display_name, avatar, role, multi_submit FROM users WHERE id = ?").bind(payload.sub).first();
 }
 
 function requireUser(user) {
@@ -168,24 +168,126 @@ function checkConfig(config) {
   return { toggles: clean };
 }
 
-function proposalRow(row) {
+async function authorsByProposal(env) {
+  const { results } = await env.DB.prepare(
+    `SELECT a.proposal_id, u.id, u.username, u.display_name FROM proposal_authors a
+     JOIN users u ON u.id = a.user_id ORDER BY a.created_at, a.rowid`
+  ).all();
+  const authors = {};
+  for (const row of results) {
+    (authors[row.proposal_id] ||= []).push({ id: row.id, name: row.display_name || row.username });
+  }
+  return authors;
+}
+
+function proposalRow(row, authors) {
+  const list = authors[row.id] || [];
   return {
     id: row.id,
     name: row.name,
     description: row.description,
     config: JSON.parse(row.config),
     created_at: row.created_at,
-    author_id: row.author_id,
-    author: row.author_display || row.author_username || "Unbekannt",
+    authors: list,
+    author: list.map((item) => item.name).join(", ") || "Unbekannt",
   };
 }
 
-const PROPOSAL_SELECT = `SELECT p.*, u.username AS author_username, u.display_name AS author_display
-  FROM proposals p LEFT JOIN users u ON u.id = p.author_id`;
+const PROPOSAL_SELECT = "SELECT p.* FROM proposals p";
 
 async function listProposals(env) {
   const { results } = await env.DB.prepare(`${PROPOSAL_SELECT} ORDER BY p.id DESC`).all();
-  return results.map(proposalRow);
+  const authors = await authorsByProposal(env);
+  return results.map((row) => proposalRow(row, authors));
+}
+
+async function loadCatalog(env) {
+  const response = await fetch(`${env.SITE_URL}catalog.json`, { cf: { cacheTtl: 300, cacheEverything: true } });
+  if (!response.ok) throw new HttpError(503, "Der Challenge-Katalog ist gerade nicht erreichbar.");
+  return (await response.json()).toggles;
+}
+
+// What the challenge really plays like: name, description and values of switched off
+// or unused options don't make two setups different.
+function setupKey(config, catalog) {
+  const entryOf = (id) => config.toggles[id] || {};
+  const isOn = (toggle) => entryOf(toggle.id).value ?? toggle.value;
+  const byId = Object.fromEntries(catalog.map((toggle) => [toggle.id, toggle]));
+  const parts = [];
+  for (const toggle of [...catalog].sort((a, b) => a.id.localeCompare(b.id))) {
+    const onlyForce = [toggle.lore1, toggle.lore2].some((line) => /ForceItemBattle Only/i.test(line || ""));
+    const needed = GROUP_NEEDS[toggle.group] || (onlyForce ? "force_item_battle" : null);
+    if (needed && byId[needed] && !isOn(byId[needed])) continue;
+    if (!isOn(toggle)) continue;
+    const entry = entryOf(toggle.id);
+    parts.push([toggle.id, toggle.hasAmount ? entry.setAmount ?? toggle.setAmount : "", toggle.modes ? entry.currentMode ?? toggle.currentMode : ""].join(":"));
+  }
+  return parts.join("|");
+}
+
+// The calendar week, Monday to Sunday in German time
+function weekKey(time) {
+  const [year, month, day] = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(time).split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  date.setUTCDate(date.getUTCDate() - ((date.getUTCDay() + 6) % 7));
+  return date.toISOString().slice(0, 10);
+}
+
+async function usedWeeklySubmission(env, user) {
+  const { results } = await env.DB.prepare("SELECT created_at FROM proposal_authors WHERE user_id = ? AND created_at > ?")
+    .bind(user.id, Date.now() - 8 * 86400000).all();
+  const thisWeek = weekKey(Date.now());
+  return results.some((row) => weekKey(row.created_at) === thisWeek);
+}
+
+async function submitProposal(env, user, body) {
+  requireUser(user);
+  const name = text(body.name, "Name", 64, { required: true });
+  const description = text(body.description, "Beschreibung", 1000);
+  const config = checkConfig(body.config);
+
+  const catalog = await loadCatalog(env);
+  const key = setupKey(config, catalog);
+  const { results } = await env.DB.prepare("SELECT id, config FROM proposals ORDER BY id").all();
+  const existing = results.find((row) => setupKey(JSON.parse(row.config), catalog) === key);
+
+  if (existing && (await env.DB.prepare("SELECT 1 FROM proposal_authors WHERE proposal_id = ? AND user_id = ?").bind(existing.id, user.id).first())) {
+    throw new HttpError(409, "Genau dieses Setup hast du schon vorgeschlagen.");
+  }
+  if (!user.multi_submit && (await usedWeeklySubmission(env, user))) {
+    throw new HttpError(429, "Du hast diese Woche schon etwas eingereicht. Ab Montag geht es wieder.");
+  }
+
+  const now = Date.now();
+  if (existing) {
+    await env.DB.prepare("INSERT INTO proposal_authors (proposal_id, user_id, created_at) VALUES (?, ?, ?)").bind(existing.id, user.id, now).run();
+    return { id: existing.id, merged: true };
+  }
+  const row = await env.DB.prepare(
+    "INSERT INTO proposals (author_id, name, description, config, created_at) VALUES (?, ?, ?, ?, ?) RETURNING id"
+  ).bind(user.id, name, description, JSON.stringify(config), now).first();
+  await env.DB.prepare("INSERT INTO proposal_authors (proposal_id, user_id, created_at) VALUES (?, ?, ?)").bind(row.id, user.id, now).run();
+  return { id: row.id, merged: false };
+}
+
+async function deleteProposal(env, user, id) {
+  requireUser(user);
+  if (!(await env.DB.prepare("SELECT 1 FROM proposals WHERE id = ?").bind(id).first())) throw new HttpError(404, "Vorschlag nicht gefunden.");
+  const isAuthor = await env.DB.prepare("SELECT 1 FROM proposal_authors WHERE proposal_id = ? AND user_id = ?").bind(id, user.id).first();
+  if (!isAuthor && user.role !== "admin") throw new HttpError(403, "Nicht erlaubt.");
+  const used = await env.DB.prepare(
+    "SELECT 1 FROM voting_options o JOIN votings v ON v.id = o.voting_id WHERE o.proposal_id = ? AND v.status = 'open'"
+  ).bind(id).first();
+  if (used) throw new HttpError(409, "Der Vorschlag ist gerade im Voting.");
+
+  // Someone who only co-proposed withdraws their name, the proposal stays for the others
+  if (user.role !== "admin") {
+    await env.DB.prepare("DELETE FROM proposal_authors WHERE proposal_id = ? AND user_id = ?").bind(id, user.id).run();
+    const left = await env.DB.prepare("SELECT 1 FROM proposal_authors WHERE proposal_id = ?").bind(id).first();
+    if (left) return { ok: true, withdrawn: true };
+  }
+  await env.DB.prepare("DELETE FROM proposals WHERE id = ?").bind(id).run();
+  return { ok: true, withdrawn: false };
 }
 
 async function votingDetails(env, voting, user) {
@@ -197,6 +299,7 @@ async function votingDetails(env, voting, user) {
     "SELECT proposal_id, COUNT(*) AS votes FROM votes WHERE voting_id = ? GROUP BY proposal_id"
   ).bind(voting.id).all();
   const countById = Object.fromEntries(counts.map((row) => [row.proposal_id, row.votes]));
+  const authors = await authorsByProposal(env);
   let myVote = null;
   if (user) {
     const row = await env.DB.prepare("SELECT proposal_id FROM votes WHERE voting_id = ? AND user_id = ?").bind(voting.id, user.id).first();
@@ -205,7 +308,7 @@ async function votingDetails(env, voting, user) {
   return {
     ...voting,
     my_vote: myVote,
-    options: results.map((row) => ({ ...proposalRow(row), votes: countById[row.id] || 0 })),
+    options: results.map((row) => ({ ...proposalRow(row, authors), votes: countById[row.id] || 0 })),
   };
 }
 
@@ -220,6 +323,7 @@ async function state(env, user) {
   return {
     user,
     is_owner: user ? user.id === (await ownerId(env)) : false,
+    can_submit: user ? Boolean(user.multi_submit) || !(await usedWeeklySubmission(env, user)) : false,
     events: await listEvents(env),
     proposals: await listProposals(env),
     voting: await votingDetails(env, latest, user),
@@ -307,27 +411,8 @@ async function route(request, env, url, user) {
   if (parts[0] === "state" && method === "GET") return state(env, user);
 
   if (parts[0] === "proposals") {
-    if (method === "POST" && !id) {
-      requireUser(user);
-      const count = await env.DB.prepare("SELECT COUNT(*) AS n FROM proposals WHERE author_id = ?").bind(user.id).first();
-      if (count.n >= MAX_PROPOSALS_PER_USER) throw new HttpError(429, `Maximal ${MAX_PROPOSALS_PER_USER} Vorschläge pro Person.`);
-      const row = await env.DB.prepare(
-        "INSERT INTO proposals (author_id, name, description, config, created_at) VALUES (?, ?, ?, ?, ?) RETURNING id"
-      ).bind(user.id, text(body.name, "Name", 64, { required: true }), text(body.description, "Beschreibung", 1000), JSON.stringify(checkConfig(body.config)), Date.now()).first();
-      return { id: row.id };
-    }
-    if (method === "DELETE" && id) {
-      requireUser(user);
-      const proposal = await env.DB.prepare("SELECT author_id FROM proposals WHERE id = ?").bind(id).first();
-      if (!proposal) throw new HttpError(404, "Vorschlag nicht gefunden.");
-      if (proposal.author_id !== user.id && user.role !== "admin") throw new HttpError(403, "Nicht erlaubt.");
-      const used = await env.DB.prepare(
-        "SELECT 1 FROM voting_options o JOIN votings v ON v.id = o.voting_id WHERE o.proposal_id = ? AND v.status = 'open'"
-      ).bind(id).first();
-      if (used) throw new HttpError(409, "Der Vorschlag ist gerade im Voting.");
-      await env.DB.prepare("DELETE FROM proposals WHERE id = ?").bind(id).run();
-      return { ok: true };
-    }
+    if (method === "POST" && !id) return submitProposal(env, user, body);
+    if (method === "DELETE" && id) return deleteProposal(env, user, id);
   }
 
   if (parts[0] === "votings") {
@@ -372,8 +457,12 @@ async function route(request, env, url, user) {
   if (parts[0] === "users") {
     requireAdmin(user);
     if (method === "GET" && !parts[1]) {
-      const { results } = await env.DB.prepare("SELECT id, username, display_name, avatar, role FROM users ORDER BY role, username").all();
+      const { results } = await env.DB.prepare("SELECT id, username, display_name, avatar, role, multi_submit FROM users ORDER BY role, username").all();
       return { users: results, owner_id: await ownerId(env) };
+    }
+    if (method === "POST" && parts[1] && parts[2] === "multi-submit") {
+      await env.DB.prepare("UPDATE users SET multi_submit = ? WHERE id = ?").bind(body.enabled === true ? 1 : 0, parts[1]).run();
+      return { ok: true };
     }
     if (method === "POST" && parts[1] && parts[2] === "role") {
       if (!["user", "admin"].includes(body.role)) throw new HttpError(400, "Unbekannte Rolle.");

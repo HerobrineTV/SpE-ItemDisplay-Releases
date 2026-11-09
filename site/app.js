@@ -391,15 +391,18 @@ function renderBuilder() {
     if (items.length) html += `<h3 class="group-title">${esc(GROUP_TITLES[group] || group)}</h3><div class="cards">${items.map(cardHtml).join("")}</div>`;
   }
   const selected = activeChallenges(draft);
-  const canPropose = selected.length > 0 && draft.name.trim();
+  const canPropose = selected.length > 0 && draft.name.trim() && state.can_submit;
   const action = state.user
     ? `<button id="propose"${canPropose ? "" : " disabled"}>Challenge vorschlagen</button>`
     : `<a class="button" href="${esc(loginUrl())}">Zum Vorschlagen einloggen</a>`;
+  const limitHint = state.user && !state.can_submit ? `<div class="warn">Du hast diese Woche schon etwas eingereicht. Ab Montag geht es wieder.</div>` : "";
   const summary = `<aside class="panel summary">
     <label class="field"><span>Name der Challenge</span><input type="text" id="draft-name" maxlength="64" value="${esc(draft.name)}"></label>
     <label class="field"><span>Beschreibung</span><textarea id="draft-description" rows="3" maxlength="1000">${esc(draft.description)}</textarea></label>
     ${selected.length ? configTags(draft) : `<p class="meta">Wähle mindestens eine Challenge aus.</p>`}
     <div class="row-actions" style="margin-top:12px">${action}<button class="ghost" id="reset-draft">Zurücksetzen</button></div>
+    ${limitHint}
+    <p class="hint">Eine Einreichung pro Woche. Gibt es dasselbe Setup schon, wirst du dort als weitere Person eingetragen.</p>
   </aside>`;
   const body = $("#builder-body");
   body.innerHTML = `<div class="builder"><div>${html}</div>${summary}</div>`;
@@ -421,14 +424,20 @@ function renderBuilder() {
     draft.name = event.target.value;
     saveDraft();
     const button = $("#propose");
-    if (button) button.disabled = !(activeChallenges(draft).length && draft.name.trim());
+    if (button) button.disabled = !(activeChallenges(draft).length && draft.name.trim() && state.can_submit);
   };
   $("#draft-description").oninput = (event) => { draft.description = event.target.value; saveDraft(); };
   $("#reset-draft").onclick = () => { draft = freshDraft(); saveDraft(); renderBuilder(); };
   const propose = $("#propose");
   if (propose) propose.onclick = async () => {
-    const created = await run(() => api("proposals", "POST", { name: draft.name, description: draft.description, config: { toggles: draft.toggles } }), "Vorschlag eingereicht.");
-    if (created) { draft = freshDraft(); saveDraft(); refresh(); $("#vorschlaege").scrollIntoView(); }
+    const created = await run(() => api("proposals", "POST", { name: draft.name, description: draft.description, config: { toggles: draft.toggles } }));
+    if (created) {
+      toast(created.merged ? "Dieses Setup gab es schon, du stehst jetzt mit auf dem Vorschlag." : "Vorschlag eingereicht.");
+      draft = freshDraft();
+      saveDraft();
+      refresh();
+      $("#vorschlaege").scrollIntoView();
+    }
   };
 }
 
@@ -469,7 +478,8 @@ function renderProposals() {
     return;
   }
   body.innerHTML = `<div class="row-list">${state.proposals.map((proposal) => {
-    const canDelete = isAdmin() || proposal.author_id === state.user?.id;
+    const canDelete = isAdmin() || proposal.authors.some((author) => author.id === state.user?.id);
+    const withdraws = !isAdmin() && proposal.authors.length > 1;
     return `<article class="panel row">
       <div class="grow">
         <div class="option-title">${activeChallenges(proposal.config).slice(0, 4).map((toggle) => icon(toggle.id)).join("")}<h3>${esc(proposal.name)}</h3></div>
@@ -479,14 +489,15 @@ function renderProposals() {
       </div>
       <div class="row-actions">
         ${isAdmin() ? `<button class="ghost" data-preset="${proposal.id}">Preset herunterladen</button>` : ""}
-        ${canDelete ? `<button class="danger" data-delete="${proposal.id}">Löschen</button>` : ""}
+        ${canDelete ? `<button class="danger" data-delete="${proposal.id}">${withdraws ? "Zurückziehen" : "Löschen"}</button>` : ""}
       </div>
     </article>`;
   }).join("")}</div>`;
   body.querySelectorAll("[data-preset]").forEach((button) => { button.onclick = () => downloadPreset(proposalById(Number(button.dataset.preset))); });
   body.querySelectorAll("[data-delete]").forEach((button) => {
-    button.onclick = () => confirmAction("Vorschlag löschen?", async () => {
-      await run(() => api(`proposals/${button.dataset.delete}`, "DELETE"), "Vorschlag gelöscht.");
+    const withdraws = button.textContent === "Zurückziehen";
+    button.onclick = () => confirmAction(withdraws ? "Deinen Namen von diesem Vorschlag entfernen?" : "Vorschlag löschen?", async () => {
+      await run(() => api(`proposals/${button.dataset.delete}`, "DELETE"), withdraws ? "Name entfernt." : "Vorschlag gelöscht.");
       refresh();
     });
   });
@@ -542,8 +553,15 @@ async function renderAdmin() {
     const button = owner ? `<span class="tag">Besitzer</span>` : user.role === "admin"
       ? `<button class="danger" data-role="user" data-user="${esc(user.id)}">Admin entziehen</button>`
       : `<button class="ghost" data-role="admin" data-user="${esc(user.id)}">Zum Admin machen</button>`;
-    return `<div class="row"><div class="grow">${esc(user.display_name || user.username)} <span class="meta">@${esc(user.username)}</span></div>${button}</div>`;
+    const multi = `<button class="ghost" data-multi="${user.multi_submit ? "off" : "on"}" data-user="${esc(user.id)}">${user.multi_submit ? "Wochenlimit aktivieren" : "Mehrere Einreichungen freigeben"}</button>`;
+    return `<div class="row"><div class="grow">${esc(user.display_name || user.username)} <span class="meta">@${esc(user.username)}</span></div><div class="row-actions">${multi}${button}</div></div>`;
   }).join("");
+  list.querySelectorAll("[data-multi]").forEach((button) => {
+    button.onclick = async () => {
+      await run(() => api(`users/${button.dataset.user}/multi-submit`, "POST", { enabled: button.dataset.multi === "on" }), "Freigabe geändert.");
+      refresh();
+    };
+  });
   list.querySelectorAll("[data-role]").forEach((button) => {
     button.onclick = async () => {
       await run(() => api(`users/${button.dataset.user}/role`, "POST", { role: button.dataset.role }), "Rolle geändert.");
