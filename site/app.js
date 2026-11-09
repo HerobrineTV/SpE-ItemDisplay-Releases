@@ -135,8 +135,11 @@ function isAdmin() {
 
 /* Account */
 
-function loginUrl() {
-  const voting = new URLSearchParams(location.search).get("voting");
+function loginUrl(pollId) {
+  const params = new URLSearchParams(location.search);
+  const poll = pollId ?? params.get("poll");
+  if (poll) return `${API}/auth/login?poll=${encodeURIComponent(poll)}`;
+  const voting = params.get("voting");
   return `${API}/auth/login${voting ? `?voting=${encodeURIComponent(voting)}` : ""}`;
 }
 
@@ -181,11 +184,11 @@ function renderCalendar() {
     const events = state.events.filter((event) => event.date === key).map((event) => {
       const proposal = proposalById(event.proposal_id);
       const title = event.title || proposal?.name || "Geplant";
-      return `<span class="day-event" role="button" tabindex="0" data-event="${event.id}" title="${esc(title)}"><span class="day-icons">${eventIcons(event)}</span><span class="day-title">${esc(title)}</span></span>`;
+      return `<span class="day-event" role="button" tabindex="0" data-event="${event.id}" title="${esc(title)}"><span class="day-icons">${eventIcons(event)}</span><span class="day-title">${event.start_time ? `${esc(event.start_time)} ` : ""}${esc(title)}</span></span>`;
     }).join("");
     const classes = `day${date.getMonth() !== month.getMonth() ? " other" : ""}${key === today ? " today" : ""}`;
     const tag = isAdmin() ? "button" : "div";
-    html += `<${tag} class="${classes}" data-date="${key}" aria-label="${date.getDate()}. ${MONTHS[date.getMonth()]}"><span class="day-num">${date.getDate()}</span>${events}</${tag}>`;
+    html += `<${tag} class="${classes}" data-date="${key}" aria-label="${date.getDate()}. ${MONTHS[date.getMonth()]}"><span class="day-num">${date.getDate()}</span>${(state.day_polls || []).some((poll) => poll.date === key && poll.status === "open") ? `<span class="day-poll">Abstimmung</span>` : ""}${events}</${tag}>`;
   }
   $("#calendar").innerHTML = `<div class="cal">${html}</div>`;
   $("#calendar-hint").textContent = isAdmin()
@@ -212,7 +215,7 @@ function showEvent(event) {
   const body = proposal
     ? `<p class="meta">Vorschlag von ${esc(proposal.author)}</p>${proposal.description ? `<p>${esc(proposal.description)}</p>` : ""}${configTags(proposal.config)}`
     : `<p class="meta">Für diesen Termin wurde noch keine Challenge ausgewählt.</p>`;
-  const dialog = openDialog(`<h3>${esc(title)}</h3><p class="meta">${esc(event.date.split("-").reverse().join("."))}</p>${body}
+  const dialog = openDialog(`<h3>${esc(title)}</h3><p class="meta">${esc(event.date.split("-").reverse().join("."))}${event.start_time ? `, ${esc(event.start_time)} Uhr` : ""}</p>${body}
     <div class="dialog-actions">${isAdmin() ? `<button class="ghost" id="edit-event">Bearbeiten</button>` : ""}<button id="close-dialog">Schließen</button></div>`);
   dialog.querySelector("#close-dialog").onclick = () => dialog.close();
   const edit = dialog.querySelector("#edit-event");
@@ -223,6 +226,7 @@ function editEvent(event, date) {
   const dialog = openDialog(`<h3>${event ? "Termin bearbeiten" : "Termin planen"}</h3>
     <form method="dialog" id="event-form">
       <label class="field"><span>Datum</span><input type="date" name="date" value="${esc(date)}" required></label>
+      <label class="field"><span>Uhrzeit (optional)</span><input type="time" name="time" value="${esc(event?.start_time)}"></label>
       <label class="field"><span>Titel (optional)</span><input type="text" name="title" maxlength="80" value="${esc(event?.title)}"></label>
       <label class="field"><span>Challenge</span><select name="proposal">${proposalOptions(event?.proposal_id ?? null)}</select></label>
       <div class="dialog-actions">
@@ -241,7 +245,7 @@ function editEvent(event, date) {
   dialog.querySelector("#event-form").onsubmit = async (submit) => {
     submit.preventDefault();
     const form = new FormData(submit.target);
-    const body = { date: form.get("date"), title: form.get("title"), proposal_id: form.get("proposal") ? Number(form.get("proposal")) : null };
+    const body = { date: form.get("date"), start_time: form.get("time") || null, title: form.get("title"), proposal_id: form.get("proposal") ? Number(form.get("proposal")) : null };
     const saved = await run(() => (event ? api(`events/${event.id}`, "PUT", body) : api("events", "POST", body)), "Termin gespeichert.");
     if (saved) { dialog.close(); refresh(); }
   };
@@ -765,8 +769,25 @@ async function renderAdmin() {
       </form>`;
   $("#admin-body").innerHTML = `<div class="admin-grid">
     <div class="panel"><h3 style="margin-bottom:12px">Voting starten</h3>${form}</div>
+    <div class="panel"><h3 style="margin-bottom:12px">Terminabstimmung starten</h3>
+      <form id="day-poll-form">
+        <label class="field"><span>Tag</span><input type="date" name="date" min="${today}" required></label>
+        <label class="field"><span>Titel (optional)</span><input type="text" name="title" maxlength="80"></label>
+        <button type="submit">Terminabstimmung starten</button>
+      </form>
+    </div>
     <div class="panel"><h3 style="margin-bottom:12px">Benutzer und Rollen</h3><div class="row-list" id="users">Lädt …</div></div>
   </div>`;
+  $("#day-poll-form").onsubmit = async (submit) => {
+    submit.preventDefault();
+    const data = new FormData(submit.target);
+    const started = await run(() => api("day-polls", "POST", { date: data.get("date"), title: data.get("title") }));
+    if (started) {
+      toast(started.notified ? "Terminabstimmung gestartet, Discord wird benachrichtigt." : "Terminabstimmung gestartet, aber die Discord-Benachrichtigung ist fehlgeschlagen.", !started.notified);
+      await refresh();
+      $("#termine").scrollIntoView();
+    }
+  };
   const votingForm = $("#voting-form");
   if (votingForm) votingForm.onsubmit = async (submit) => {
     submit.preventDefault();
@@ -806,10 +827,122 @@ async function renderAdmin() {
 
 /* Start */
 
+/* Day polls */
+
+const pollDrafts = {};
+
+function clockTime(minutes) {
+  return `${pad(Math.floor(minutes / 60))}:${pad(minutes % 60)}`;
+}
+
+function timeOptions(selected, from, to) {
+  let html = "";
+  for (let minutes = from; minutes <= to; minutes += 15) {
+    html += `<option value="${minutes}"${minutes === selected ? " selected" : ""}>${clockTime(minutes)}</option>`;
+  }
+  return html;
+}
+
+function pollDateLabel(date) {
+  const weekday = new Date(`${date}T12:00:00`).toLocaleDateString("de-DE", { weekday: "long" });
+  return `${weekday}, ${date.split("-").reverse().join(".")}`;
+}
+
+function pollResultHtml(poll) {
+  const total = poll.responses.length;
+  if (!poll.best) {
+    return `<p class="meta">${total ? "Noch hat niemand am Stück 90 Minuten Zeit eingetragen." : "Noch keine Angaben."}</p>`;
+  }
+  const fits = poll.responses.filter((response) => poll.best.user_ids.includes(response.user_id));
+  const others = poll.responses.filter((response) => !poll.best.user_ids.includes(response.user_id));
+  const closed = poll.status === "closed";
+  return `<div class="poll-best">
+    <div class="meta">${closed ? "Festgelegte Uhrzeit" : "Bester Zeitpunkt bisher"}</div>
+    <strong>${clockTime(poll.best.start)} – ${clockTime(poll.best.end)} Uhr</strong>
+    <div>${fits.length} von ${total} ${total === 1 ? "Person kann" : "Personen können"} die kompletten 90 Minuten</div>
+    <div class="meta">Dabei: ${esc(fits.map((response) => response.name).join(", "))}</div>
+    ${others.length ? `<div class="meta">Passt nicht: ${esc(others.map((response) => response.name).join(", "))}</div>` : ""}
+  </div>`;
+}
+
+function pollCardHtml(poll) {
+  const open = poll.status === "open";
+  const mine = poll.responses.find((response) => response.user_id === state.user?.id);
+  const entered = pollDrafts[poll.id];
+  const start = entered?.start ?? mine?.start ?? 1080;
+  const end = entered?.end ?? mine?.end ?? 1320;
+  const form = !open ? "" : state.user
+    ? `<div class="poll-form">
+        <label>Von <select data-poll-start="${poll.id}" aria-label="Zeit von">${timeOptions(start, 0, 1350)}</select></label>
+        <label>Bis <select data-poll-end="${poll.id}" aria-label="Zeit bis">${timeOptions(end, 90, 1440)}</select></label>
+        <button type="button" data-poll-save="${poll.id}">Ich habe Zeit</button>
+        <button type="button" class="ghost" data-poll-no="${poll.id}">Ich kann nicht</button>
+      </div>`
+    : `<a class="button" href="${esc(loginUrl(poll.id))}">Zum Eintragen mit Discord einloggen</a>`;
+  const list = poll.responses.map((response) => `<li><span>${esc(response.name)}</span><span class="meta">${response.available ? `${clockTime(response.start)} – ${clockTime(response.end)} Uhr` : "Kann nicht"}</span></li>`).join("");
+  const admin = open && isAdmin()
+    ? `<div class="row-actions"><button type="button" class="ghost" data-poll-close="${poll.id}">Uhrzeit festlegen</button><button type="button" class="danger" data-poll-delete="${poll.id}">Löschen</button></div>`
+    : "";
+  return `<article class="panel poll" id="poll-${poll.id}">
+    <div class="section-head"><div><h3>${esc(poll.title || "Terminabstimmung")}</h3><div class="meta">${esc(pollDateLabel(poll.date))} · ${open ? "Läuft" : "Beendet"}</div></div>${admin}</div>
+    ${pollResultHtml(poll)}
+    ${form}
+    ${mine ? `<p class="hint">Deine Angabe: ${mine.available ? `${clockTime(mine.start)} – ${clockTime(mine.end)} Uhr` : "Kann nicht"}${open ? ". Du kannst sie bis zum Abschluss ändern." : ""}</p>` : ""}
+    ${list ? `<ul class="poll-list">${list}</ul>` : ""}
+  </article>`;
+}
+
+function renderDayPolls() {
+  const polls = state.day_polls || [];
+  const body = $("#polls-body");
+  body.innerHTML = `<div class="panel poll-explain">
+      <strong>So wird die Uhrzeit berechnet</strong>
+      <ul>
+        <li>Trage ein, von wann bis wann du an dem Tag Zeit hast.</li>
+        <li>Eine Challenge wird <strong>immer mit 90 Minuten</strong> gerechnet.</li>
+        <li>Gesucht wird der 90-Minuten-Block, in dem die <strong>meisten Personen die kompletten 90 Minuten</strong> Zeit haben. Geprüft wird jede Startzeit im 15-Minuten-Raster.</li>
+        <li>Wer nur einen Teil des Blocks kann, zählt für diesen Block nicht mit.</li>
+        <li>Bei Gleichstand gewinnt die früheste Uhrzeit.</li>
+        <li>Ein Admin legt die Uhrzeit am Ende fest, sie steht dann im Kalender.</li>
+      </ul>
+    </div>
+    ${polls.length ? `<div class="options">${polls.map(pollCardHtml).join("")}</div>` : `<div class="panel empty">Gerade läuft keine Terminabstimmung.</div>`}`;
+
+  const remember = (id, field, value) => { pollDrafts[id] = { ...pollDrafts[id], [field]: value }; };
+  body.querySelectorAll("[data-poll-start]").forEach((select) => { select.onchange = () => remember(select.dataset.pollStart, "start", Number(select.value)); });
+  body.querySelectorAll("[data-poll-end]").forEach((select) => { select.onchange = () => remember(select.dataset.pollEnd, "end", Number(select.value)); });
+  const send = async (id, data) => {
+    const saved = await run(() => api(`day-polls/${id}/respond`, "POST", data), "Angabe gespeichert.");
+    if (saved) { delete pollDrafts[id]; refresh(); }
+  };
+  body.querySelectorAll("[data-poll-save]").forEach((button) => {
+    const id = button.dataset.pollSave;
+    button.onclick = () => send(id, {
+      available: true,
+      start: Number(body.querySelector(`[data-poll-start="${id}"]`).value),
+      end: Number(body.querySelector(`[data-poll-end="${id}"]`).value),
+    });
+  });
+  body.querySelectorAll("[data-poll-no]").forEach((button) => { button.onclick = () => send(button.dataset.pollNo, { available: false }); });
+  body.querySelectorAll("[data-poll-close]").forEach((button) => {
+    button.onclick = async () => {
+      await run(() => api(`day-polls/${button.dataset.pollClose}/close`, "POST", {}), "Uhrzeit festgelegt und in den Kalender eingetragen.");
+      refresh();
+    };
+  });
+  body.querySelectorAll("[data-poll-delete]").forEach((button) => {
+    button.onclick = () => confirmAction("Terminabstimmung löschen?", async () => {
+      await run(() => api(`day-polls/${button.dataset.pollDelete}`, "DELETE"), "Terminabstimmung gelöscht.");
+      refresh();
+    });
+  });
+}
+
 function renderShared() {
   renderAccount();
   renderCalendar();
   renderVoting();
+  renderDayPolls();
 }
 
 async function refresh() {
@@ -833,6 +966,7 @@ async function poll() {
     if (linkedVoting) linkedVoting = await api(`votings/${linkedVoting.id}`);
     renderCalendar();
     renderVoting();
+    if (!$("#polls-body").contains(document.activeElement)) renderDayPolls();
   } catch { /* the next poll tries again */ }
 }
 
@@ -897,6 +1031,7 @@ async function init() {
   bindCalendar();
   await refresh();
   if (new URLSearchParams(location.search).has("voting")) $("#voting").scrollIntoView();
+  if (new URLSearchParams(location.search).has("poll")) $("#termine").scrollIntoView();
   setInterval(poll, 20000);
 }
 

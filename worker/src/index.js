@@ -84,15 +84,15 @@ function login(request, env) {
     state,
   });
   // The page to come back to is only ever a voting number, never a free URL
-  const voting = /^\d+$/.test(url.searchParams.get("voting") || "") ? url.searchParams.get("voting") : "";
+  const target = ["voting", "poll"].map((key) => [key, url.searchParams.get(key)]).find(([, value]) => /^\d+$/.test(value || ""));
   const headers = new Headers({ Location: authorize.toString() });
-  headers.append("Set-Cookie", `oauth_state=${state}.${voting}; HttpOnly; Secure; SameSite=Lax; Path=/auth; Max-Age=600`);
+  headers.append("Set-Cookie", `oauth_state=${state}.${target ? `${target[0]}-${target[1]}` : ""}; HttpOnly; Secure; SameSite=Lax; Path=/auth; Max-Age=600`);
   return new Response(null, { status: 302, headers });
 }
 
 async function callback(request, env) {
   const url = new URL(request.url);
-  const [state, voting] = (cookie(request, "oauth_state") || "").split(".");
+  const [state, target] = (cookie(request, "oauth_state") || "").split(".");
   const code = url.searchParams.get("code");
   if (!state || !code || url.searchParams.get("state") !== state) {
     return Response.redirect(`${env.SITE_URL}#login-error`, 302);
@@ -131,8 +131,8 @@ async function callback(request, env) {
   ).bind(me.id, me.username, me.global_name || null, me.avatar || null, role, Date.now()).run();
 
   const token = await signToken(env, { sub: me.id, exp: Date.now() + SESSION_DAYS * 86400000 });
-  const target = voting ? `${env.SITE_URL}?voting=${voting}#token=${token}` : `${env.SITE_URL}#token=${token}`;
-  const headers = new Headers({ Location: target });
+  const query = /^(voting|poll)-\d+$/.test(target || "") ? `?${target.replace("-", "=")}` : "";
+  const headers = new Headers({ Location: `${env.SITE_URL}${query}#token=${token}` });
   headers.append("Set-Cookie", "oauth_state=; HttpOnly; Secure; SameSite=Lax; Path=/auth; Max-Age=0");
   return new Response(null, { status: 302, headers });
 }
@@ -360,12 +360,13 @@ async function state(env, user) {
     is_owner: user ? user.id === (await ownerId(env)) : false,
     can_submit: user ? Boolean(user.multi_submit) || !(await usedWeeklySubmission(env, user)) : false,
     events: await listEvents(env),
+    day_polls: await listDayPolls(env),
     proposals: await listProposals(env),
     voting: await votingDetails(env, latest, user),
   };
 }
 
-async function notifyDiscord(env, votingId) {
+async function notifyDiscord(env, eventType, payload) {
   if (!env.GITHUB_DISPATCH_TOKEN) return false;
   const response = await fetch(`https://api.github.com/repos/${env.GITHUB_REPO}/dispatches`, {
     method: "POST",
@@ -375,9 +376,103 @@ async function notifyDiscord(env, votingId) {
       "User-Agent": "spe-challenges-api",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ event_type: "voting-started", client_payload: { voting_id: votingId } }),
+    body: JSON.stringify({ event_type: eventType, client_payload: payload }),
   });
   return response.ok;
+}
+
+const ROUND_MINUTES = 90;
+const STEP_MINUTES = 15;
+const DAY_MINUTES = 1440;
+
+function berlinToday() {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(Date.now());
+}
+
+function clockTime(minutes) {
+  return `${String(Math.floor(minutes / 60)).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`;
+}
+
+// The block in which the most people have the complete 90 minutes, the earliest one on a tie
+function bestWindow(responses) {
+  const free = responses.filter((response) => response.available);
+  let best = null;
+  for (let start = 0; start + ROUND_MINUTES <= DAY_MINUTES; start += STEP_MINUTES) {
+    const fits = free.filter((response) => response.start <= start && response.end >= start + ROUND_MINUTES);
+    if (fits.length && (!best || fits.length > best.user_ids.length)) {
+      best = { start, end: start + ROUND_MINUTES, user_ids: fits.map((response) => response.user_id) };
+    }
+  }
+  return best;
+}
+
+async function pollDetails(env, poll) {
+  const { results } = await env.DB.prepare(
+    `SELECT r.user_id, r.available, r.start_min, r.end_min, u.username, u.display_name
+     FROM day_poll_responses r JOIN users u ON u.id = r.user_id WHERE r.poll_id = ? ORDER BY r.updated_at`
+  ).bind(poll.id).all();
+  const responses = results.map((row) => ({
+    user_id: row.user_id,
+    name: row.display_name || row.username,
+    available: Boolean(row.available),
+    start: row.start_min,
+    end: row.end_min,
+  }));
+  return { ...poll, responses, best: bestWindow(responses) };
+}
+
+async function listDayPolls(env) {
+  const { results } = await env.DB.prepare("SELECT * FROM day_polls WHERE status = 'open' OR date >= ? ORDER BY date, id").bind(berlinToday()).all();
+  return Promise.all(results.map((poll) => pollDetails(env, poll)));
+}
+
+async function startDayPoll(env, user, body) {
+  requireAdmin(user);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(body.date || "") || Number.isNaN(Date.parse(body.date))) throw new HttpError(400, "Ungültiges Datum.");
+  if (body.date < berlinToday()) throw new HttpError(400, "Das Datum liegt in der Vergangenheit.");
+  const title = text(body.title, "Titel", 80);
+  let poll;
+  try {
+    poll = await env.DB.prepare("INSERT INTO day_polls (date, title, started_by, created_at) VALUES (?, ?, ?, ?) RETURNING id").bind(body.date, title, user.id, Date.now()).first();
+  } catch {
+    throw new HttpError(409, "Für diesen Tag läuft bereits eine Terminabstimmung.");
+  }
+  return { id: poll.id, notified: await notifyDiscord(env, "day-poll-started", { poll_id: poll.id, date: body.date }).catch(() => false) };
+}
+
+async function respondDayPoll(env, user, id, body) {
+  requireUser(user);
+  if (!(await env.DB.prepare("SELECT id FROM day_polls WHERE id = ? AND status = 'open'").bind(id).first())) throw new HttpError(409, "Diese Terminabstimmung ist beendet.");
+  let start = null;
+  let end = null;
+  if (body.available === true) {
+    ({ start, end } = body);
+    const valid = [start, end].every((value) => Number.isInteger(value) && value >= 0 && value <= DAY_MINUTES && value % STEP_MINUTES === 0);
+    if (!valid) throw new HttpError(400, "Ungültige Uhrzeit.");
+    if (end - start < ROUND_MINUTES) throw new HttpError(400, "Du brauchst mindestens 90 Minuten Zeit am Stück, so lange dauert eine Runde.");
+  }
+  await env.DB.prepare(
+    `INSERT INTO day_poll_responses (poll_id, user_id, available, start_min, end_min, updated_at) VALUES (?1, ?2, ?3, ?4, ?5, ?6)
+     ON CONFLICT(poll_id, user_id) DO UPDATE SET available = ?3, start_min = ?4, end_min = ?5, updated_at = ?6`
+  ).bind(id, user.id, body.available === true ? 1 : 0, start, end, Date.now()).run();
+  return { ok: true };
+}
+
+async function closeDayPoll(env, user, id) {
+  requireAdmin(user);
+  const poll = await env.DB.prepare("SELECT * FROM day_polls WHERE id = ? AND status = 'open'").bind(id).first();
+  if (!poll) throw new HttpError(404, "Diese Terminabstimmung läuft nicht.");
+  const { best } = await pollDetails(env, poll);
+  if (!best) throw new HttpError(409, "Noch hat niemand Zeit eingetragen.");
+  const time = clockTime(best.start);
+  const event = await env.DB.prepare("SELECT id FROM events WHERE date = ? ORDER BY id LIMIT 1").bind(poll.date).first();
+  await env.DB.batch([
+    env.DB.prepare("UPDATE day_polls SET status = 'closed', chosen_start = ? WHERE id = ?").bind(best.start, id),
+    event
+      ? env.DB.prepare("UPDATE events SET start_time = ? WHERE id = ?").bind(time, event.id)
+      : env.DB.prepare("INSERT INTO events (date, title, start_time) VALUES (?, ?, ?)").bind(poll.date, poll.title, time),
+  ]);
+  return { start: best.start };
 }
 
 async function startVoting(env, user, body) {
@@ -405,7 +500,7 @@ async function startVoting(env, user, body) {
     throw new HttpError(409, "Es läuft bereits ein Voting.");
   }
   await env.DB.batch(ids.map((id) => env.DB.prepare("INSERT INTO voting_options (voting_id, proposal_id) VALUES (?, ?)").bind(voting.id, id)));
-  return { id: voting.id, notified: await notifyDiscord(env, voting.id).catch(() => false) };
+  return { id: voting.id, notified: await notifyDiscord(env, "voting-started", { voting_id: voting.id }).catch(() => false) };
 }
 
 async function closeVoting(env, user, id, body) {
@@ -434,6 +529,7 @@ function eventFields(body) {
     date: body.date,
     title: text(body.title, "Titel", 80),
     proposal_id: body.proposal_id == null ? null : integer(body.proposal_id, "Vorschlag"),
+    start_time: /^([01]\d|2[0-3]):[0-5]\d$/.test(body.start_time || "") ? body.start_time : null,
   };
 }
 
@@ -471,16 +567,27 @@ async function route(request, env, url, user) {
     }
   }
 
+  if (parts[0] === "day-polls") {
+    if (method === "POST" && !id) return startDayPoll(env, user, body);
+    if (method === "POST" && id && parts[2] === "respond") return respondDayPoll(env, user, id, body);
+    if (method === "POST" && id && parts[2] === "close") return closeDayPoll(env, user, id);
+    if (method === "DELETE" && id) {
+      requireAdmin(user);
+      await env.DB.prepare("DELETE FROM day_polls WHERE id = ?").bind(id).run();
+      return { ok: true };
+    }
+  }
+
   if (parts[0] === "events") {
     requireAdmin(user);
     if (method === "POST" && !id) {
       const event = eventFields(body);
-      const row = await env.DB.prepare("INSERT INTO events (date, title, proposal_id) VALUES (?, ?, ?) RETURNING id").bind(event.date, event.title, event.proposal_id).first();
+      const row = await env.DB.prepare("INSERT INTO events (date, title, proposal_id, start_time) VALUES (?, ?, ?, ?) RETURNING id").bind(event.date, event.title, event.proposal_id, event.start_time).first();
       return { id: row.id };
     }
     if (method === "PUT" && id) {
       const event = eventFields(body);
-      await env.DB.prepare("UPDATE events SET date = ?, title = ?, proposal_id = ? WHERE id = ?").bind(event.date, event.title, event.proposal_id, id).run();
+      await env.DB.prepare("UPDATE events SET date = ?, title = ?, proposal_id = ?, start_time = ? WHERE id = ?").bind(event.date, event.title, event.proposal_id, event.start_time, id).run();
       return { ok: true };
     }
     if (method === "DELETE" && id) {
