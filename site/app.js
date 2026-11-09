@@ -8,6 +8,7 @@ const GROUP_ORDER = ["timer", "health", "force_battle", "bingo_options", "misc"]
 const GROUP_NEEDS = { force_battle: "force_item_battle", bingo_options: "item_bingo" };
 const SUBMENUS = { force_item_battle: "force_battle", item_bingo: "bingo_options" };
 const KIT_SLOTS = 36;
+const MOD_TAG = '<a class="mod-tag" href="#downloads" title="Braucht die SpE-Mod">Mod</a>';
 const MONTHS = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
 
 let catalog = [];
@@ -105,11 +106,12 @@ function changedSettings(config) {
     const amountChanged = toggle.hasAmount && entry.setAmount !== undefined && entry.setAmount !== toggle.setAmount;
     const modeChanged = toggle.modes && entry.currentMode !== undefined && entry.currentMode !== toggle.currentMode;
     if (entry.value === toggle.value && !amountChanged && !modeChanged) continue;
-    if (!entry.value) { lines.push(`${name(toggle)}: aus`); continue; }
+    const mod = Boolean(descriptions[toggle.id]?.mod);
+    if (!entry.value) { lines.push({ text: `${name(toggle)}: aus`, mod: false }); continue; }
     const kitSize = config.starter_kit?.length ?? 0;
     const detail = toggle.id === "starter_kit" ? `: ${kitSize} ${kitSize === 1 ? "Stack" : "Stacks"}`
       : toggle.hasAmount ? `: ${entry.setAmount ?? toggle.setAmount}` : toggle.modes ? `: ${modeName(toggle, config)}` : "";
-    lines.push(`${name(toggle)}${detail}`);
+    lines.push({ text: `${name(toggle)}${detail}`, mod });
   }
   return lines;
 }
@@ -117,9 +119,9 @@ function changedSettings(config) {
 function configTags(config) {
   const challenges = activeChallenges(config).map((toggle) => {
     const mode = toggle.modes ? ` (${modeName(toggle, config)})` : "";
-    return `<span class="tag">${esc(name(toggle) + mode)}</span>`;
+    return `<span class="tag">${esc(name(toggle) + mode)}${descriptions[toggle.id]?.mod ? MOD_TAG : ""}</span>`;
   });
-  const settings = changedSettings(config).map((line) => `<span class="tag">${esc(line)}</span>`);
+  const settings = changedSettings(config).map((line) => `<span class="tag">${esc(line.text)}${line.mod ? MOD_TAG : ""}</span>`);
   return `<div class="tags">${challenges.concat(settings).join("")}</div>`;
 }
 
@@ -387,7 +389,7 @@ function cardHtml(toggle) {
   const submenu = submenuItems.length ? `<div class="submenu"><div class="cards">${submenuItems.map(cardHtml).join("")}</div></div>` : "";
   const kit = toggle.id === "starter_kit" && entry.value ? kitHtml() : "";
   return `<article class="card${entry.value ? " on" : ""}${block && !entry.value ? " blocked" : ""}${submenu || kit ? " wide" : ""}">
-    <div class="card-head">${icon(toggle.id, toggle.kind === "challenge")}<h3>${esc(name(toggle))}</h3>${switcher}</div>
+    <div class="card-head">${icon(toggle.id, toggle.kind === "challenge")}<h3>${esc(name(toggle))}${info.mod ? MOD_TAG : ""}</h3>${switcher}</div>
     ${info.summary ? `<p>${esc(info.summary)}</p>` : ""}
     ${more}
     ${block ? `<div class="warn">${esc(block)}</div>` : ""}

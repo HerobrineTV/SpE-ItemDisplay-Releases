@@ -130,6 +130,7 @@ button.day:hover { border-color: var(--accent); filter: none; }
 .pick { position: relative; aspect-ratio: 1; padding: 0; background: var(--panel-2); border: 1px solid transparent; color: var(--muted); font-size: .7rem; }
 .pick:hover { border-color: var(--accent); filter: none; }
 .pick.selected { border-color: var(--gold); background: #123a3c; }
+.mod-tag { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 4px; background: var(--gold); color: #2c2204; font-size: .72rem; font-weight: 700; text-decoration: none; vertical-align: middle; }
 .warn { color: var(--gold); font-size: .85rem; margin-top: 6px; }
 .controls { margin-top: 10px; display: flex; gap: 10px; align-items: center; }
 .controls input[type=number] { width: 110px; }

@@ -174,7 +174,8 @@
   },
   "team_outlines": {
     "summary": "Teammitglieder werden in ihrer Teamfarbe umrandet.",
-    "details": "Die Umrandung ist nur mit der SpE-Mod sichtbar und funktioniert auch in der Lobby. Standardmäßig aktiv."
+    "details": "Die Umrandung ist nur mit der SpE-Mod sichtbar und funktioniert auch in der Lobby. Standardmäßig aktiv.",
+    "mod": true
   },
   "starter_kit": {
     "summary": "Alle Spieler erhalten beim Start ein vorher festgelegtes Starter-Kit.",
@@ -186,7 +187,8 @@
   },
   "death_point": {
     "summary": "Zeigt Spielern den Ort ihres letzten Todes an.",
-    "details": "Nach dem Tod erhält der Spieler eine private Chat-Nachricht mit Koordinaten und Weltname. Der gespeicherte Punkt wird verworfen, sobald sich der Spieler ihm auf weniger als 5 Blöcke nähert. Standardmäßig deaktiviert."
+    "details": "Nach dem Tod erhält der Spieler eine private Chat-Nachricht mit Koordinaten und Weltname, das geht auch ohne Mod. Die Anzeige des Punkts im Spiel gibt es nur mit der SpE-Mod. Der gespeicherte Punkt wird verworfen, sobald sich der Spieler ihm auf weniger als 5 Blöcke nähert. Standardmäßig deaktiviert.",
+    "mod": true
   },
   "damage_log": {
     "summary": "Meldet erlittenen Schaden aller Spieler im Chat.",
