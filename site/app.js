@@ -193,8 +193,9 @@ function renderCalendar() {
     : "Ein ? bedeutet: Der Termin steht, die Challenge noch nicht.";
 }
 
-function openDialog(html) {
+function openDialog(html, className = "") {
   const dialog = $("#dialog");
+  dialog.className = className;
   dialog.innerHTML = html;
   if (!dialog.open) dialog.showModal();
   return dialog;
@@ -274,7 +275,7 @@ function renderVoting() {
         ${option.description ? `<div>${esc(option.description)}</div>` : ""}
         ${configTags(option.config)}
       </div>
-      <div>${action}</div>
+      <div class="row-actions">${viewButton(option.id)}${action}</div>
       <div class="bar"><div class="bar-track"><div class="bar-fill" style="width:${percent}%"></div></div><span>${option.votes} ${option.votes === 1 ? "Stimme" : "Stimmen"}</span></div>
     </article>`;
   }).join("");
@@ -288,6 +289,9 @@ function renderVoting() {
       await run(() => api(`votings/${voting.id}/vote`, "POST", { proposal_id: Number(button.dataset.vote) }), "Stimme gespeichert.");
       refresh();
     };
+  });
+  body.querySelectorAll("[data-view]").forEach((button) => {
+    button.onclick = () => showSetup(voting.options.find((option) => option.id === Number(button.dataset.view)));
   });
   body.querySelectorAll("[data-winner-preset]").forEach((button) => {
     button.onclick = () => downloadPreset(voting.options.find((option) => option.id === Number(button.dataset.winnerPreset)));
@@ -545,6 +549,66 @@ function editSlot(slot) {
   dialog.querySelector("#kit-search").focus();
 }
 
+function viewButton(id) {
+  return `<button type="button" class="ghost icon-button" data-view="${id}" title="Einstellungen ansehen" aria-label="Einstellungen ansehen"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></button>`;
+}
+
+function setupRow(toggle, config) {
+  const entry = config.toggles[toggle.id] || {};
+  const on = entry.value ?? toggle.value;
+  const amount = entry.setAmount ?? toggle.setAmount;
+  const modeIndex = entry.currentMode ?? toggle.currentMode;
+  const changed = on !== toggle.value || (on && toggle.hasAmount && amount !== toggle.setAmount) || (on && toggle.modes && modeIndex !== toggle.currentMode);
+  const parts = [];
+  if (!(toggle.hasAmount && toggle.value)) parts.push(on ? "An" : "Aus");
+  if (on && toggle.hasAmount) parts.push(String(amount));
+  if (on && toggle.modes) parts.push(toggle.modes[modeIndex]);
+  const info = description(toggle);
+  return `<div class="view-row${changed ? " changed" : ""}${on ? "" : " off"}">
+    ${icon(toggle.id)}
+    <div class="grow"><strong>${esc(name(toggle))}</strong>${info.mod ? MOD_TAG : ""}${info.summary ? `<div class="meta">${esc(info.summary)}</div>` : ""}</div>
+    <span class="view-state">${esc(parts.join(" · "))}</span>
+  </div>`;
+}
+
+function setupKitHtml(kit) {
+  let slots = "";
+  for (let slot = 0; slot < KIT_SLOTS; slot++) {
+    const item = kit.find((entry) => entry.slot === slot);
+    if (!item) { slots += `<span class="slot"></span>`; continue; }
+    const enchantments = Object.entries(item.enchantments || {}).map(([id, level]) => `${prettyId(id)} ${level}`);
+    const title = [`${prettyId(item.type)} x${item.amount}`, item.name, item.potion && prettyId(item.potion), ...enchantments].filter(Boolean).join(", ");
+    slots += `<span class="slot filled" title="${esc(title)}" aria-label="${esc(title)}">${esc(itemLetters(item.type))}${itemIcon(item.type)}${item.amount > 1 ? `<small>${item.amount}</small>` : ""}${enchantments.length ? "<i></i>" : ""}</span>`;
+  }
+  return `<div class="kit">${slots}</div>`;
+}
+
+function showSetup(proposal) {
+  const config = proposal.config;
+  const inMenuOrder = (a, b) => a.page - b.page || a.slot - b.slot;
+  let html = `<h3 class="group-title">Challenges</h3>`;
+  html += activeChallenges(config).sort(inMenuOrder).map((toggle) => {
+    const items = SUBMENUS[toggle.id] ? catalog.filter((item) => item.group === SUBMENUS[toggle.id]).sort(inMenuOrder) : [];
+    return setupRow(toggle, config) + (items.length ? `<div class="view-sub">${items.map((item) => setupRow(item, config)).join("")}</div>` : "");
+  }).join("");
+  const submenuGroups = Object.values(SUBMENUS);
+  const groups = [...new Set(catalog.filter((toggle) => toggle.kind === "setting" && !submenuGroups.includes(toggle.group)).map((toggle) => toggle.group))]
+    .sort((a, b) => (GROUP_ORDER.indexOf(a) + 1 || 99) - (GROUP_ORDER.indexOf(b) + 1 || 99));
+  for (const group of groups) {
+    const items = catalog.filter((toggle) => toggle.kind === "setting" && toggle.group === group && relevant(toggle, config.toggles)).sort(inMenuOrder);
+    if (!items.length) continue;
+    html += `<h3 class="group-title">${esc(GROUP_TITLES[group] || group)}</h3>`;
+    html += items.map((toggle) => setupRow(toggle, config) + (toggle.id === "starter_kit" && config.toggles.starter_kit?.value ? setupKitHtml(config.starter_kit || []) : "")).join("");
+  }
+  const dialog = openDialog(`<h3>${esc(proposal.name)}</h3>
+    <div class="meta">von ${esc(proposal.author)}</div>
+    ${proposal.description ? `<p>${esc(proposal.description)}</p>` : ""}
+    <p class="hint">Vom Standard abweichende Einstellungen sind markiert.</p>
+    ${html}
+    <div class="dialog-actions"><button type="button" id="close-dialog">Schließen</button></div>`, "wide");
+  dialog.querySelector("#close-dialog").onclick = () => dialog.close();
+}
+
 function renderBuilder() {
   if (!isAdmin() && draft.toggles.auto_stop) draft.toggles.auto_stop.value = true;
   const open = new Set([...document.querySelectorAll("#builder-body details[open]")].map((item) => item.dataset.detail));
@@ -656,11 +720,13 @@ function renderProposals() {
         ${configTags(proposal.config)}
       </div>
       <div class="row-actions">
+        ${viewButton(proposal.id)}
         ${isAdmin() ? `<button class="ghost" data-preset="${proposal.id}">Preset herunterladen</button>` : ""}
         ${canDelete ? `<button class="danger" data-delete="${proposal.id}">${withdraws ? "Zurückziehen" : "Löschen"}</button>` : ""}
       </div>
     </article>`;
   }).join("")}</div>`;
+  body.querySelectorAll("[data-view]").forEach((button) => { button.onclick = () => showSetup(proposalById(Number(button.dataset.view))); });
   body.querySelectorAll("[data-preset]").forEach((button) => { button.onclick = () => downloadPreset(proposalById(Number(button.dataset.preset))); });
   body.querySelectorAll("[data-delete]").forEach((button) => {
     const withdraws = button.textContent === "Zurückziehen";

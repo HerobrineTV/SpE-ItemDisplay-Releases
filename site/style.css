@@ -131,6 +131,17 @@ button.day:hover { border-color: var(--accent); filter: none; }
 .pick:hover { border-color: var(--accent); filter: none; }
 .pick.selected { border-color: var(--gold); background: #123a3c; }
 .mod-tag { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 4px; background: var(--gold); color: #2c2204; font-size: .72rem; font-weight: 700; text-decoration: none; vertical-align: middle; }
+.icon-button { display: inline-flex; align-items: center; justify-content: center; padding: 7px 10px; }
+dialog.wide { width: min(640px, calc(100vw - 32px)); }
+.view-row { display: flex; align-items: center; gap: 10px; padding: 6px 8px; border-left: 3px solid transparent; border-radius: 4px; }
+.view-row.changed { border-left-color: var(--gold); background: var(--panel-2); }
+.view-row.off .grow strong, .view-row.off .view-state { color: var(--muted); }
+.view-row .grow { min-width: 0; }
+.view-row .meta { font-size: .8rem; }
+.view-state { flex: none; font-weight: 600; font-size: .88rem; color: var(--accent); max-width: 40%; text-align: right; }
+.view-sub { margin-left: 18px; padding-left: 8px; border-left: 1px solid var(--line); }
+dialog .kit { margin: 6px 0 6px 8px; }
+span.slot { display: flex; align-items: center; justify-content: center; border-radius: 6px; }
 .warn { color: var(--gold); font-size: .85rem; margin-top: 6px; }
 .controls { margin-top: 10px; display: flex; gap: 10px; align-items: center; }
 .controls input[type=number] { width: 110px; }
