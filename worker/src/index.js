@@ -165,7 +165,35 @@ function checkConfig(config) {
     }
     clean[id] = item;
   }
-  return { toggles: clean };
+  return { toggles: clean, starter_kit: checkKit(config.starter_kit) };
+}
+
+function checkKit(kit) {
+  if (kit === undefined) return [];
+  if (!Array.isArray(kit) || kit.length > 36) throw new HttpError(400, "Ungültiges Starter Kit.");
+  const id = /^[a-z0-9_]{1,64}$/;
+  const slots = new Set();
+  return kit.map((item) => {
+    const valid = item && Number.isInteger(item.slot) && item.slot >= 0 && item.slot < 36 && !slots.has(item.slot)
+      && id.test(item.type || "") && Number.isInteger(item.amount) && item.amount >= 1 && item.amount <= 99;
+    if (!valid) throw new HttpError(400, "Ungültiges Starter Kit.");
+    slots.add(item.slot);
+    const clean = { slot: item.slot, type: item.type, amount: item.amount };
+    const name = text(item.name, "Item-Name", 50);
+    if (name) clean.name = name;
+    const enchantments = Object.entries(item.enchantments || {});
+    if (enchantments.length) {
+      if (enchantments.length > 40 || !enchantments.every(([key, level]) => id.test(key) && Number.isInteger(level) && level >= 1 && level <= 255)) {
+        throw new HttpError(400, "Ungültiges Starter Kit.");
+      }
+      clean.enchantments = Object.fromEntries(enchantments);
+    }
+    if (item.potion !== undefined) {
+      if (!id.test(item.potion)) throw new HttpError(400, "Ungültiges Starter Kit.");
+      clean.potion = item.potion;
+    }
+    return clean;
+  });
 }
 
 async function authorsByProposal(env) {
@@ -221,6 +249,11 @@ function setupKey(config, catalog) {
     if (!isOn(toggle)) continue;
     const entry = entryOf(toggle.id);
     parts.push([toggle.id, toggle.hasAmount ? entry.setAmount ?? toggle.setAmount : "", toggle.modes ? entry.currentMode ?? toggle.currentMode : ""].join(":"));
+  }
+  if (byId.starter_kit && isOn(byId.starter_kit)) {
+    const kit = [...(config.starter_kit || [])].sort((a, b) => a.slot - b.slot)
+      .map((item) => [item.slot, item.type, item.amount, item.name || "", Object.entries(item.enchantments || {}).sort(), item.potion || ""]);
+    parts.push(JSON.stringify(kit));
   }
   return parts.join("|");
 }

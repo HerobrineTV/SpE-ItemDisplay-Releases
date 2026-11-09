@@ -111,6 +111,15 @@ button.day:hover { border-color: var(--accent); filter: none; }
 .card details { margin-top: 6px; font-size: .88rem; color: var(--muted); }
 .card summary { cursor: pointer; color: var(--accent); }
 .card details ul { padding-left: 18px; margin: 6px 0 0; }
+.card.wide { grid-column: 1 / -1; }
+.submenu { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
+.submenu .card { background: var(--panel-2); }
+.kit { display: grid; grid-template-columns: repeat(9, minmax(0, 44px)); gap: 3px; }
+.slot { position: relative; aspect-ratio: 1; padding: 0; background: var(--bg); border: 1px solid var(--line); color: var(--text); font-size: .8rem; }
+.slot:hover { border-color: var(--accent); filter: none; }
+.slot.filled { background: #123a3c; border-color: var(--accent); }
+.slot small { position: absolute; right: 2px; bottom: 0; font-size: .68rem; }
+.slot i { position: absolute; left: 3px; top: 3px; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
 .warn { color: var(--gold); font-size: .85rem; margin-top: 6px; }
 .controls { margin-top: 10px; display: flex; gap: 10px; align-items: center; }
 .controls input[type=number] { width: 110px; }

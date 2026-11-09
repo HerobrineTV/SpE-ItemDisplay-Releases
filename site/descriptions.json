@@ -178,7 +178,7 @@
   },
   "starter_kit": {
     "summary": "Alle Spieler erhalten beim Start ein vorher festgelegtes Starter-Kit.",
-    "details": "Das Kit umfasst bis zu 36 Plätze und übernimmt vollständige Items mit Namen, Verzauberungen und Menge in ihre festgelegten Inventarplätze. Der Inhalt lässt sich nicht auf der Website festlegen, sondern wird im Spiel in einem Kistenmenü angeordnet. Später beitretende Spieler erhalten kein Kit. Standardmäßig deaktiviert."
+    "details": "Das Kit umfasst bis zu 36 Plätze und übernimmt vollständige Items mit Namen, Verzauberungen und Menge in ihre festgelegten Inventarplätze. Der Inhalt wird hier in den 36 Feldern oder im Spiel im Kistenmenü angeordnet. Später beitretende Spieler erhalten kein Kit. Standardmäßig deaktiviert."
   },
   "auto_pause": {
     "summary": "Pausiert die Challenge, wenn ein Spieler den Server verlässt.",

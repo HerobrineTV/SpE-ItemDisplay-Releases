@@ -713,5 +713,6857 @@
       "lore1": "§3The timer counts up, no time limit",
       "lore2": "§3The challenge ends with /stop"
     }
+  ],
+  "items": [
+    {
+      "id": "abandoned_camp_map",
+      "maxStack": 64
+    },
+    {
+      "id": "acacia_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "acacia_button",
+      "maxStack": 64
+    },
+    {
+      "id": "acacia_chest_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "acacia_door",
+      "maxStack": 64
+    },
+    {
+      "id": "acacia_fence",
+      "maxStack": 64
+    },
+    {
+      "id": "acacia_fence_gate",
+      "maxStack": 64
+    },
+    {
+      "id": "acacia_hanging_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "acacia_leaves",
+      "maxStack": 64
+    },
+    {
+      "id": "acacia_log",
+      "maxStack": 64
+    },
+    {
+      "id": "acacia_planks",
+      "maxStack": 64
+    },
+    {
+      "id": "acacia_pressure_plate",
+      "maxStack": 64
+    },
+    {
+      "id": "acacia_sapling",
+      "maxStack": 64
+    },
+    {
+      "id": "acacia_shelf",
+      "maxStack": 64
+    },
+    {
+      "id": "acacia_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "acacia_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "acacia_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "acacia_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "acacia_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "activator_rail",
+      "maxStack": 64
+    },
+    {
+      "id": "allay_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "allium",
+      "maxStack": 64
+    },
+    {
+      "id": "amethyst_block",
+      "maxStack": 64
+    },
+    {
+      "id": "amethyst_cluster",
+      "maxStack": 64
+    },
+    {
+      "id": "amethyst_shard",
+      "maxStack": 64
+    },
+    {
+      "id": "ancient_debris",
+      "maxStack": 64
+    },
+    {
+      "id": "andesite",
+      "maxStack": 64
+    },
+    {
+      "id": "andesite_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "andesite_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "andesite_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "angler_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "anvil",
+      "maxStack": 64
+    },
+    {
+      "id": "apple",
+      "maxStack": 64
+    },
+    {
+      "id": "archer_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "armadillo_scute",
+      "maxStack": 64
+    },
+    {
+      "id": "armadillo_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "armor_stand",
+      "maxStack": 16
+    },
+    {
+      "id": "arms_up_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "arrow",
+      "maxStack": 64
+    },
+    {
+      "id": "axolotl_bucket",
+      "maxStack": 1
+    },
+    {
+      "id": "axolotl_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "azalea",
+      "maxStack": 64
+    },
+    {
+      "id": "azalea_leaves",
+      "maxStack": 64
+    },
+    {
+      "id": "azure_bluet",
+      "maxStack": 64
+    },
+    {
+      "id": "baked_potato",
+      "maxStack": 64
+    },
+    {
+      "id": "bamboo",
+      "maxStack": 64
+    },
+    {
+      "id": "bamboo_block",
+      "maxStack": 64
+    },
+    {
+      "id": "bamboo_button",
+      "maxStack": 64
+    },
+    {
+      "id": "bamboo_chest_raft",
+      "maxStack": 1
+    },
+    {
+      "id": "bamboo_door",
+      "maxStack": 64
+    },
+    {
+      "id": "bamboo_fence",
+      "maxStack": 64
+    },
+    {
+      "id": "bamboo_fence_gate",
+      "maxStack": 64
+    },
+    {
+      "id": "bamboo_hanging_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "bamboo_mosaic",
+      "maxStack": 64
+    },
+    {
+      "id": "bamboo_mosaic_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "bamboo_mosaic_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "bamboo_planks",
+      "maxStack": 64
+    },
+    {
+      "id": "bamboo_pressure_plate",
+      "maxStack": 64
+    },
+    {
+      "id": "bamboo_raft",
+      "maxStack": 1
+    },
+    {
+      "id": "bamboo_shelf",
+      "maxStack": 64
+    },
+    {
+      "id": "bamboo_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "bamboo_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "bamboo_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "bamboo_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "barrel",
+      "maxStack": 64
+    },
+    {
+      "id": "barrier",
+      "maxStack": 64
+    },
+    {
+      "id": "basalt",
+      "maxStack": 64
+    },
+    {
+      "id": "bat_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "beacon",
+      "maxStack": 64
+    },
+    {
+      "id": "bedrock",
+      "maxStack": 64
+    },
+    {
+      "id": "bee_nest",
+      "maxStack": 64
+    },
+    {
+      "id": "bee_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "beef",
+      "maxStack": 64
+    },
+    {
+      "id": "beehive",
+      "maxStack": 64
+    },
+    {
+      "id": "beetroot",
+      "maxStack": 64
+    },
+    {
+      "id": "beetroot_seeds",
+      "maxStack": 64
+    },
+    {
+      "id": "beetroot_soup",
+      "maxStack": 1
+    },
+    {
+      "id": "bell",
+      "maxStack": 64
+    },
+    {
+      "id": "big_dripleaf",
+      "maxStack": 64
+    },
+    {
+      "id": "birch_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "birch_button",
+      "maxStack": 64
+    },
+    {
+      "id": "birch_chest_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "birch_door",
+      "maxStack": 64
+    },
+    {
+      "id": "birch_fence",
+      "maxStack": 64
+    },
+    {
+      "id": "birch_fence_gate",
+      "maxStack": 64
+    },
+    {
+      "id": "birch_hanging_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "birch_leaves",
+      "maxStack": 64
+    },
+    {
+      "id": "birch_log",
+      "maxStack": 64
+    },
+    {
+      "id": "birch_planks",
+      "maxStack": 64
+    },
+    {
+      "id": "birch_pressure_plate",
+      "maxStack": 64
+    },
+    {
+      "id": "birch_sapling",
+      "maxStack": 64
+    },
+    {
+      "id": "birch_shelf",
+      "maxStack": 64
+    },
+    {
+      "id": "birch_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "birch_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "birch_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "birch_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "birch_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "black_banner",
+      "maxStack": 16
+    },
+    {
+      "id": "black_bed",
+      "maxStack": 1
+    },
+    {
+      "id": "black_bundle",
+      "maxStack": 1
+    },
+    {
+      "id": "black_candle",
+      "maxStack": 64
+    },
+    {
+      "id": "black_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "black_concrete",
+      "maxStack": 64
+    },
+    {
+      "id": "black_concrete_powder",
+      "maxStack": 64
+    },
+    {
+      "id": "black_concrete_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "black_concrete_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "black_cushion",
+      "maxStack": 16
+    },
+    {
+      "id": "black_dye",
+      "maxStack": 64
+    },
+    {
+      "id": "black_glazed_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "black_harness",
+      "maxStack": 1
+    },
+    {
+      "id": "black_shulker_box",
+      "maxStack": 1
+    },
+    {
+      "id": "black_stained_glass",
+      "maxStack": 64
+    },
+    {
+      "id": "black_stained_glass_pane",
+      "maxStack": 64
+    },
+    {
+      "id": "black_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "black_wool",
+      "maxStack": 64
+    },
+    {
+      "id": "black_wool_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "black_wool_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "blackstone",
+      "maxStack": 64
+    },
+    {
+      "id": "blackstone_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "blackstone_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "blackstone_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "blade_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "blast_furnace",
+      "maxStack": 64
+    },
+    {
+      "id": "blaze_powder",
+      "maxStack": 64
+    },
+    {
+      "id": "blaze_rod",
+      "maxStack": 64
+    },
+    {
+      "id": "blaze_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "blue_banner",
+      "maxStack": 16
+    },
+    {
+      "id": "blue_bed",
+      "maxStack": 1
+    },
+    {
+      "id": "blue_bundle",
+      "maxStack": 1
+    },
+    {
+      "id": "blue_candle",
+      "maxStack": 64
+    },
+    {
+      "id": "blue_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "blue_concrete",
+      "maxStack": 64
+    },
+    {
+      "id": "blue_concrete_powder",
+      "maxStack": 64
+    },
+    {
+      "id": "blue_concrete_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "blue_concrete_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "blue_cushion",
+      "maxStack": 16
+    },
+    {
+      "id": "blue_dye",
+      "maxStack": 64
+    },
+    {
+      "id": "blue_egg",
+      "maxStack": 16
+    },
+    {
+      "id": "blue_glazed_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "blue_harness",
+      "maxStack": 1
+    },
+    {
+      "id": "blue_ice",
+      "maxStack": 64
+    },
+    {
+      "id": "blue_orchid",
+      "maxStack": 64
+    },
+    {
+      "id": "blue_shulker_box",
+      "maxStack": 1
+    },
+    {
+      "id": "blue_stained_glass",
+      "maxStack": 64
+    },
+    {
+      "id": "blue_stained_glass_pane",
+      "maxStack": 64
+    },
+    {
+      "id": "blue_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "blue_wool",
+      "maxStack": 64
+    },
+    {
+      "id": "blue_wool_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "blue_wool_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "bogged_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "bolt_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "bone",
+      "maxStack": 64
+    },
+    {
+      "id": "bone_block",
+      "maxStack": 64
+    },
+    {
+      "id": "bone_meal",
+      "maxStack": 64
+    },
+    {
+      "id": "book",
+      "maxStack": 64
+    },
+    {
+      "id": "bookshelf",
+      "maxStack": 64
+    },
+    {
+      "id": "bordure_indented_banner_pattern",
+      "maxStack": 1
+    },
+    {
+      "id": "bow",
+      "maxStack": 1
+    },
+    {
+      "id": "bowl",
+      "maxStack": 64
+    },
+    {
+      "id": "brain_coral",
+      "maxStack": 64
+    },
+    {
+      "id": "brain_coral_block",
+      "maxStack": 64
+    },
+    {
+      "id": "brain_coral_fan",
+      "maxStack": 64
+    },
+    {
+      "id": "bread",
+      "maxStack": 64
+    },
+    {
+      "id": "breeze_rod",
+      "maxStack": 64
+    },
+    {
+      "id": "breeze_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "brewer_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "brewing_stand",
+      "maxStack": 64
+    },
+    {
+      "id": "brick",
+      "maxStack": 64
+    },
+    {
+      "id": "brick_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "brick_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "brick_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "brown_banner",
+      "maxStack": 16
+    },
+    {
+      "id": "brown_bed",
+      "maxStack": 1
+    },
+    {
+      "id": "brown_bundle",
+      "maxStack": 1
+    },
+    {
+      "id": "brown_candle",
+      "maxStack": 64
+    },
+    {
+      "id": "brown_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "brown_concrete",
+      "maxStack": 64
+    },
+    {
+      "id": "brown_concrete_powder",
+      "maxStack": 64
+    },
+    {
+      "id": "brown_concrete_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "brown_concrete_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "brown_cushion",
+      "maxStack": 16
+    },
+    {
+      "id": "brown_dye",
+      "maxStack": 64
+    },
+    {
+      "id": "brown_egg",
+      "maxStack": 16
+    },
+    {
+      "id": "brown_glazed_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "brown_harness",
+      "maxStack": 1
+    },
+    {
+      "id": "brown_mushroom",
+      "maxStack": 64
+    },
+    {
+      "id": "brown_mushroom_block",
+      "maxStack": 64
+    },
+    {
+      "id": "brown_shulker_box",
+      "maxStack": 1
+    },
+    {
+      "id": "brown_stained_glass",
+      "maxStack": 64
+    },
+    {
+      "id": "brown_stained_glass_pane",
+      "maxStack": 64
+    },
+    {
+      "id": "brown_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "brown_wool",
+      "maxStack": 64
+    },
+    {
+      "id": "brown_wool_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "brown_wool_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "brush",
+      "maxStack": 1
+    },
+    {
+      "id": "bubble_coral",
+      "maxStack": 64
+    },
+    {
+      "id": "bubble_coral_block",
+      "maxStack": 64
+    },
+    {
+      "id": "bubble_coral_fan",
+      "maxStack": 64
+    },
+    {
+      "id": "bucket",
+      "maxStack": 16
+    },
+    {
+      "id": "budding_amethyst",
+      "maxStack": 64
+    },
+    {
+      "id": "bundle",
+      "maxStack": 1
+    },
+    {
+      "id": "buried_ancient_city_map",
+      "maxStack": 64
+    },
+    {
+      "id": "buried_mineshaft_map",
+      "maxStack": 64
+    },
+    {
+      "id": "buried_treasure_map",
+      "maxStack": 64
+    },
+    {
+      "id": "buried_trial_chambers_map",
+      "maxStack": 64
+    },
+    {
+      "id": "burn_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "bush",
+      "maxStack": 64
+    },
+    {
+      "id": "cactus",
+      "maxStack": 64
+    },
+    {
+      "id": "cactus_flower",
+      "maxStack": 64
+    },
+    {
+      "id": "cake",
+      "maxStack": 1
+    },
+    {
+      "id": "calcite",
+      "maxStack": 64
+    },
+    {
+      "id": "calibrated_sculk_sensor",
+      "maxStack": 64
+    },
+    {
+      "id": "camel_husk_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "camel_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "campfire",
+      "maxStack": 64
+    },
+    {
+      "id": "candle",
+      "maxStack": 64
+    },
+    {
+      "id": "carrot",
+      "maxStack": 64
+    },
+    {
+      "id": "carrot_on_a_stick",
+      "maxStack": 1
+    },
+    {
+      "id": "cartography_table",
+      "maxStack": 64
+    },
+    {
+      "id": "carved_pumpkin",
+      "maxStack": 64
+    },
+    {
+      "id": "cat_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "cauldron",
+      "maxStack": 64
+    },
+    {
+      "id": "cave_spider_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "chain_command_block",
+      "maxStack": 64
+    },
+    {
+      "id": "chainmail_boots",
+      "maxStack": 1
+    },
+    {
+      "id": "chainmail_chestplate",
+      "maxStack": 1
+    },
+    {
+      "id": "chainmail_helmet",
+      "maxStack": 1
+    },
+    {
+      "id": "chainmail_leggings",
+      "maxStack": 1
+    },
+    {
+      "id": "charcoal",
+      "maxStack": 64
+    },
+    {
+      "id": "cherry_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "cherry_button",
+      "maxStack": 64
+    },
+    {
+      "id": "cherry_chest_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "cherry_door",
+      "maxStack": 64
+    },
+    {
+      "id": "cherry_fence",
+      "maxStack": 64
+    },
+    {
+      "id": "cherry_fence_gate",
+      "maxStack": 64
+    },
+    {
+      "id": "cherry_hanging_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "cherry_leaves",
+      "maxStack": 64
+    },
+    {
+      "id": "cherry_log",
+      "maxStack": 64
+    },
+    {
+      "id": "cherry_planks",
+      "maxStack": 64
+    },
+    {
+      "id": "cherry_pressure_plate",
+      "maxStack": 64
+    },
+    {
+      "id": "cherry_sapling",
+      "maxStack": 64
+    },
+    {
+      "id": "cherry_shelf",
+      "maxStack": 64
+    },
+    {
+      "id": "cherry_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "cherry_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "cherry_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "cherry_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "cherry_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "chest",
+      "maxStack": 64
+    },
+    {
+      "id": "chest_minecart",
+      "maxStack": 1
+    },
+    {
+      "id": "chicken",
+      "maxStack": 64
+    },
+    {
+      "id": "chicken_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "chipped_anvil",
+      "maxStack": 64
+    },
+    {
+      "id": "chiseled_bookshelf",
+      "maxStack": 64
+    },
+    {
+      "id": "chiseled_cinnabar",
+      "maxStack": 64
+    },
+    {
+      "id": "chiseled_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "chiseled_deepslate",
+      "maxStack": 64
+    },
+    {
+      "id": "chiseled_nether_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "chiseled_polished_blackstone",
+      "maxStack": 64
+    },
+    {
+      "id": "chiseled_quartz_block",
+      "maxStack": 64
+    },
+    {
+      "id": "chiseled_red_sandstone",
+      "maxStack": 64
+    },
+    {
+      "id": "chiseled_resin_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "chiseled_sandstone",
+      "maxStack": 64
+    },
+    {
+      "id": "chiseled_stone_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "chiseled_sulfur",
+      "maxStack": 64
+    },
+    {
+      "id": "chiseled_tuff",
+      "maxStack": 64
+    },
+    {
+      "id": "chiseled_tuff_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "chorus_flower",
+      "maxStack": 64
+    },
+    {
+      "id": "chorus_fruit",
+      "maxStack": 64
+    },
+    {
+      "id": "chorus_plant",
+      "maxStack": 64
+    },
+    {
+      "id": "cinnabar",
+      "maxStack": 64
+    },
+    {
+      "id": "cinnabar_brick_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "cinnabar_brick_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "cinnabar_brick_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "cinnabar_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "cinnabar_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "cinnabar_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "cinnabar_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "clay",
+      "maxStack": 64
+    },
+    {
+      "id": "clay_ball",
+      "maxStack": 64
+    },
+    {
+      "id": "clock",
+      "maxStack": 64
+    },
+    {
+      "id": "closed_eyeblossom",
+      "maxStack": 64
+    },
+    {
+      "id": "coal",
+      "maxStack": 64
+    },
+    {
+      "id": "coal_block",
+      "maxStack": 64
+    },
+    {
+      "id": "coal_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "coarse_dirt",
+      "maxStack": 64
+    },
+    {
+      "id": "coast_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "cobbled_deepslate",
+      "maxStack": 64
+    },
+    {
+      "id": "cobbled_deepslate_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "cobbled_deepslate_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "cobbled_deepslate_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "cobblestone",
+      "maxStack": 64
+    },
+    {
+      "id": "cobblestone_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "cobblestone_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "cobblestone_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "cobweb",
+      "maxStack": 64
+    },
+    {
+      "id": "cocoa_beans",
+      "maxStack": 64
+    },
+    {
+      "id": "cod",
+      "maxStack": 64
+    },
+    {
+      "id": "cod_bucket",
+      "maxStack": 1
+    },
+    {
+      "id": "cod_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "command_block",
+      "maxStack": 64
+    },
+    {
+      "id": "command_block_minecart",
+      "maxStack": 1
+    },
+    {
+      "id": "comparator",
+      "maxStack": 64
+    },
+    {
+      "id": "compass",
+      "maxStack": 64
+    },
+    {
+      "id": "composter",
+      "maxStack": 64
+    },
+    {
+      "id": "conduit",
+      "maxStack": 64
+    },
+    {
+      "id": "cooked_beef",
+      "maxStack": 64
+    },
+    {
+      "id": "cooked_chicken",
+      "maxStack": 64
+    },
+    {
+      "id": "cooked_cod",
+      "maxStack": 64
+    },
+    {
+      "id": "cooked_mutton",
+      "maxStack": 64
+    },
+    {
+      "id": "cooked_porkchop",
+      "maxStack": 64
+    },
+    {
+      "id": "cooked_rabbit",
+      "maxStack": 64
+    },
+    {
+      "id": "cooked_salmon",
+      "maxStack": 64
+    },
+    {
+      "id": "cookie",
+      "maxStack": 64
+    },
+    {
+      "id": "copper_axe",
+      "maxStack": 1
+    },
+    {
+      "id": "copper_bars",
+      "maxStack": 64
+    },
+    {
+      "id": "copper_block",
+      "maxStack": 64
+    },
+    {
+      "id": "copper_boots",
+      "maxStack": 1
+    },
+    {
+      "id": "copper_bulb",
+      "maxStack": 64
+    },
+    {
+      "id": "copper_chain",
+      "maxStack": 64
+    },
+    {
+      "id": "copper_chest",
+      "maxStack": 64
+    },
+    {
+      "id": "copper_chestplate",
+      "maxStack": 1
+    },
+    {
+      "id": "copper_door",
+      "maxStack": 64
+    },
+    {
+      "id": "copper_golem_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "copper_golem_statue",
+      "maxStack": 64
+    },
+    {
+      "id": "copper_grate",
+      "maxStack": 64
+    },
+    {
+      "id": "copper_helmet",
+      "maxStack": 1
+    },
+    {
+      "id": "copper_hoe",
+      "maxStack": 1
+    },
+    {
+      "id": "copper_horse_armor",
+      "maxStack": 1
+    },
+    {
+      "id": "copper_ingot",
+      "maxStack": 64
+    },
+    {
+      "id": "copper_lantern",
+      "maxStack": 64
+    },
+    {
+      "id": "copper_leggings",
+      "maxStack": 1
+    },
+    {
+      "id": "copper_nautilus_armor",
+      "maxStack": 1
+    },
+    {
+      "id": "copper_nugget",
+      "maxStack": 64
+    },
+    {
+      "id": "copper_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "copper_pickaxe",
+      "maxStack": 1
+    },
+    {
+      "id": "copper_shovel",
+      "maxStack": 1
+    },
+    {
+      "id": "copper_spear",
+      "maxStack": 1
+    },
+    {
+      "id": "copper_sword",
+      "maxStack": 1
+    },
+    {
+      "id": "copper_torch",
+      "maxStack": 64
+    },
+    {
+      "id": "copper_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "cornflower",
+      "maxStack": 64
+    },
+    {
+      "id": "cow_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "cracked_deepslate_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "cracked_deepslate_tiles",
+      "maxStack": 64
+    },
+    {
+      "id": "cracked_nether_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "cracked_polished_blackstone_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "cracked_stone_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "crafter",
+      "maxStack": 64
+    },
+    {
+      "id": "crafting_table",
+      "maxStack": 64
+    },
+    {
+      "id": "creaking_heart",
+      "maxStack": 64
+    },
+    {
+      "id": "creaking_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "creeper_banner_pattern",
+      "maxStack": 1
+    },
+    {
+      "id": "creeper_head",
+      "maxStack": 64
+    },
+    {
+      "id": "creeper_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "crimson_button",
+      "maxStack": 64
+    },
+    {
+      "id": "crimson_door",
+      "maxStack": 64
+    },
+    {
+      "id": "crimson_fence",
+      "maxStack": 64
+    },
+    {
+      "id": "crimson_fence_gate",
+      "maxStack": 64
+    },
+    {
+      "id": "crimson_fungus",
+      "maxStack": 64
+    },
+    {
+      "id": "crimson_hanging_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "crimson_hyphae",
+      "maxStack": 64
+    },
+    {
+      "id": "crimson_nylium",
+      "maxStack": 64
+    },
+    {
+      "id": "crimson_planks",
+      "maxStack": 64
+    },
+    {
+      "id": "crimson_pressure_plate",
+      "maxStack": 64
+    },
+    {
+      "id": "crimson_roots",
+      "maxStack": 64
+    },
+    {
+      "id": "crimson_shelf",
+      "maxStack": 64
+    },
+    {
+      "id": "crimson_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "crimson_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "crimson_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "crimson_stem",
+      "maxStack": 64
+    },
+    {
+      "id": "crimson_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "crossbow",
+      "maxStack": 1
+    },
+    {
+      "id": "crying_obsidian",
+      "maxStack": 64
+    },
+    {
+      "id": "cut_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "cut_copper_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "cut_copper_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "cut_red_sandstone",
+      "maxStack": 64
+    },
+    {
+      "id": "cut_red_sandstone_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "cut_sandstone",
+      "maxStack": 64
+    },
+    {
+      "id": "cut_sandstone_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "cyan_banner",
+      "maxStack": 16
+    },
+    {
+      "id": "cyan_bed",
+      "maxStack": 1
+    },
+    {
+      "id": "cyan_bundle",
+      "maxStack": 1
+    },
+    {
+      "id": "cyan_candle",
+      "maxStack": 64
+    },
+    {
+      "id": "cyan_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "cyan_concrete",
+      "maxStack": 64
+    },
+    {
+      "id": "cyan_concrete_powder",
+      "maxStack": 64
+    },
+    {
+      "id": "cyan_concrete_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "cyan_concrete_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "cyan_cushion",
+      "maxStack": 16
+    },
+    {
+      "id": "cyan_dye",
+      "maxStack": 64
+    },
+    {
+      "id": "cyan_glazed_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "cyan_harness",
+      "maxStack": 1
+    },
+    {
+      "id": "cyan_shulker_box",
+      "maxStack": 1
+    },
+    {
+      "id": "cyan_stained_glass",
+      "maxStack": 64
+    },
+    {
+      "id": "cyan_stained_glass_pane",
+      "maxStack": 64
+    },
+    {
+      "id": "cyan_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "cyan_wool",
+      "maxStack": 64
+    },
+    {
+      "id": "cyan_wool_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "cyan_wool_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "damaged_anvil",
+      "maxStack": 64
+    },
+    {
+      "id": "dandelion",
+      "maxStack": 64
+    },
+    {
+      "id": "danger_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "dark_oak_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "dark_oak_button",
+      "maxStack": 64
+    },
+    {
+      "id": "dark_oak_chest_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "dark_oak_door",
+      "maxStack": 64
+    },
+    {
+      "id": "dark_oak_fence",
+      "maxStack": 64
+    },
+    {
+      "id": "dark_oak_fence_gate",
+      "maxStack": 64
+    },
+    {
+      "id": "dark_oak_hanging_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "dark_oak_leaves",
+      "maxStack": 64
+    },
+    {
+      "id": "dark_oak_log",
+      "maxStack": 64
+    },
+    {
+      "id": "dark_oak_planks",
+      "maxStack": 64
+    },
+    {
+      "id": "dark_oak_pressure_plate",
+      "maxStack": 64
+    },
+    {
+      "id": "dark_oak_sapling",
+      "maxStack": 64
+    },
+    {
+      "id": "dark_oak_shelf",
+      "maxStack": 64
+    },
+    {
+      "id": "dark_oak_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "dark_oak_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "dark_oak_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "dark_oak_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "dark_oak_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "dark_prismarine",
+      "maxStack": 64
+    },
+    {
+      "id": "dark_prismarine_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "dark_prismarine_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "daylight_detector",
+      "maxStack": 64
+    },
+    {
+      "id": "dead_brain_coral",
+      "maxStack": 64
+    },
+    {
+      "id": "dead_brain_coral_block",
+      "maxStack": 64
+    },
+    {
+      "id": "dead_brain_coral_fan",
+      "maxStack": 64
+    },
+    {
+      "id": "dead_bubble_coral",
+      "maxStack": 64
+    },
+    {
+      "id": "dead_bubble_coral_block",
+      "maxStack": 64
+    },
+    {
+      "id": "dead_bubble_coral_fan",
+      "maxStack": 64
+    },
+    {
+      "id": "dead_bush",
+      "maxStack": 64
+    },
+    {
+      "id": "dead_fire_coral",
+      "maxStack": 64
+    },
+    {
+      "id": "dead_fire_coral_block",
+      "maxStack": 64
+    },
+    {
+      "id": "dead_fire_coral_fan",
+      "maxStack": 64
+    },
+    {
+      "id": "dead_horn_coral",
+      "maxStack": 64
+    },
+    {
+      "id": "dead_horn_coral_block",
+      "maxStack": 64
+    },
+    {
+      "id": "dead_horn_coral_fan",
+      "maxStack": 64
+    },
+    {
+      "id": "dead_tube_coral",
+      "maxStack": 64
+    },
+    {
+      "id": "dead_tube_coral_block",
+      "maxStack": 64
+    },
+    {
+      "id": "dead_tube_coral_fan",
+      "maxStack": 64
+    },
+    {
+      "id": "debug_stick",
+      "maxStack": 1
+    },
+    {
+      "id": "decorated_pot",
+      "maxStack": 64
+    },
+    {
+      "id": "deepslate",
+      "maxStack": 64
+    },
+    {
+      "id": "deepslate_brick_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "deepslate_brick_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "deepslate_brick_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "deepslate_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "deepslate_coal_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "deepslate_copper_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "deepslate_diamond_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "deepslate_emerald_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "deepslate_gold_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "deepslate_iron_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "deepslate_lapis_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "deepslate_redstone_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "deepslate_tile_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "deepslate_tile_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "deepslate_tile_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "deepslate_tiles",
+      "maxStack": 64
+    },
+    {
+      "id": "desert_pyramid_map",
+      "maxStack": 64
+    },
+    {
+      "id": "desert_village_map",
+      "maxStack": 64
+    },
+    {
+      "id": "detector_rail",
+      "maxStack": 64
+    },
+    {
+      "id": "diamond",
+      "maxStack": 64
+    },
+    {
+      "id": "diamond_axe",
+      "maxStack": 1
+    },
+    {
+      "id": "diamond_block",
+      "maxStack": 64
+    },
+    {
+      "id": "diamond_boots",
+      "maxStack": 1
+    },
+    {
+      "id": "diamond_chestplate",
+      "maxStack": 1
+    },
+    {
+      "id": "diamond_helmet",
+      "maxStack": 1
+    },
+    {
+      "id": "diamond_hoe",
+      "maxStack": 1
+    },
+    {
+      "id": "diamond_horse_armor",
+      "maxStack": 1
+    },
+    {
+      "id": "diamond_leggings",
+      "maxStack": 1
+    },
+    {
+      "id": "diamond_nautilus_armor",
+      "maxStack": 1
+    },
+    {
+      "id": "diamond_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "diamond_pickaxe",
+      "maxStack": 1
+    },
+    {
+      "id": "diamond_shovel",
+      "maxStack": 1
+    },
+    {
+      "id": "diamond_spear",
+      "maxStack": 1
+    },
+    {
+      "id": "diamond_sword",
+      "maxStack": 1
+    },
+    {
+      "id": "diorite",
+      "maxStack": 64
+    },
+    {
+      "id": "diorite_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "diorite_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "diorite_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "dirt",
+      "maxStack": 64
+    },
+    {
+      "id": "dirt_path",
+      "maxStack": 64
+    },
+    {
+      "id": "disc_fragment_5",
+      "maxStack": 64
+    },
+    {
+      "id": "dispenser",
+      "maxStack": 64
+    },
+    {
+      "id": "dolphin_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "donkey_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "dragon_breath",
+      "maxStack": 64
+    },
+    {
+      "id": "dragon_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "dragon_head",
+      "maxStack": 64
+    },
+    {
+      "id": "dried_ghast",
+      "maxStack": 64
+    },
+    {
+      "id": "dried_kelp",
+      "maxStack": 64
+    },
+    {
+      "id": "dried_kelp_block",
+      "maxStack": 64
+    },
+    {
+      "id": "dripstone_block",
+      "maxStack": 64
+    },
+    {
+      "id": "dropper",
+      "maxStack": 64
+    },
+    {
+      "id": "drowned_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "dune_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "echo_shard",
+      "maxStack": 64
+    },
+    {
+      "id": "egg",
+      "maxStack": 16
+    },
+    {
+      "id": "elder_guardian_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "elytra",
+      "maxStack": 1
+    },
+    {
+      "id": "emerald",
+      "maxStack": 64
+    },
+    {
+      "id": "emerald_block",
+      "maxStack": 64
+    },
+    {
+      "id": "emerald_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "enchanted_book",
+      "maxStack": 1
+    },
+    {
+      "id": "enchanted_golden_apple",
+      "maxStack": 64
+    },
+    {
+      "id": "enchanting_table",
+      "maxStack": 64
+    },
+    {
+      "id": "end_crystal",
+      "maxStack": 64
+    },
+    {
+      "id": "end_portal_frame",
+      "maxStack": 64
+    },
+    {
+      "id": "end_rod",
+      "maxStack": 64
+    },
+    {
+      "id": "end_stone",
+      "maxStack": 64
+    },
+    {
+      "id": "end_stone_brick_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "end_stone_brick_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "end_stone_brick_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "end_stone_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "ender_chest",
+      "maxStack": 64
+    },
+    {
+      "id": "ender_dragon_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "ender_eye",
+      "maxStack": 64
+    },
+    {
+      "id": "ender_pearl",
+      "maxStack": 16
+    },
+    {
+      "id": "enderman_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "endermite_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "evoker_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "experience_bottle",
+      "maxStack": 64
+    },
+    {
+      "id": "explorer_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "exposed_chiseled_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "exposed_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "exposed_copper_bars",
+      "maxStack": 64
+    },
+    {
+      "id": "exposed_copper_bulb",
+      "maxStack": 64
+    },
+    {
+      "id": "exposed_copper_chain",
+      "maxStack": 64
+    },
+    {
+      "id": "exposed_copper_chest",
+      "maxStack": 64
+    },
+    {
+      "id": "exposed_copper_door",
+      "maxStack": 64
+    },
+    {
+      "id": "exposed_copper_golem_statue",
+      "maxStack": 64
+    },
+    {
+      "id": "exposed_copper_grate",
+      "maxStack": 64
+    },
+    {
+      "id": "exposed_copper_lantern",
+      "maxStack": 64
+    },
+    {
+      "id": "exposed_copper_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "exposed_cut_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "exposed_cut_copper_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "exposed_cut_copper_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "exposed_lightning_rod",
+      "maxStack": 64
+    },
+    {
+      "id": "eye_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "farmland",
+      "maxStack": 64
+    },
+    {
+      "id": "feather",
+      "maxStack": 64
+    },
+    {
+      "id": "fermented_spider_eye",
+      "maxStack": 64
+    },
+    {
+      "id": "fern",
+      "maxStack": 64
+    },
+    {
+      "id": "field_masoned_banner_pattern",
+      "maxStack": 1
+    },
+    {
+      "id": "filled_map",
+      "maxStack": 64
+    },
+    {
+      "id": "fire_charge",
+      "maxStack": 64
+    },
+    {
+      "id": "fire_coral",
+      "maxStack": 64
+    },
+    {
+      "id": "fire_coral_block",
+      "maxStack": 64
+    },
+    {
+      "id": "fire_coral_fan",
+      "maxStack": 64
+    },
+    {
+      "id": "firefly_bush",
+      "maxStack": 64
+    },
+    {
+      "id": "firework_rocket",
+      "maxStack": 64
+    },
+    {
+      "id": "firework_star",
+      "maxStack": 64
+    },
+    {
+      "id": "fishing_rod",
+      "maxStack": 1
+    },
+    {
+      "id": "fletching_table",
+      "maxStack": 64
+    },
+    {
+      "id": "flint",
+      "maxStack": 64
+    },
+    {
+      "id": "flint_and_steel",
+      "maxStack": 1
+    },
+    {
+      "id": "flow_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "flow_banner_pattern",
+      "maxStack": 1
+    },
+    {
+      "id": "flow_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "flower_banner_pattern",
+      "maxStack": 1
+    },
+    {
+      "id": "flower_pot",
+      "maxStack": 64
+    },
+    {
+      "id": "flowering_azalea",
+      "maxStack": 64
+    },
+    {
+      "id": "flowering_azalea_leaves",
+      "maxStack": 64
+    },
+    {
+      "id": "fox_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "friend_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "frog_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "frogspawn",
+      "maxStack": 64
+    },
+    {
+      "id": "furnace",
+      "maxStack": 64
+    },
+    {
+      "id": "furnace_minecart",
+      "maxStack": 1
+    },
+    {
+      "id": "ghast_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "ghast_tear",
+      "maxStack": 64
+    },
+    {
+      "id": "gilded_blackstone",
+      "maxStack": 64
+    },
+    {
+      "id": "glass",
+      "maxStack": 64
+    },
+    {
+      "id": "glass_bottle",
+      "maxStack": 64
+    },
+    {
+      "id": "glass_pane",
+      "maxStack": 64
+    },
+    {
+      "id": "glistering_melon_slice",
+      "maxStack": 64
+    },
+    {
+      "id": "globe_banner_pattern",
+      "maxStack": 1
+    },
+    {
+      "id": "glow_berries",
+      "maxStack": 64
+    },
+    {
+      "id": "glow_ink_sac",
+      "maxStack": 64
+    },
+    {
+      "id": "glow_item_frame",
+      "maxStack": 64
+    },
+    {
+      "id": "glow_lichen",
+      "maxStack": 64
+    },
+    {
+      "id": "glow_squid_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "glowstone",
+      "maxStack": 64
+    },
+    {
+      "id": "glowstone_dust",
+      "maxStack": 64
+    },
+    {
+      "id": "goat_horn",
+      "maxStack": 1
+    },
+    {
+      "id": "goat_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "gold_block",
+      "maxStack": 64
+    },
+    {
+      "id": "gold_ingot",
+      "maxStack": 64
+    },
+    {
+      "id": "gold_nugget",
+      "maxStack": 64
+    },
+    {
+      "id": "gold_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "golden_apple",
+      "maxStack": 64
+    },
+    {
+      "id": "golden_axe",
+      "maxStack": 1
+    },
+    {
+      "id": "golden_boots",
+      "maxStack": 1
+    },
+    {
+      "id": "golden_carrot",
+      "maxStack": 64
+    },
+    {
+      "id": "golden_chestplate",
+      "maxStack": 1
+    },
+    {
+      "id": "golden_dandelion",
+      "maxStack": 64
+    },
+    {
+      "id": "golden_helmet",
+      "maxStack": 1
+    },
+    {
+      "id": "golden_hoe",
+      "maxStack": 1
+    },
+    {
+      "id": "golden_horse_armor",
+      "maxStack": 1
+    },
+    {
+      "id": "golden_leggings",
+      "maxStack": 1
+    },
+    {
+      "id": "golden_nautilus_armor",
+      "maxStack": 1
+    },
+    {
+      "id": "golden_pickaxe",
+      "maxStack": 1
+    },
+    {
+      "id": "golden_shovel",
+      "maxStack": 1
+    },
+    {
+      "id": "golden_spear",
+      "maxStack": 1
+    },
+    {
+      "id": "golden_sword",
+      "maxStack": 1
+    },
+    {
+      "id": "granite",
+      "maxStack": 64
+    },
+    {
+      "id": "granite_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "granite_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "granite_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "grass_block",
+      "maxStack": 64
+    },
+    {
+      "id": "gravel",
+      "maxStack": 64
+    },
+    {
+      "id": "gray_banner",
+      "maxStack": 16
+    },
+    {
+      "id": "gray_bed",
+      "maxStack": 1
+    },
+    {
+      "id": "gray_bundle",
+      "maxStack": 1
+    },
+    {
+      "id": "gray_candle",
+      "maxStack": 64
+    },
+    {
+      "id": "gray_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "gray_concrete",
+      "maxStack": 64
+    },
+    {
+      "id": "gray_concrete_powder",
+      "maxStack": 64
+    },
+    {
+      "id": "gray_concrete_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "gray_concrete_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "gray_cushion",
+      "maxStack": 16
+    },
+    {
+      "id": "gray_dye",
+      "maxStack": 64
+    },
+    {
+      "id": "gray_glazed_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "gray_harness",
+      "maxStack": 1
+    },
+    {
+      "id": "gray_shulker_box",
+      "maxStack": 1
+    },
+    {
+      "id": "gray_stained_glass",
+      "maxStack": 64
+    },
+    {
+      "id": "gray_stained_glass_pane",
+      "maxStack": 64
+    },
+    {
+      "id": "gray_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "gray_wool",
+      "maxStack": 64
+    },
+    {
+      "id": "gray_wool_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "gray_wool_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "green_banner",
+      "maxStack": 16
+    },
+    {
+      "id": "green_bed",
+      "maxStack": 1
+    },
+    {
+      "id": "green_bundle",
+      "maxStack": 1
+    },
+    {
+      "id": "green_candle",
+      "maxStack": 64
+    },
+    {
+      "id": "green_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "green_concrete",
+      "maxStack": 64
+    },
+    {
+      "id": "green_concrete_powder",
+      "maxStack": 64
+    },
+    {
+      "id": "green_concrete_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "green_concrete_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "green_cushion",
+      "maxStack": 16
+    },
+    {
+      "id": "green_dye",
+      "maxStack": 64
+    },
+    {
+      "id": "green_glazed_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "green_harness",
+      "maxStack": 1
+    },
+    {
+      "id": "green_shulker_box",
+      "maxStack": 1
+    },
+    {
+      "id": "green_stained_glass",
+      "maxStack": 64
+    },
+    {
+      "id": "green_stained_glass_pane",
+      "maxStack": 64
+    },
+    {
+      "id": "green_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "green_wool",
+      "maxStack": 64
+    },
+    {
+      "id": "green_wool_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "green_wool_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "grindstone",
+      "maxStack": 64
+    },
+    {
+      "id": "guardian_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "gunpowder",
+      "maxStack": 64
+    },
+    {
+      "id": "guster_banner_pattern",
+      "maxStack": 1
+    },
+    {
+      "id": "guster_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "hanging_roots",
+      "maxStack": 64
+    },
+    {
+      "id": "happy_ghast_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "hay_block",
+      "maxStack": 64
+    },
+    {
+      "id": "heart_of_the_sea",
+      "maxStack": 64
+    },
+    {
+      "id": "heart_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "heartbreak_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "heavy_core",
+      "maxStack": 64
+    },
+    {
+      "id": "heavy_weighted_pressure_plate",
+      "maxStack": 64
+    },
+    {
+      "id": "hoglin_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "honey_block",
+      "maxStack": 64
+    },
+    {
+      "id": "honey_bottle",
+      "maxStack": 16
+    },
+    {
+      "id": "honeycomb",
+      "maxStack": 64
+    },
+    {
+      "id": "honeycomb_block",
+      "maxStack": 64
+    },
+    {
+      "id": "hopper",
+      "maxStack": 64
+    },
+    {
+      "id": "hopper_minecart",
+      "maxStack": 1
+    },
+    {
+      "id": "horn_coral",
+      "maxStack": 64
+    },
+    {
+      "id": "horn_coral_block",
+      "maxStack": 64
+    },
+    {
+      "id": "horn_coral_fan",
+      "maxStack": 64
+    },
+    {
+      "id": "horse_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "host_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "howl_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "husk_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "ice",
+      "maxStack": 64
+    },
+    {
+      "id": "infested_chiseled_stone_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "infested_cobblestone",
+      "maxStack": 64
+    },
+    {
+      "id": "infested_cracked_stone_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "infested_deepslate",
+      "maxStack": 64
+    },
+    {
+      "id": "infested_mossy_stone_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "infested_stone",
+      "maxStack": 64
+    },
+    {
+      "id": "infested_stone_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "ink_sac",
+      "maxStack": 64
+    },
+    {
+      "id": "iron_axe",
+      "maxStack": 1
+    },
+    {
+      "id": "iron_bars",
+      "maxStack": 64
+    },
+    {
+      "id": "iron_block",
+      "maxStack": 64
+    },
+    {
+      "id": "iron_boots",
+      "maxStack": 1
+    },
+    {
+      "id": "iron_chain",
+      "maxStack": 64
+    },
+    {
+      "id": "iron_chestplate",
+      "maxStack": 1
+    },
+    {
+      "id": "iron_door",
+      "maxStack": 64
+    },
+    {
+      "id": "iron_golem_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "iron_helmet",
+      "maxStack": 1
+    },
+    {
+      "id": "iron_hoe",
+      "maxStack": 1
+    },
+    {
+      "id": "iron_horse_armor",
+      "maxStack": 1
+    },
+    {
+      "id": "iron_ingot",
+      "maxStack": 64
+    },
+    {
+      "id": "iron_leggings",
+      "maxStack": 1
+    },
+    {
+      "id": "iron_nautilus_armor",
+      "maxStack": 1
+    },
+    {
+      "id": "iron_nugget",
+      "maxStack": 64
+    },
+    {
+      "id": "iron_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "iron_pickaxe",
+      "maxStack": 1
+    },
+    {
+      "id": "iron_shovel",
+      "maxStack": 1
+    },
+    {
+      "id": "iron_spear",
+      "maxStack": 1
+    },
+    {
+      "id": "iron_sword",
+      "maxStack": 1
+    },
+    {
+      "id": "iron_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "item_frame",
+      "maxStack": 64
+    },
+    {
+      "id": "jack_o_lantern",
+      "maxStack": 64
+    },
+    {
+      "id": "jigsaw",
+      "maxStack": 64
+    },
+    {
+      "id": "jukebox",
+      "maxStack": 64
+    },
+    {
+      "id": "jungle_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "jungle_button",
+      "maxStack": 64
+    },
+    {
+      "id": "jungle_chest_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "jungle_door",
+      "maxStack": 64
+    },
+    {
+      "id": "jungle_fence",
+      "maxStack": 64
+    },
+    {
+      "id": "jungle_fence_gate",
+      "maxStack": 64
+    },
+    {
+      "id": "jungle_hanging_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "jungle_leaves",
+      "maxStack": 64
+    },
+    {
+      "id": "jungle_log",
+      "maxStack": 64
+    },
+    {
+      "id": "jungle_planks",
+      "maxStack": 64
+    },
+    {
+      "id": "jungle_pressure_plate",
+      "maxStack": 64
+    },
+    {
+      "id": "jungle_pyramid_map",
+      "maxStack": 64
+    },
+    {
+      "id": "jungle_sapling",
+      "maxStack": 64
+    },
+    {
+      "id": "jungle_shelf",
+      "maxStack": 64
+    },
+    {
+      "id": "jungle_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "jungle_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "jungle_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "jungle_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "jungle_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "kelp",
+      "maxStack": 64
+    },
+    {
+      "id": "knowledge_book",
+      "maxStack": 1
+    },
+    {
+      "id": "ladder",
+      "maxStack": 64
+    },
+    {
+      "id": "lantern",
+      "maxStack": 64
+    },
+    {
+      "id": "lapis_block",
+      "maxStack": 64
+    },
+    {
+      "id": "lapis_lazuli",
+      "maxStack": 64
+    },
+    {
+      "id": "lapis_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "large_amethyst_bud",
+      "maxStack": 64
+    },
+    {
+      "id": "large_fern",
+      "maxStack": 64
+    },
+    {
+      "id": "lava_bucket",
+      "maxStack": 1
+    },
+    {
+      "id": "lead",
+      "maxStack": 64
+    },
+    {
+      "id": "leaf_litter",
+      "maxStack": 64
+    },
+    {
+      "id": "leather",
+      "maxStack": 64
+    },
+    {
+      "id": "leather_boots",
+      "maxStack": 1
+    },
+    {
+      "id": "leather_chestplate",
+      "maxStack": 1
+    },
+    {
+      "id": "leather_helmet",
+      "maxStack": 1
+    },
+    {
+      "id": "leather_horse_armor",
+      "maxStack": 1
+    },
+    {
+      "id": "leather_leggings",
+      "maxStack": 1
+    },
+    {
+      "id": "lectern",
+      "maxStack": 64
+    },
+    {
+      "id": "lever",
+      "maxStack": 64
+    },
+    {
+      "id": "light",
+      "maxStack": 64
+    },
+    {
+      "id": "light_blue_banner",
+      "maxStack": 16
+    },
+    {
+      "id": "light_blue_bed",
+      "maxStack": 1
+    },
+    {
+      "id": "light_blue_bundle",
+      "maxStack": 1
+    },
+    {
+      "id": "light_blue_candle",
+      "maxStack": 64
+    },
+    {
+      "id": "light_blue_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "light_blue_concrete",
+      "maxStack": 64
+    },
+    {
+      "id": "light_blue_concrete_powder",
+      "maxStack": 64
+    },
+    {
+      "id": "light_blue_concrete_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "light_blue_concrete_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "light_blue_cushion",
+      "maxStack": 16
+    },
+    {
+      "id": "light_blue_dye",
+      "maxStack": 64
+    },
+    {
+      "id": "light_blue_glazed_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "light_blue_harness",
+      "maxStack": 1
+    },
+    {
+      "id": "light_blue_shulker_box",
+      "maxStack": 1
+    },
+    {
+      "id": "light_blue_stained_glass",
+      "maxStack": 64
+    },
+    {
+      "id": "light_blue_stained_glass_pane",
+      "maxStack": 64
+    },
+    {
+      "id": "light_blue_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "light_blue_wool",
+      "maxStack": 64
+    },
+    {
+      "id": "light_blue_wool_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "light_blue_wool_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "light_gray_banner",
+      "maxStack": 16
+    },
+    {
+      "id": "light_gray_bed",
+      "maxStack": 1
+    },
+    {
+      "id": "light_gray_bundle",
+      "maxStack": 1
+    },
+    {
+      "id": "light_gray_candle",
+      "maxStack": 64
+    },
+    {
+      "id": "light_gray_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "light_gray_concrete",
+      "maxStack": 64
+    },
+    {
+      "id": "light_gray_concrete_powder",
+      "maxStack": 64
+    },
+    {
+      "id": "light_gray_concrete_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "light_gray_concrete_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "light_gray_cushion",
+      "maxStack": 16
+    },
+    {
+      "id": "light_gray_dye",
+      "maxStack": 64
+    },
+    {
+      "id": "light_gray_glazed_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "light_gray_harness",
+      "maxStack": 1
+    },
+    {
+      "id": "light_gray_shulker_box",
+      "maxStack": 1
+    },
+    {
+      "id": "light_gray_stained_glass",
+      "maxStack": 64
+    },
+    {
+      "id": "light_gray_stained_glass_pane",
+      "maxStack": 64
+    },
+    {
+      "id": "light_gray_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "light_gray_wool",
+      "maxStack": 64
+    },
+    {
+      "id": "light_gray_wool_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "light_gray_wool_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "light_weighted_pressure_plate",
+      "maxStack": 64
+    },
+    {
+      "id": "lightning_rod",
+      "maxStack": 64
+    },
+    {
+      "id": "lilac",
+      "maxStack": 64
+    },
+    {
+      "id": "lily_of_the_valley",
+      "maxStack": 64
+    },
+    {
+      "id": "lily_pad",
+      "maxStack": 64
+    },
+    {
+      "id": "lime_banner",
+      "maxStack": 16
+    },
+    {
+      "id": "lime_bed",
+      "maxStack": 1
+    },
+    {
+      "id": "lime_bundle",
+      "maxStack": 1
+    },
+    {
+      "id": "lime_candle",
+      "maxStack": 64
+    },
+    {
+      "id": "lime_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "lime_concrete",
+      "maxStack": 64
+    },
+    {
+      "id": "lime_concrete_powder",
+      "maxStack": 64
+    },
+    {
+      "id": "lime_concrete_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "lime_concrete_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "lime_cushion",
+      "maxStack": 16
+    },
+    {
+      "id": "lime_dye",
+      "maxStack": 64
+    },
+    {
+      "id": "lime_glazed_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "lime_harness",
+      "maxStack": 1
+    },
+    {
+      "id": "lime_shulker_box",
+      "maxStack": 1
+    },
+    {
+      "id": "lime_stained_glass",
+      "maxStack": 64
+    },
+    {
+      "id": "lime_stained_glass_pane",
+      "maxStack": 64
+    },
+    {
+      "id": "lime_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "lime_wool",
+      "maxStack": 64
+    },
+    {
+      "id": "lime_wool_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "lime_wool_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "lingering_potion",
+      "maxStack": 1
+    },
+    {
+      "id": "llama_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "lodestone",
+      "maxStack": 64
+    },
+    {
+      "id": "loom",
+      "maxStack": 64
+    },
+    {
+      "id": "mace",
+      "maxStack": 1
+    },
+    {
+      "id": "magenta_banner",
+      "maxStack": 16
+    },
+    {
+      "id": "magenta_bed",
+      "maxStack": 1
+    },
+    {
+      "id": "magenta_bundle",
+      "maxStack": 1
+    },
+    {
+      "id": "magenta_candle",
+      "maxStack": 64
+    },
+    {
+      "id": "magenta_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "magenta_concrete",
+      "maxStack": 64
+    },
+    {
+      "id": "magenta_concrete_powder",
+      "maxStack": 64
+    },
+    {
+      "id": "magenta_concrete_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "magenta_concrete_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "magenta_cushion",
+      "maxStack": 16
+    },
+    {
+      "id": "magenta_dye",
+      "maxStack": 64
+    },
+    {
+      "id": "magenta_glazed_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "magenta_harness",
+      "maxStack": 1
+    },
+    {
+      "id": "magenta_shulker_box",
+      "maxStack": 1
+    },
+    {
+      "id": "magenta_stained_glass",
+      "maxStack": 64
+    },
+    {
+      "id": "magenta_stained_glass_pane",
+      "maxStack": 64
+    },
+    {
+      "id": "magenta_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "magenta_wool",
+      "maxStack": 64
+    },
+    {
+      "id": "magenta_wool_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "magenta_wool_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "magma_block",
+      "maxStack": 64
+    },
+    {
+      "id": "magma_cream",
+      "maxStack": 64
+    },
+    {
+      "id": "magma_cube_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "mangrove_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "mangrove_button",
+      "maxStack": 64
+    },
+    {
+      "id": "mangrove_chest_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "mangrove_door",
+      "maxStack": 64
+    },
+    {
+      "id": "mangrove_fence",
+      "maxStack": 64
+    },
+    {
+      "id": "mangrove_fence_gate",
+      "maxStack": 64
+    },
+    {
+      "id": "mangrove_hanging_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "mangrove_leaves",
+      "maxStack": 64
+    },
+    {
+      "id": "mangrove_log",
+      "maxStack": 64
+    },
+    {
+      "id": "mangrove_planks",
+      "maxStack": 64
+    },
+    {
+      "id": "mangrove_pressure_plate",
+      "maxStack": 64
+    },
+    {
+      "id": "mangrove_propagule",
+      "maxStack": 64
+    },
+    {
+      "id": "mangrove_roots",
+      "maxStack": 64
+    },
+    {
+      "id": "mangrove_shelf",
+      "maxStack": 64
+    },
+    {
+      "id": "mangrove_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "mangrove_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "mangrove_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "mangrove_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "mangrove_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "map",
+      "maxStack": 64
+    },
+    {
+      "id": "medium_amethyst_bud",
+      "maxStack": 64
+    },
+    {
+      "id": "melon",
+      "maxStack": 64
+    },
+    {
+      "id": "melon_seeds",
+      "maxStack": 64
+    },
+    {
+      "id": "melon_slice",
+      "maxStack": 64
+    },
+    {
+      "id": "milk_bucket",
+      "maxStack": 1
+    },
+    {
+      "id": "minecart",
+      "maxStack": 1
+    },
+    {
+      "id": "miner_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "mojang_banner_pattern",
+      "maxStack": 1
+    },
+    {
+      "id": "mooshroom_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "moss_block",
+      "maxStack": 64
+    },
+    {
+      "id": "moss_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "mossy_cobblestone",
+      "maxStack": 64
+    },
+    {
+      "id": "mossy_cobblestone_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "mossy_cobblestone_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "mossy_cobblestone_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "mossy_stone_brick_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "mossy_stone_brick_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "mossy_stone_brick_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "mossy_stone_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "mourner_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "mud",
+      "maxStack": 64
+    },
+    {
+      "id": "mud_brick_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "mud_brick_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "mud_brick_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "mud_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "muddy_mangrove_roots",
+      "maxStack": 64
+    },
+    {
+      "id": "mule_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "mushroom_stem",
+      "maxStack": 64
+    },
+    {
+      "id": "mushroom_stew",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_11",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_13",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_5",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_blocks",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_bounce",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_cat",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_chirp",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_creator",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_creator_music_box",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_far",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_lava_chicken",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_mall",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_mellohi",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_otherside",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_pigstep",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_precipice",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_relic",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_stal",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_strad",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_tears",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_wait",
+      "maxStack": 1
+    },
+    {
+      "id": "music_disc_ward",
+      "maxStack": 1
+    },
+    {
+      "id": "mutton",
+      "maxStack": 64
+    },
+    {
+      "id": "mycelium",
+      "maxStack": 64
+    },
+    {
+      "id": "name_tag",
+      "maxStack": 64
+    },
+    {
+      "id": "nautilus_shell",
+      "maxStack": 64
+    },
+    {
+      "id": "nautilus_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "nether_brick",
+      "maxStack": 64
+    },
+    {
+      "id": "nether_brick_fence",
+      "maxStack": 64
+    },
+    {
+      "id": "nether_brick_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "nether_brick_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "nether_brick_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "nether_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "nether_gold_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "nether_quartz_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "nether_sprouts",
+      "maxStack": 64
+    },
+    {
+      "id": "nether_star",
+      "maxStack": 64
+    },
+    {
+      "id": "nether_wart",
+      "maxStack": 64
+    },
+    {
+      "id": "nether_wart_block",
+      "maxStack": 64
+    },
+    {
+      "id": "netherite_axe",
+      "maxStack": 1
+    },
+    {
+      "id": "netherite_block",
+      "maxStack": 64
+    },
+    {
+      "id": "netherite_boots",
+      "maxStack": 1
+    },
+    {
+      "id": "netherite_chestplate",
+      "maxStack": 1
+    },
+    {
+      "id": "netherite_helmet",
+      "maxStack": 1
+    },
+    {
+      "id": "netherite_hoe",
+      "maxStack": 1
+    },
+    {
+      "id": "netherite_horse_armor",
+      "maxStack": 1
+    },
+    {
+      "id": "netherite_ingot",
+      "maxStack": 64
+    },
+    {
+      "id": "netherite_leggings",
+      "maxStack": 1
+    },
+    {
+      "id": "netherite_nautilus_armor",
+      "maxStack": 1
+    },
+    {
+      "id": "netherite_pickaxe",
+      "maxStack": 1
+    },
+    {
+      "id": "netherite_scrap",
+      "maxStack": 64
+    },
+    {
+      "id": "netherite_shovel",
+      "maxStack": 1
+    },
+    {
+      "id": "netherite_spear",
+      "maxStack": 1
+    },
+    {
+      "id": "netherite_sword",
+      "maxStack": 1
+    },
+    {
+      "id": "netherite_upgrade_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "netherrack",
+      "maxStack": 64
+    },
+    {
+      "id": "note_block",
+      "maxStack": 64
+    },
+    {
+      "id": "oak_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "oak_button",
+      "maxStack": 64
+    },
+    {
+      "id": "oak_chest_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "oak_door",
+      "maxStack": 64
+    },
+    {
+      "id": "oak_fence",
+      "maxStack": 64
+    },
+    {
+      "id": "oak_fence_gate",
+      "maxStack": 64
+    },
+    {
+      "id": "oak_hanging_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "oak_leaves",
+      "maxStack": 64
+    },
+    {
+      "id": "oak_log",
+      "maxStack": 64
+    },
+    {
+      "id": "oak_planks",
+      "maxStack": 64
+    },
+    {
+      "id": "oak_pressure_plate",
+      "maxStack": 64
+    },
+    {
+      "id": "oak_sapling",
+      "maxStack": 64
+    },
+    {
+      "id": "oak_shelf",
+      "maxStack": 64
+    },
+    {
+      "id": "oak_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "oak_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "oak_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "oak_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "oak_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "observer",
+      "maxStack": 64
+    },
+    {
+      "id": "obsidian",
+      "maxStack": 64
+    },
+    {
+      "id": "ocean_monument_map",
+      "maxStack": 64
+    },
+    {
+      "id": "ocelot_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "ochre_froglight",
+      "maxStack": 64
+    },
+    {
+      "id": "ominous_bottle",
+      "maxStack": 64
+    },
+    {
+      "id": "ominous_trial_key",
+      "maxStack": 64
+    },
+    {
+      "id": "open_eyeblossom",
+      "maxStack": 64
+    },
+    {
+      "id": "orange_banner",
+      "maxStack": 16
+    },
+    {
+      "id": "orange_bed",
+      "maxStack": 1
+    },
+    {
+      "id": "orange_bundle",
+      "maxStack": 1
+    },
+    {
+      "id": "orange_candle",
+      "maxStack": 64
+    },
+    {
+      "id": "orange_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "orange_concrete",
+      "maxStack": 64
+    },
+    {
+      "id": "orange_concrete_powder",
+      "maxStack": 64
+    },
+    {
+      "id": "orange_concrete_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "orange_concrete_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "orange_cushion",
+      "maxStack": 16
+    },
+    {
+      "id": "orange_dye",
+      "maxStack": 64
+    },
+    {
+      "id": "orange_glazed_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "orange_harness",
+      "maxStack": 1
+    },
+    {
+      "id": "orange_poplar_leaves",
+      "maxStack": 64
+    },
+    {
+      "id": "orange_shulker_box",
+      "maxStack": 1
+    },
+    {
+      "id": "orange_stained_glass",
+      "maxStack": 64
+    },
+    {
+      "id": "orange_stained_glass_pane",
+      "maxStack": 64
+    },
+    {
+      "id": "orange_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "orange_tulip",
+      "maxStack": 64
+    },
+    {
+      "id": "orange_wool",
+      "maxStack": 64
+    },
+    {
+      "id": "orange_wool_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "orange_wool_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "oxeye_daisy",
+      "maxStack": 64
+    },
+    {
+      "id": "oxidized_chiseled_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "oxidized_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "oxidized_copper_bars",
+      "maxStack": 64
+    },
+    {
+      "id": "oxidized_copper_bulb",
+      "maxStack": 64
+    },
+    {
+      "id": "oxidized_copper_chain",
+      "maxStack": 64
+    },
+    {
+      "id": "oxidized_copper_chest",
+      "maxStack": 64
+    },
+    {
+      "id": "oxidized_copper_door",
+      "maxStack": 64
+    },
+    {
+      "id": "oxidized_copper_golem_statue",
+      "maxStack": 64
+    },
+    {
+      "id": "oxidized_copper_grate",
+      "maxStack": 64
+    },
+    {
+      "id": "oxidized_copper_lantern",
+      "maxStack": 64
+    },
+    {
+      "id": "oxidized_copper_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "oxidized_cut_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "oxidized_cut_copper_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "oxidized_cut_copper_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "oxidized_lightning_rod",
+      "maxStack": 64
+    },
+    {
+      "id": "packed_ice",
+      "maxStack": 64
+    },
+    {
+      "id": "packed_mud",
+      "maxStack": 64
+    },
+    {
+      "id": "painting",
+      "maxStack": 64
+    },
+    {
+      "id": "pale_hanging_moss",
+      "maxStack": 64
+    },
+    {
+      "id": "pale_moss_block",
+      "maxStack": 64
+    },
+    {
+      "id": "pale_moss_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "pale_oak_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "pale_oak_button",
+      "maxStack": 64
+    },
+    {
+      "id": "pale_oak_chest_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "pale_oak_door",
+      "maxStack": 64
+    },
+    {
+      "id": "pale_oak_fence",
+      "maxStack": 64
+    },
+    {
+      "id": "pale_oak_fence_gate",
+      "maxStack": 64
+    },
+    {
+      "id": "pale_oak_hanging_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "pale_oak_leaves",
+      "maxStack": 64
+    },
+    {
+      "id": "pale_oak_log",
+      "maxStack": 64
+    },
+    {
+      "id": "pale_oak_planks",
+      "maxStack": 64
+    },
+    {
+      "id": "pale_oak_pressure_plate",
+      "maxStack": 64
+    },
+    {
+      "id": "pale_oak_sapling",
+      "maxStack": 64
+    },
+    {
+      "id": "pale_oak_shelf",
+      "maxStack": 64
+    },
+    {
+      "id": "pale_oak_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "pale_oak_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "pale_oak_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "pale_oak_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "pale_oak_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "panda_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "paper",
+      "maxStack": 64
+    },
+    {
+      "id": "parched_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "parrot_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "pearlescent_froglight",
+      "maxStack": 64
+    },
+    {
+      "id": "peony",
+      "maxStack": 64
+    },
+    {
+      "id": "petrified_oak_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "phantom_membrane",
+      "maxStack": 64
+    },
+    {
+      "id": "phantom_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "pig_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "piglin_banner_pattern",
+      "maxStack": 1
+    },
+    {
+      "id": "piglin_brute_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "piglin_head",
+      "maxStack": 64
+    },
+    {
+      "id": "piglin_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "pillager_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "pink_banner",
+      "maxStack": 16
+    },
+    {
+      "id": "pink_bed",
+      "maxStack": 1
+    },
+    {
+      "id": "pink_bundle",
+      "maxStack": 1
+    },
+    {
+      "id": "pink_candle",
+      "maxStack": 64
+    },
+    {
+      "id": "pink_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "pink_concrete",
+      "maxStack": 64
+    },
+    {
+      "id": "pink_concrete_powder",
+      "maxStack": 64
+    },
+    {
+      "id": "pink_concrete_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "pink_concrete_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "pink_cushion",
+      "maxStack": 16
+    },
+    {
+      "id": "pink_dye",
+      "maxStack": 64
+    },
+    {
+      "id": "pink_glazed_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "pink_harness",
+      "maxStack": 1
+    },
+    {
+      "id": "pink_petals",
+      "maxStack": 64
+    },
+    {
+      "id": "pink_shulker_box",
+      "maxStack": 1
+    },
+    {
+      "id": "pink_stained_glass",
+      "maxStack": 64
+    },
+    {
+      "id": "pink_stained_glass_pane",
+      "maxStack": 64
+    },
+    {
+      "id": "pink_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "pink_tulip",
+      "maxStack": 64
+    },
+    {
+      "id": "pink_wool",
+      "maxStack": 64
+    },
+    {
+      "id": "pink_wool_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "pink_wool_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "piston",
+      "maxStack": 64
+    },
+    {
+      "id": "pitcher_plant",
+      "maxStack": 64
+    },
+    {
+      "id": "pitcher_pod",
+      "maxStack": 64
+    },
+    {
+      "id": "plains_village_map",
+      "maxStack": 64
+    },
+    {
+      "id": "player_head",
+      "maxStack": 64
+    },
+    {
+      "id": "plenty_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "podzol",
+      "maxStack": 64
+    },
+    {
+      "id": "pointed_dripstone",
+      "maxStack": 64
+    },
+    {
+      "id": "poisonous_potato",
+      "maxStack": 64
+    },
+    {
+      "id": "polar_bear_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_andesite",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_andesite_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_andesite_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_basalt",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_blackstone",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_blackstone_brick_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_blackstone_brick_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_blackstone_brick_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_blackstone_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_blackstone_button",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_blackstone_pressure_plate",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_blackstone_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_blackstone_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_blackstone_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_cinnabar",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_cinnabar_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_cinnabar_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_cinnabar_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_deepslate",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_deepslate_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_deepslate_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_deepslate_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_diorite",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_diorite_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_diorite_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_granite",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_granite_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_granite_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_sulfur",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_sulfur_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_sulfur_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_sulfur_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_tuff",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_tuff_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_tuff_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "polished_tuff_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "poplar_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "poplar_button",
+      "maxStack": 64
+    },
+    {
+      "id": "poplar_chest_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "poplar_door",
+      "maxStack": 64
+    },
+    {
+      "id": "poplar_fence",
+      "maxStack": 64
+    },
+    {
+      "id": "poplar_fence_gate",
+      "maxStack": 64
+    },
+    {
+      "id": "poplar_hanging_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "poplar_log",
+      "maxStack": 64
+    },
+    {
+      "id": "poplar_planks",
+      "maxStack": 64
+    },
+    {
+      "id": "poplar_pressure_plate",
+      "maxStack": 64
+    },
+    {
+      "id": "poplar_sapling",
+      "maxStack": 64
+    },
+    {
+      "id": "poplar_shelf",
+      "maxStack": 64
+    },
+    {
+      "id": "poplar_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "poplar_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "poplar_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "poplar_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "poplar_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "popped_chorus_fruit",
+      "maxStack": 64
+    },
+    {
+      "id": "poppy",
+      "maxStack": 64
+    },
+    {
+      "id": "porkchop",
+      "maxStack": 64
+    },
+    {
+      "id": "potato",
+      "maxStack": 64
+    },
+    {
+      "id": "potent_sulfur",
+      "maxStack": 64
+    },
+    {
+      "id": "potion",
+      "maxStack": 1
+    },
+    {
+      "id": "powder_snow_bucket",
+      "maxStack": 1
+    },
+    {
+      "id": "powered_rail",
+      "maxStack": 64
+    },
+    {
+      "id": "prismarine",
+      "maxStack": 64
+    },
+    {
+      "id": "prismarine_brick_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "prismarine_brick_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "prismarine_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "prismarine_crystals",
+      "maxStack": 64
+    },
+    {
+      "id": "prismarine_shard",
+      "maxStack": 64
+    },
+    {
+      "id": "prismarine_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "prismarine_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "prismarine_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "prize_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "pufferfish",
+      "maxStack": 64
+    },
+    {
+      "id": "pufferfish_bucket",
+      "maxStack": 1
+    },
+    {
+      "id": "pufferfish_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "pumpkin",
+      "maxStack": 64
+    },
+    {
+      "id": "pumpkin_pie",
+      "maxStack": 64
+    },
+    {
+      "id": "pumpkin_seeds",
+      "maxStack": 64
+    },
+    {
+      "id": "purple_banner",
+      "maxStack": 16
+    },
+    {
+      "id": "purple_bed",
+      "maxStack": 1
+    },
+    {
+      "id": "purple_bundle",
+      "maxStack": 1
+    },
+    {
+      "id": "purple_candle",
+      "maxStack": 64
+    },
+    {
+      "id": "purple_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "purple_concrete",
+      "maxStack": 64
+    },
+    {
+      "id": "purple_concrete_powder",
+      "maxStack": 64
+    },
+    {
+      "id": "purple_concrete_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "purple_concrete_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "purple_cushion",
+      "maxStack": 16
+    },
+    {
+      "id": "purple_dye",
+      "maxStack": 64
+    },
+    {
+      "id": "purple_glazed_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "purple_harness",
+      "maxStack": 1
+    },
+    {
+      "id": "purple_shulker_box",
+      "maxStack": 1
+    },
+    {
+      "id": "purple_stained_glass",
+      "maxStack": 64
+    },
+    {
+      "id": "purple_stained_glass_pane",
+      "maxStack": 64
+    },
+    {
+      "id": "purple_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "purple_wool",
+      "maxStack": 64
+    },
+    {
+      "id": "purple_wool_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "purple_wool_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "purpur_block",
+      "maxStack": 64
+    },
+    {
+      "id": "purpur_pillar",
+      "maxStack": 64
+    },
+    {
+      "id": "purpur_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "purpur_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "quartz",
+      "maxStack": 64
+    },
+    {
+      "id": "quartz_block",
+      "maxStack": 64
+    },
+    {
+      "id": "quartz_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "quartz_pillar",
+      "maxStack": 64
+    },
+    {
+      "id": "quartz_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "quartz_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "rabbit",
+      "maxStack": 64
+    },
+    {
+      "id": "rabbit_foot",
+      "maxStack": 64
+    },
+    {
+      "id": "rabbit_hide",
+      "maxStack": 64
+    },
+    {
+      "id": "rabbit_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "rabbit_stew",
+      "maxStack": 1
+    },
+    {
+      "id": "rail",
+      "maxStack": 64
+    },
+    {
+      "id": "raiser_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "ravager_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "raw_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "raw_copper_block",
+      "maxStack": 64
+    },
+    {
+      "id": "raw_gold",
+      "maxStack": 64
+    },
+    {
+      "id": "raw_gold_block",
+      "maxStack": 64
+    },
+    {
+      "id": "raw_iron",
+      "maxStack": 64
+    },
+    {
+      "id": "raw_iron_block",
+      "maxStack": 64
+    },
+    {
+      "id": "recovery_compass",
+      "maxStack": 64
+    },
+    {
+      "id": "red_banner",
+      "maxStack": 16
+    },
+    {
+      "id": "red_bed",
+      "maxStack": 1
+    },
+    {
+      "id": "red_bundle",
+      "maxStack": 1
+    },
+    {
+      "id": "red_candle",
+      "maxStack": 64
+    },
+    {
+      "id": "red_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "red_concrete",
+      "maxStack": 64
+    },
+    {
+      "id": "red_concrete_powder",
+      "maxStack": 64
+    },
+    {
+      "id": "red_concrete_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "red_concrete_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "red_cushion",
+      "maxStack": 16
+    },
+    {
+      "id": "red_dye",
+      "maxStack": 64
+    },
+    {
+      "id": "red_glazed_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "red_harness",
+      "maxStack": 1
+    },
+    {
+      "id": "red_mushroom",
+      "maxStack": 64
+    },
+    {
+      "id": "red_mushroom_block",
+      "maxStack": 64
+    },
+    {
+      "id": "red_nether_brick_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "red_nether_brick_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "red_nether_brick_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "red_nether_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "red_poplar_leaves",
+      "maxStack": 64
+    },
+    {
+      "id": "red_sand",
+      "maxStack": 64
+    },
+    {
+      "id": "red_sandstone",
+      "maxStack": 64
+    },
+    {
+      "id": "red_sandstone_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "red_sandstone_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "red_sandstone_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "red_shrub",
+      "maxStack": 64
+    },
+    {
+      "id": "red_shulker_box",
+      "maxStack": 1
+    },
+    {
+      "id": "red_stained_glass",
+      "maxStack": 64
+    },
+    {
+      "id": "red_stained_glass_pane",
+      "maxStack": 64
+    },
+    {
+      "id": "red_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "red_tulip",
+      "maxStack": 64
+    },
+    {
+      "id": "red_wool",
+      "maxStack": 64
+    },
+    {
+      "id": "red_wool_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "red_wool_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "redstone",
+      "maxStack": 64
+    },
+    {
+      "id": "redstone_block",
+      "maxStack": 64
+    },
+    {
+      "id": "redstone_lamp",
+      "maxStack": 64
+    },
+    {
+      "id": "redstone_ore",
+      "maxStack": 64
+    },
+    {
+      "id": "redstone_torch",
+      "maxStack": 64
+    },
+    {
+      "id": "reinforced_deepslate",
+      "maxStack": 64
+    },
+    {
+      "id": "repeater",
+      "maxStack": 64
+    },
+    {
+      "id": "repeating_command_block",
+      "maxStack": 64
+    },
+    {
+      "id": "resin_block",
+      "maxStack": 64
+    },
+    {
+      "id": "resin_brick",
+      "maxStack": 64
+    },
+    {
+      "id": "resin_brick_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "resin_brick_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "resin_brick_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "resin_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "resin_clump",
+      "maxStack": 64
+    },
+    {
+      "id": "respawn_anchor",
+      "maxStack": 64
+    },
+    {
+      "id": "rib_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "rooted_dirt",
+      "maxStack": 64
+    },
+    {
+      "id": "rose_bush",
+      "maxStack": 64
+    },
+    {
+      "id": "rotten_flesh",
+      "maxStack": 64
+    },
+    {
+      "id": "saddle",
+      "maxStack": 1
+    },
+    {
+      "id": "salmon",
+      "maxStack": 64
+    },
+    {
+      "id": "salmon_bucket",
+      "maxStack": 1
+    },
+    {
+      "id": "salmon_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "sand",
+      "maxStack": 64
+    },
+    {
+      "id": "sandstone",
+      "maxStack": 64
+    },
+    {
+      "id": "sandstone_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "sandstone_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "sandstone_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "savanna_village_map",
+      "maxStack": 64
+    },
+    {
+      "id": "scaffolding",
+      "maxStack": 64
+    },
+    {
+      "id": "scrape_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "sculk",
+      "maxStack": 64
+    },
+    {
+      "id": "sculk_catalyst",
+      "maxStack": 64
+    },
+    {
+      "id": "sculk_sensor",
+      "maxStack": 64
+    },
+    {
+      "id": "sculk_shrieker",
+      "maxStack": 64
+    },
+    {
+      "id": "sculk_vein",
+      "maxStack": 64
+    },
+    {
+      "id": "sea_lantern",
+      "maxStack": 64
+    },
+    {
+      "id": "sea_pickle",
+      "maxStack": 64
+    },
+    {
+      "id": "seagrass",
+      "maxStack": 64
+    },
+    {
+      "id": "sentry_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "shaper_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "sheaf_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "shears",
+      "maxStack": 1
+    },
+    {
+      "id": "sheep_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "shelf_mushroom",
+      "maxStack": 64
+    },
+    {
+      "id": "shelter_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "shield",
+      "maxStack": 1
+    },
+    {
+      "id": "short_dry_grass",
+      "maxStack": 64
+    },
+    {
+      "id": "short_grass",
+      "maxStack": 64
+    },
+    {
+      "id": "shroomlight",
+      "maxStack": 64
+    },
+    {
+      "id": "shulker_box",
+      "maxStack": 1
+    },
+    {
+      "id": "shulker_shell",
+      "maxStack": 64
+    },
+    {
+      "id": "shulker_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "silence_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "silverfish_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "skeleton_horse_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "skeleton_skull",
+      "maxStack": 64
+    },
+    {
+      "id": "skeleton_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "skull_banner_pattern",
+      "maxStack": 1
+    },
+    {
+      "id": "skull_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "slime_ball",
+      "maxStack": 64
+    },
+    {
+      "id": "slime_block",
+      "maxStack": 64
+    },
+    {
+      "id": "slime_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "small_amethyst_bud",
+      "maxStack": 64
+    },
+    {
+      "id": "small_dripleaf",
+      "maxStack": 64
+    },
+    {
+      "id": "smithing_table",
+      "maxStack": 64
+    },
+    {
+      "id": "smoker",
+      "maxStack": 64
+    },
+    {
+      "id": "smooth_basalt",
+      "maxStack": 64
+    },
+    {
+      "id": "smooth_quartz",
+      "maxStack": 64
+    },
+    {
+      "id": "smooth_quartz_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "smooth_quartz_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "smooth_red_sandstone",
+      "maxStack": 64
+    },
+    {
+      "id": "smooth_red_sandstone_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "smooth_red_sandstone_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "smooth_sandstone",
+      "maxStack": 64
+    },
+    {
+      "id": "smooth_sandstone_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "smooth_sandstone_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "smooth_stone",
+      "maxStack": 64
+    },
+    {
+      "id": "smooth_stone_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "sniffer_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "sniffer_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "snort_pottery_sherd",
+      "maxStack": 64
+    },
+    {
+      "id": "snout_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "snow",
+      "maxStack": 64
+    },
+    {
+      "id": "snow_block",
+      "maxStack": 64
+    },
+    {
+      "id": "snow_golem_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "snowball",
+      "maxStack": 16
+    },
+    {
+      "id": "snowy_village_map",
+      "maxStack": 64
+    },
+    {
+      "id": "soul_campfire",
+      "maxStack": 64
+    },
+    {
+      "id": "soul_lantern",
+      "maxStack": 64
+    },
+    {
+      "id": "soul_sand",
+      "maxStack": 64
+    },
+    {
+      "id": "soul_soil",
+      "maxStack": 64
+    },
+    {
+      "id": "soul_torch",
+      "maxStack": 64
+    },
+    {
+      "id": "spawner",
+      "maxStack": 64
+    },
+    {
+      "id": "spectral_arrow",
+      "maxStack": 64
+    },
+    {
+      "id": "spider_eye",
+      "maxStack": 64
+    },
+    {
+      "id": "spider_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "spire_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "splash_potion",
+      "maxStack": 1
+    },
+    {
+      "id": "sponge",
+      "maxStack": 64
+    },
+    {
+      "id": "spore_blossom",
+      "maxStack": 64
+    },
+    {
+      "id": "spruce_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "spruce_button",
+      "maxStack": 64
+    },
+    {
+      "id": "spruce_chest_boat",
+      "maxStack": 1
+    },
+    {
+      "id": "spruce_door",
+      "maxStack": 64
+    },
+    {
+      "id": "spruce_fence",
+      "maxStack": 64
+    },
+    {
+      "id": "spruce_fence_gate",
+      "maxStack": 64
+    },
+    {
+      "id": "spruce_hanging_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "spruce_leaves",
+      "maxStack": 64
+    },
+    {
+      "id": "spruce_log",
+      "maxStack": 64
+    },
+    {
+      "id": "spruce_planks",
+      "maxStack": 64
+    },
+    {
+      "id": "spruce_pressure_plate",
+      "maxStack": 64
+    },
+    {
+      "id": "spruce_sapling",
+      "maxStack": 64
+    },
+    {
+      "id": "spruce_shelf",
+      "maxStack": 64
+    },
+    {
+      "id": "spruce_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "spruce_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "spruce_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "spruce_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "spruce_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "spyglass",
+      "maxStack": 1
+    },
+    {
+      "id": "squid_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "stick",
+      "maxStack": 64
+    },
+    {
+      "id": "sticky_piston",
+      "maxStack": 64
+    },
+    {
+      "id": "stone",
+      "maxStack": 64
+    },
+    {
+      "id": "stone_axe",
+      "maxStack": 1
+    },
+    {
+      "id": "stone_brick_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "stone_brick_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "stone_brick_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "stone_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "stone_button",
+      "maxStack": 64
+    },
+    {
+      "id": "stone_hoe",
+      "maxStack": 1
+    },
+    {
+      "id": "stone_pickaxe",
+      "maxStack": 1
+    },
+    {
+      "id": "stone_pressure_plate",
+      "maxStack": 64
+    },
+    {
+      "id": "stone_shovel",
+      "maxStack": 1
+    },
+    {
+      "id": "stone_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "stone_spear",
+      "maxStack": 1
+    },
+    {
+      "id": "stone_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "stone_sword",
+      "maxStack": 1
+    },
+    {
+      "id": "stonecutter",
+      "maxStack": 64
+    },
+    {
+      "id": "straw_bed",
+      "maxStack": 16
+    },
+    {
+      "id": "stray_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "strider_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "string",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_acacia_log",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_acacia_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_bamboo_block",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_birch_log",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_birch_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_cherry_log",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_cherry_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_crimson_hyphae",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_crimson_stem",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_dark_oak_log",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_dark_oak_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_jungle_log",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_jungle_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_mangrove_log",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_mangrove_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_oak_log",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_oak_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_pale_oak_log",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_pale_oak_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_poplar_log",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_poplar_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_spruce_log",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_spruce_wood",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_warped_hyphae",
+      "maxStack": 64
+    },
+    {
+      "id": "stripped_warped_stem",
+      "maxStack": 64
+    },
+    {
+      "id": "structure_block",
+      "maxStack": 64
+    },
+    {
+      "id": "structure_void",
+      "maxStack": 64
+    },
+    {
+      "id": "sugar",
+      "maxStack": 64
+    },
+    {
+      "id": "sugar_cane",
+      "maxStack": 64
+    },
+    {
+      "id": "sulfur",
+      "maxStack": 64
+    },
+    {
+      "id": "sulfur_brick_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "sulfur_brick_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "sulfur_brick_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "sulfur_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "sulfur_cube_bucket",
+      "maxStack": 1
+    },
+    {
+      "id": "sulfur_cube_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "sulfur_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "sulfur_spike",
+      "maxStack": 64
+    },
+    {
+      "id": "sulfur_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "sulfur_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "sunflower",
+      "maxStack": 64
+    },
+    {
+      "id": "suspicious_gravel",
+      "maxStack": 64
+    },
+    {
+      "id": "suspicious_sand",
+      "maxStack": 64
+    },
+    {
+      "id": "suspicious_stew",
+      "maxStack": 1
+    },
+    {
+      "id": "swamp_hut_map",
+      "maxStack": 64
+    },
+    {
+      "id": "sweet_berries",
+      "maxStack": 64
+    },
+    {
+      "id": "tadpole_bucket",
+      "maxStack": 1
+    },
+    {
+      "id": "tadpole_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "taiga_village_map",
+      "maxStack": 64
+    },
+    {
+      "id": "tall_dry_grass",
+      "maxStack": 64
+    },
+    {
+      "id": "tall_grass",
+      "maxStack": 64
+    },
+    {
+      "id": "target",
+      "maxStack": 64
+    },
+    {
+      "id": "terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "test_block",
+      "maxStack": 64
+    },
+    {
+      "id": "test_instance_block",
+      "maxStack": 64
+    },
+    {
+      "id": "tide_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "tinted_glass",
+      "maxStack": 64
+    },
+    {
+      "id": "tipped_arrow",
+      "maxStack": 64
+    },
+    {
+      "id": "tnt",
+      "maxStack": 64
+    },
+    {
+      "id": "tnt_minecart",
+      "maxStack": 1
+    },
+    {
+      "id": "torch",
+      "maxStack": 64
+    },
+    {
+      "id": "torchflower",
+      "maxStack": 64
+    },
+    {
+      "id": "torchflower_seeds",
+      "maxStack": 64
+    },
+    {
+      "id": "totem_of_undying",
+      "maxStack": 1
+    },
+    {
+      "id": "trader_llama_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "trapped_chest",
+      "maxStack": 64
+    },
+    {
+      "id": "trial_key",
+      "maxStack": 64
+    },
+    {
+      "id": "trial_spawner",
+      "maxStack": 64
+    },
+    {
+      "id": "trident",
+      "maxStack": 1
+    },
+    {
+      "id": "tripwire_hook",
+      "maxStack": 64
+    },
+    {
+      "id": "tropical_fish",
+      "maxStack": 64
+    },
+    {
+      "id": "tropical_fish_bucket",
+      "maxStack": 1
+    },
+    {
+      "id": "tropical_fish_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "tube_coral",
+      "maxStack": 64
+    },
+    {
+      "id": "tube_coral_block",
+      "maxStack": 64
+    },
+    {
+      "id": "tube_coral_fan",
+      "maxStack": 64
+    },
+    {
+      "id": "tuff",
+      "maxStack": 64
+    },
+    {
+      "id": "tuff_brick_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "tuff_brick_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "tuff_brick_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "tuff_bricks",
+      "maxStack": 64
+    },
+    {
+      "id": "tuff_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "tuff_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "tuff_wall",
+      "maxStack": 64
+    },
+    {
+      "id": "turtle_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "turtle_helmet",
+      "maxStack": 1
+    },
+    {
+      "id": "turtle_scute",
+      "maxStack": 64
+    },
+    {
+      "id": "turtle_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "twisting_vines",
+      "maxStack": 64
+    },
+    {
+      "id": "vault",
+      "maxStack": 64
+    },
+    {
+      "id": "verdant_froglight",
+      "maxStack": 64
+    },
+    {
+      "id": "vex_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "vex_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "villager_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "vindicator_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "vine",
+      "maxStack": 64
+    },
+    {
+      "id": "wandering_trader_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "ward_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "warden_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "warm_ocean_ruins_map",
+      "maxStack": 64
+    },
+    {
+      "id": "warped_button",
+      "maxStack": 64
+    },
+    {
+      "id": "warped_door",
+      "maxStack": 64
+    },
+    {
+      "id": "warped_fence",
+      "maxStack": 64
+    },
+    {
+      "id": "warped_fence_gate",
+      "maxStack": 64
+    },
+    {
+      "id": "warped_fungus",
+      "maxStack": 64
+    },
+    {
+      "id": "warped_fungus_on_a_stick",
+      "maxStack": 1
+    },
+    {
+      "id": "warped_hanging_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "warped_hyphae",
+      "maxStack": 64
+    },
+    {
+      "id": "warped_nylium",
+      "maxStack": 64
+    },
+    {
+      "id": "warped_planks",
+      "maxStack": 64
+    },
+    {
+      "id": "warped_pressure_plate",
+      "maxStack": 64
+    },
+    {
+      "id": "warped_roots",
+      "maxStack": 64
+    },
+    {
+      "id": "warped_shelf",
+      "maxStack": 64
+    },
+    {
+      "id": "warped_sign",
+      "maxStack": 16
+    },
+    {
+      "id": "warped_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "warped_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "warped_stem",
+      "maxStack": 64
+    },
+    {
+      "id": "warped_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "warped_wart_block",
+      "maxStack": 64
+    },
+    {
+      "id": "water_bucket",
+      "maxStack": 1
+    },
+    {
+      "id": "waxed_chiseled_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_copper_bars",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_copper_block",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_copper_bulb",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_copper_chain",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_copper_chest",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_copper_door",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_copper_golem_statue",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_copper_grate",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_copper_lantern",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_copper_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_cut_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_cut_copper_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_cut_copper_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_exposed_chiseled_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_exposed_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_exposed_copper_bars",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_exposed_copper_bulb",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_exposed_copper_chain",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_exposed_copper_chest",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_exposed_copper_door",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_exposed_copper_golem_statue",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_exposed_copper_grate",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_exposed_copper_lantern",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_exposed_copper_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_exposed_cut_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_exposed_cut_copper_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_exposed_cut_copper_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_exposed_lightning_rod",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_lightning_rod",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_oxidized_chiseled_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_oxidized_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_oxidized_copper_bars",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_oxidized_copper_bulb",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_oxidized_copper_chain",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_oxidized_copper_chest",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_oxidized_copper_door",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_oxidized_copper_golem_statue",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_oxidized_copper_grate",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_oxidized_copper_lantern",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_oxidized_copper_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_oxidized_cut_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_oxidized_cut_copper_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_oxidized_cut_copper_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_oxidized_lightning_rod",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_weathered_chiseled_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_weathered_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_weathered_copper_bars",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_weathered_copper_bulb",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_weathered_copper_chain",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_weathered_copper_chest",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_weathered_copper_door",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_weathered_copper_golem_statue",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_weathered_copper_grate",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_weathered_copper_lantern",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_weathered_copper_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_weathered_cut_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_weathered_cut_copper_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_weathered_cut_copper_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "waxed_weathered_lightning_rod",
+      "maxStack": 64
+    },
+    {
+      "id": "wayfinder_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "weathered_chiseled_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "weathered_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "weathered_copper_bars",
+      "maxStack": 64
+    },
+    {
+      "id": "weathered_copper_bulb",
+      "maxStack": 64
+    },
+    {
+      "id": "weathered_copper_chain",
+      "maxStack": 64
+    },
+    {
+      "id": "weathered_copper_chest",
+      "maxStack": 64
+    },
+    {
+      "id": "weathered_copper_door",
+      "maxStack": 64
+    },
+    {
+      "id": "weathered_copper_golem_statue",
+      "maxStack": 64
+    },
+    {
+      "id": "weathered_copper_grate",
+      "maxStack": 64
+    },
+    {
+      "id": "weathered_copper_lantern",
+      "maxStack": 64
+    },
+    {
+      "id": "weathered_copper_trapdoor",
+      "maxStack": 64
+    },
+    {
+      "id": "weathered_cut_copper",
+      "maxStack": 64
+    },
+    {
+      "id": "weathered_cut_copper_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "weathered_cut_copper_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "weathered_lightning_rod",
+      "maxStack": 64
+    },
+    {
+      "id": "weeping_vines",
+      "maxStack": 64
+    },
+    {
+      "id": "wet_sponge",
+      "maxStack": 64
+    },
+    {
+      "id": "wheat",
+      "maxStack": 64
+    },
+    {
+      "id": "wheat_seeds",
+      "maxStack": 64
+    },
+    {
+      "id": "white_banner",
+      "maxStack": 16
+    },
+    {
+      "id": "white_bed",
+      "maxStack": 1
+    },
+    {
+      "id": "white_bundle",
+      "maxStack": 1
+    },
+    {
+      "id": "white_candle",
+      "maxStack": 64
+    },
+    {
+      "id": "white_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "white_concrete",
+      "maxStack": 64
+    },
+    {
+      "id": "white_concrete_powder",
+      "maxStack": 64
+    },
+    {
+      "id": "white_concrete_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "white_concrete_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "white_cushion",
+      "maxStack": 16
+    },
+    {
+      "id": "white_dye",
+      "maxStack": 64
+    },
+    {
+      "id": "white_glazed_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "white_harness",
+      "maxStack": 1
+    },
+    {
+      "id": "white_shulker_box",
+      "maxStack": 1
+    },
+    {
+      "id": "white_stained_glass",
+      "maxStack": 64
+    },
+    {
+      "id": "white_stained_glass_pane",
+      "maxStack": 64
+    },
+    {
+      "id": "white_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "white_tulip",
+      "maxStack": 64
+    },
+    {
+      "id": "white_wool",
+      "maxStack": 64
+    },
+    {
+      "id": "white_wool_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "white_wool_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "wild_armor_trim_smithing_template",
+      "maxStack": 64
+    },
+    {
+      "id": "wildflowers",
+      "maxStack": 64
+    },
+    {
+      "id": "wind_charge",
+      "maxStack": 64
+    },
+    {
+      "id": "witch_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "wither_rose",
+      "maxStack": 64
+    },
+    {
+      "id": "wither_skeleton_skull",
+      "maxStack": 64
+    },
+    {
+      "id": "wither_skeleton_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "wither_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "wolf_armor",
+      "maxStack": 1
+    },
+    {
+      "id": "wolf_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "wooden_axe",
+      "maxStack": 1
+    },
+    {
+      "id": "wooden_hoe",
+      "maxStack": 1
+    },
+    {
+      "id": "wooden_pickaxe",
+      "maxStack": 1
+    },
+    {
+      "id": "wooden_shovel",
+      "maxStack": 1
+    },
+    {
+      "id": "wooden_spear",
+      "maxStack": 1
+    },
+    {
+      "id": "wooden_sword",
+      "maxStack": 1
+    },
+    {
+      "id": "woodland_mansion_map",
+      "maxStack": 64
+    },
+    {
+      "id": "writable_book",
+      "maxStack": 1
+    },
+    {
+      "id": "written_book",
+      "maxStack": 16
+    },
+    {
+      "id": "yellow_banner",
+      "maxStack": 16
+    },
+    {
+      "id": "yellow_bed",
+      "maxStack": 1
+    },
+    {
+      "id": "yellow_bundle",
+      "maxStack": 1
+    },
+    {
+      "id": "yellow_candle",
+      "maxStack": 64
+    },
+    {
+      "id": "yellow_carpet",
+      "maxStack": 64
+    },
+    {
+      "id": "yellow_concrete",
+      "maxStack": 64
+    },
+    {
+      "id": "yellow_concrete_powder",
+      "maxStack": 64
+    },
+    {
+      "id": "yellow_concrete_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "yellow_concrete_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "yellow_cushion",
+      "maxStack": 16
+    },
+    {
+      "id": "yellow_dye",
+      "maxStack": 64
+    },
+    {
+      "id": "yellow_glazed_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "yellow_harness",
+      "maxStack": 1
+    },
+    {
+      "id": "yellow_poplar_leaves",
+      "maxStack": 64
+    },
+    {
+      "id": "yellow_shulker_box",
+      "maxStack": 1
+    },
+    {
+      "id": "yellow_stained_glass",
+      "maxStack": 64
+    },
+    {
+      "id": "yellow_stained_glass_pane",
+      "maxStack": 64
+    },
+    {
+      "id": "yellow_terracotta",
+      "maxStack": 64
+    },
+    {
+      "id": "yellow_wool",
+      "maxStack": 64
+    },
+    {
+      "id": "yellow_wool_slab",
+      "maxStack": 64
+    },
+    {
+      "id": "yellow_wool_stairs",
+      "maxStack": 64
+    },
+    {
+      "id": "zoglin_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "zombie_head",
+      "maxStack": 64
+    },
+    {
+      "id": "zombie_horse_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "zombie_nautilus_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "zombie_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "zombie_villager_spawn_egg",
+      "maxStack": 64
+    },
+    {
+      "id": "zombified_piglin_spawn_egg",
+      "maxStack": 64
+    }
+  ],
+  "enchantments": [
+    {
+      "id": "aqua_affinity",
+      "maxLevel": 1
+    },
+    {
+      "id": "bane_of_arthropods",
+      "maxLevel": 5
+    },
+    {
+      "id": "binding_curse",
+      "maxLevel": 1
+    },
+    {
+      "id": "blast_protection",
+      "maxLevel": 4
+    },
+    {
+      "id": "breach",
+      "maxLevel": 4
+    },
+    {
+      "id": "channeling",
+      "maxLevel": 1
+    },
+    {
+      "id": "density",
+      "maxLevel": 5
+    },
+    {
+      "id": "depth_strider",
+      "maxLevel": 3
+    },
+    {
+      "id": "efficiency",
+      "maxLevel": 5
+    },
+    {
+      "id": "feather_falling",
+      "maxLevel": 4
+    },
+    {
+      "id": "fire_aspect",
+      "maxLevel": 2
+    },
+    {
+      "id": "fire_protection",
+      "maxLevel": 4
+    },
+    {
+      "id": "flame",
+      "maxLevel": 1
+    },
+    {
+      "id": "fortune",
+      "maxLevel": 3
+    },
+    {
+      "id": "frost_walker",
+      "maxLevel": 2
+    },
+    {
+      "id": "impaling",
+      "maxLevel": 5
+    },
+    {
+      "id": "infinity",
+      "maxLevel": 1
+    },
+    {
+      "id": "knockback",
+      "maxLevel": 2
+    },
+    {
+      "id": "looting",
+      "maxLevel": 3
+    },
+    {
+      "id": "loyalty",
+      "maxLevel": 3
+    },
+    {
+      "id": "luck_of_the_sea",
+      "maxLevel": 3
+    },
+    {
+      "id": "lunge",
+      "maxLevel": 3
+    },
+    {
+      "id": "lure",
+      "maxLevel": 3
+    },
+    {
+      "id": "mending",
+      "maxLevel": 1
+    },
+    {
+      "id": "multishot",
+      "maxLevel": 1
+    },
+    {
+      "id": "piercing",
+      "maxLevel": 4
+    },
+    {
+      "id": "power",
+      "maxLevel": 5
+    },
+    {
+      "id": "projectile_protection",
+      "maxLevel": 4
+    },
+    {
+      "id": "protection",
+      "maxLevel": 4
+    },
+    {
+      "id": "punch",
+      "maxLevel": 2
+    },
+    {
+      "id": "quick_charge",
+      "maxLevel": 3
+    },
+    {
+      "id": "respiration",
+      "maxLevel": 3
+    },
+    {
+      "id": "riptide",
+      "maxLevel": 3
+    },
+    {
+      "id": "sharpness",
+      "maxLevel": 5
+    },
+    {
+      "id": "silk_touch",
+      "maxLevel": 1
+    },
+    {
+      "id": "smite",
+      "maxLevel": 5
+    },
+    {
+      "id": "soul_speed",
+      "maxLevel": 3
+    },
+    {
+      "id": "sweeping_edge",
+      "maxLevel": 3
+    },
+    {
+      "id": "swift_sneak",
+      "maxLevel": 3
+    },
+    {
+      "id": "thorns",
+      "maxLevel": 3
+    },
+    {
+      "id": "unbreaking",
+      "maxLevel": 3
+    },
+    {
+      "id": "vanishing_curse",
+      "maxLevel": 1
+    },
+    {
+      "id": "wind_burst",
+      "maxLevel": 3
+    }
+  ],
+  "potions": [
+    "awkward",
+    "fire_resistance",
+    "harming",
+    "healing",
+    "infested",
+    "invisibility",
+    "leaping",
+    "long_fire_resistance",
+    "long_invisibility",
+    "long_leaping",
+    "long_night_vision",
+    "long_poison",
+    "long_regeneration",
+    "long_slow_falling",
+    "long_slowness",
+    "long_strength",
+    "long_swiftness",
+    "long_turtle_master",
+    "long_water_breathing",
+    "long_weakness",
+    "luck",
+    "mundane",
+    "night_vision",
+    "oozing",
+    "poison",
+    "regeneration",
+    "slow_falling",
+    "slowness",
+    "strength",
+    "strong_harming",
+    "strong_healing",
+    "strong_leaping",
+    "strong_poison",
+    "strong_regeneration",
+    "strong_slowness",
+    "strong_strength",
+    "strong_swiftness",
+    "strong_turtle_master",
+    "swiftness",
+    "thick",
+    "turtle_master",
+    "water",
+    "water_breathing",
+    "weakness",
+    "weaving",
+    "wind_charged"
   ]
 }

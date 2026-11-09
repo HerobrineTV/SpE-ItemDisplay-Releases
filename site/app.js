@@ -6,11 +6,14 @@ const DRAFT_KEY = "spe_builder_draft";
 const GROUP_TITLES = { timer: "Timer", health: "Leben", force_battle: "Force Battle", bingo_options: "Item Bingo", misc: "Allgemein" };
 const GROUP_ORDER = ["timer", "health", "force_battle", "bingo_options", "misc"];
 const GROUP_NEEDS = { force_battle: "force_item_battle", bingo_options: "item_bingo" };
+const SUBMENUS = { force_item_battle: "force_battle", item_bingo: "bingo_options" };
+const KIT_SLOTS = 36;
 const MONTHS = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
 
 let catalog = [];
 let byId = {};
 let descriptions = {};
+let kitOptions = { items: [], itemById: {}, enchantments: [], potions: [] };
 let state = { user: null, is_owner: false, events: [], proposals: [], voting: null };
 let linkedVoting = null;
 let draft = null;
@@ -103,7 +106,9 @@ function changedSettings(config) {
     const modeChanged = toggle.modes && entry.currentMode !== undefined && entry.currentMode !== toggle.currentMode;
     if (entry.value === toggle.value && !amountChanged && !modeChanged) continue;
     if (!entry.value) { lines.push(`${name(toggle)}: aus`); continue; }
-    const detail = toggle.hasAmount ? `: ${entry.setAmount ?? toggle.setAmount}` : toggle.modes ? `: ${modeName(toggle, config)}` : "";
+    const kitSize = config.starter_kit?.length ?? 0;
+    const detail = toggle.id === "starter_kit" ? `: ${kitSize} ${kitSize === 1 ? "Stack" : "Stacks"}`
+      : toggle.hasAmount ? `: ${entry.setAmount ?? toggle.setAmount}` : toggle.modes ? `: ${modeName(toggle, config)}` : "";
     lines.push(`${name(toggle)}${detail}`);
   }
   return lines;
@@ -189,7 +194,7 @@ function renderCalendar() {
 function openDialog(html) {
   const dialog = $("#dialog");
   dialog.innerHTML = html;
-  dialog.showModal();
+  if (!dialog.open) dialog.showModal();
   return dialog;
 }
 
@@ -256,6 +261,9 @@ function renderVoting() {
     if (open && state.user) {
       action = voting.my_vote === option.id ? `<button disabled>Deine Stimme</button>` : `<button data-vote="${option.id}">Abstimmen</button>`;
     }
+    if (isAdmin() && voting.winner_id === option.id) {
+      action = `<button class="ghost" data-winner-preset="${option.id}">Preset herunterladen</button>`;
+    }
     const classes = `panel option${voting.my_vote === option.id ? " mine" : ""}${voting.winner_id === option.id ? " won" : ""}`;
     return `<article class="${classes}">
       <div>
@@ -278,6 +286,9 @@ function renderVoting() {
       await run(() => api(`votings/${voting.id}/vote`, "POST", { proposal_id: Number(button.dataset.vote) }), "Stimme gespeichert.");
       refresh();
     };
+  });
+  body.querySelectorAll("[data-winner-preset]").forEach((button) => {
+    button.onclick = () => downloadPreset(voting.options.find((option) => option.id === Number(button.dataset.winnerPreset)));
   });
   if (close) $("#close-voting").onclick = () => closeVoting(voting.id);
 }
@@ -306,7 +317,7 @@ function freshDraft() {
     if (toggle.hasAmount) toggles[toggle.id].setAmount = toggle.setAmount;
     if (toggle.modes) toggles[toggle.id].currentMode = toggle.currentMode;
   }
-  return { name: "", description: "", toggles };
+  return { name: "", description: "", toggles, starter_kit: [] };
 }
 
 function loadDraft() {
@@ -318,6 +329,7 @@ function loadDraft() {
     draft.description = saved.description || "";
     // Only ids which still exist: the catalog changes with the plugin
     for (const id of Object.keys(draft.toggles)) if (saved.toggles?.[id]) Object.assign(draft.toggles[id], saved.toggles[id]);
+    draft.starter_kit = (saved.starter_kit || []).filter((item) => kitOptions.itemById[item.type]);
   } catch { /* old draft */ }
 }
 
@@ -366,24 +378,113 @@ function cardHtml(toggle) {
   const block = blockReason(toggle);
   const alwaysOn = toggle.hasAmount && toggle.value;
   const modeList = info.modes ? `<ul>${toggle.modes.map((mode) => info.modes[mode] ? `<li><strong>${esc(mode)}:</strong> ${esc(info.modes[mode])}</li>` : "").join("")}</ul>` : "";
-  const more = info.details || modeList ? `<details><summary>Details</summary>${info.details ? `<div>${esc(info.details)}</div>` : ""}${modeList}</details>` : "";
+  const more = info.details || modeList ? `<details data-detail="${toggle.id}"><summary>Details</summary>${info.details ? `<div>${esc(info.details)}</div>` : ""}${modeList}</details>` : "";
   const switcher = alwaysOn ? "" : `<label class="switch"><input type="checkbox" aria-label="${esc(name(toggle))}" data-toggle="${toggle.id}"${entry.value ? " checked" : ""}${block ? " disabled" : ""}><span></span></label>`;
   const controls = [];
   if (toggle.hasAmount && entry.value) controls.push(`<input type="number" min="1" max="100000" aria-label="Wert für ${esc(name(toggle))}" data-amount="${toggle.id}" value="${entry.setAmount}">`);
   if (toggle.modes && entry.value) controls.push(`<select aria-label="Modus für ${esc(name(toggle))}" data-mode="${toggle.id}">${toggle.modes.map((mode, index) => `<option value="${index}"${index === entry.currentMode ? " selected" : ""}>${esc(mode)}</option>`).join("")}</select>`);
-  return `<article class="card${entry.value ? " on" : ""}${block && !entry.value ? " blocked" : ""}">
+  const submenuItems = SUBMENUS[toggle.id] && entry.value ? catalog.filter((item) => item.group === SUBMENUS[toggle.id]).sort((a, b) => a.page - b.page || a.slot - b.slot) : [];
+  const submenu = submenuItems.length ? `<div class="submenu"><div class="cards">${submenuItems.map(cardHtml).join("")}</div></div>` : "";
+  const kit = toggle.id === "starter_kit" && entry.value ? kitHtml() : "";
+  return `<article class="card${entry.value ? " on" : ""}${block && !entry.value ? " blocked" : ""}${submenu || kit ? " wide" : ""}">
     <div class="card-head">${icon(toggle.id, toggle.kind === "challenge")}<h3>${esc(name(toggle))}</h3>${switcher}</div>
     ${info.summary ? `<p>${esc(info.summary)}</p>` : ""}
     ${more}
     ${block ? `<div class="warn">${esc(block)}</div>` : ""}
     ${controls.length ? `<div class="controls">${controls.join("")}</div>` : ""}
+    ${submenu}${kit}
   </article>`;
 }
 
+function prettyId(id) {
+  return id.split("_").map((word) => word[0].toUpperCase() + word.slice(1)).join(" ");
+}
+
+function kitHtml() {
+  let slots = "";
+  for (let slot = 0; slot < KIT_SLOTS; slot++) {
+    const item = draft.starter_kit.find((entry) => entry.slot === slot);
+    const label = item ? item.type.split("_").slice(0, 2).map((word) => word[0].toUpperCase()).join("") : "";
+    const title = item ? `${prettyId(item.type)} x${item.amount}${item.name ? ` (${item.name})` : ""}` : `Feld ${slot + 1}: leer`;
+    slots += `<button type="button" class="slot${item ? " filled" : ""}" data-slot="${slot}" title="${esc(title)}" aria-label="${esc(title)}">${esc(label)}${item && item.amount > 1 ? `<small>${item.amount}</small>` : ""}${item && Object.keys(item.enchantments || {}).length ? "<i></i>" : ""}</button>`;
+  }
+  return `<div class="submenu"><div class="kit">${slots}</div><p class="hint">Klicke auf ein Feld, um ein Item zu wählen. Die Anordnung entspricht dem Kistenmenü im Spiel.</p></div>`;
+}
+
+function editSlot(slot) {
+  const existing = draft.starter_kit.find((entry) => entry.slot === slot);
+  const item = existing ? JSON.parse(JSON.stringify(existing)) : { slot, type: "", amount: 1, enchantments: {} };
+  item.enchantments ||= {};
+  const isPotion = () => /potion|tipped_arrow/.test(item.type);
+
+  const sync = (dialog) => {
+    item.type = dialog.querySelector("#kit-type").value.trim().toLowerCase().replace(/^minecraft:/, "").replace(/\s+/g, "_");
+    item.amount = Math.round(Number(dialog.querySelector("#kit-amount").value)) || 1;
+    item.name = dialog.querySelector("#kit-name").value.trim();
+    const potion = dialog.querySelector("#kit-potion");
+    if (potion) item.potion = potion.value;
+    dialog.querySelectorAll("[data-ench-level]").forEach((input) => { item.enchantments[input.dataset.enchLevel] = Number(input.value) || 1; });
+  };
+
+  const draw = () => {
+    const free = kitOptions.enchantments.filter((enchantment) => !(enchantment.id in item.enchantments));
+    const dialog = openDialog(`<h3>Feld ${slot + 1}</h3>
+      <label class="field"><span>Item (tippen zum Suchen)</span><input type="text" id="kit-type" list="kit-items" value="${esc(item.type)}" autocomplete="off"></label>
+      <datalist id="kit-items">${kitOptions.items.map((entry) => `<option value="${entry.id}"></option>`).join("")}</datalist>
+      <label class="field"><span>Menge</span><input type="number" id="kit-amount" min="1" max="99" value="${item.amount}"></label>
+      <label class="field"><span>Name (optional)</span><input type="text" id="kit-name" maxlength="50" value="${esc(item.name)}"></label>
+      ${isPotion() ? `<label class="field"><span>Trank</span><select id="kit-potion">${kitOptions.potions.map((potion) => `<option value="${potion}"${potion === item.potion ? " selected" : ""}>${esc(prettyId(potion))}</option>`).join("")}</select></label>` : ""}
+      <div class="field"><span class="meta">Verzauberungen</span>
+        <div class="row-list">${Object.entries(item.enchantments).map(([id, level]) => {
+          const max = kitOptions.enchantments.find((enchantment) => enchantment.id === id)?.maxLevel ?? 255;
+          return `<div class="row"><span class="grow">${esc(prettyId(id))}</span><input type="number" min="1" max="${Math.max(max, 255)}" value="${level}" data-ench-level="${esc(id)}" aria-label="Stufe" style="width:80px"><button type="button" class="ghost" data-ench-remove="${esc(id)}" aria-label="Entfernen">×</button></div>`;
+        }).join("")}</div>
+        <div class="row" style="margin-top:6px"><select id="kit-ench-new" class="grow" style="flex:1" aria-label="Verzauberung">${free.map((enchantment) => `<option value="${enchantment.id}">${esc(prettyId(enchantment.id))}</option>`).join("")}</select><button type="button" class="ghost" id="kit-ench-add">Hinzufügen</button></div>
+      </div>
+      <div class="dialog-actions">
+        ${existing ? `<button type="button" class="danger" id="kit-clear">Leeren</button>` : ""}
+        <button type="button" class="ghost" id="kit-cancel">Abbrechen</button>
+        <button type="button" id="kit-save">Übernehmen</button>
+      </div>`);
+    dialog.querySelector("#kit-cancel").onclick = () => dialog.close();
+    dialog.querySelector("#kit-type").onchange = () => { sync(dialog); draw(); };
+    dialog.querySelector("#kit-ench-add").onclick = () => {
+      sync(dialog);
+      const id = dialog.querySelector("#kit-ench-new").value;
+      if (id) item.enchantments[id] = 1;
+      draw();
+    };
+    dialog.querySelectorAll("[data-ench-remove]").forEach((button) => {
+      button.onclick = () => { sync(dialog); delete item.enchantments[button.dataset.enchRemove]; draw(); };
+    });
+    const commit = (entries) => {
+      draft.starter_kit = entries.sort((a, b) => a.slot - b.slot);
+      saveDraft();
+      dialog.close();
+      renderBuilder();
+    };
+    const others = () => draft.starter_kit.filter((entry) => entry.slot !== slot);
+    const clear = dialog.querySelector("#kit-clear");
+    if (clear) clear.onclick = () => commit(others());
+    dialog.querySelector("#kit-save").onclick = () => {
+      sync(dialog);
+      const known = kitOptions.itemById[item.type];
+      if (!known) { toast("Dieses Item gibt es nicht.", true); return; }
+      const result = { slot, type: item.type, amount: Math.max(1, Math.min(item.amount, known.maxStack)) };
+      if (item.name) result.name = item.name;
+      if (Object.keys(item.enchantments).length) result.enchantments = item.enchantments;
+      if (isPotion()) result.potion = item.potion || kitOptions.potions[0];
+      commit([...others(), result]);
+    };
+  };
+  draw();
+}
+
 function renderBuilder() {
-  const open = new Set([...document.querySelectorAll("#builder-body details[open]")].map((item) => item.closest(".card")?.querySelector("[data-toggle],[data-amount]")?.dataset.toggle));
+  const open = new Set([...document.querySelectorAll("#builder-body details[open]")].map((item) => item.dataset.detail));
   const challenges = catalog.filter((toggle) => toggle.kind === "challenge").sort((a, b) => a.page - b.page || a.slot - b.slot);
-  const groups = [...new Set(catalog.filter((toggle) => toggle.kind === "setting").map((toggle) => toggle.group))]
+  const submenuGroups = Object.values(SUBMENUS);
+  const groups = [...new Set(catalog.filter((toggle) => toggle.kind === "setting" && !submenuGroups.includes(toggle.group)).map((toggle) => toggle.group))]
     .sort((a, b) => (GROUP_ORDER.indexOf(a) + 1 || 99) - (GROUP_ORDER.indexOf(b) + 1 || 99));
   let html = `<h3 class="group-title">Challenges</h3><div class="cards">${challenges.map(cardHtml).join("")}</div>`;
   for (const group of groups) {
@@ -406,9 +507,10 @@ function renderBuilder() {
   </aside>`;
   const body = $("#builder-body");
   body.innerHTML = `<div class="builder"><div>${html}</div>${summary}</div>`;
+  body.querySelectorAll("details[data-detail]").forEach((item) => { if (open.has(item.dataset.detail)) item.open = true; });
+  body.querySelectorAll("[data-slot]").forEach((button) => { button.onclick = () => editSlot(Number(button.dataset.slot)); });
   body.querySelectorAll("[data-toggle]").forEach((input) => {
-    if (open.has(input.dataset.toggle)) input.closest(".card").querySelector("details")?.setAttribute("open", "");
-    input.onchange = () => { draft.toggles[input.dataset.toggle].value = input.checked; saveDraft(); renderBuilder(); };
+    input.onchange =() => { draft.toggles[input.dataset.toggle].value = input.checked; saveDraft(); renderBuilder(); };
   });
   body.querySelectorAll("[data-amount]").forEach((input) => {
     input.onchange = () => {
@@ -430,7 +532,7 @@ function renderBuilder() {
   $("#reset-draft").onclick = () => { draft = freshDraft(); saveDraft(); renderBuilder(); };
   const propose = $("#propose");
   if (propose) propose.onclick = async () => {
-    const created = await run(() => api("proposals", "POST", { name: draft.name, description: draft.description, config: { toggles: draft.toggles } }));
+    const created = await run(() => api("proposals", "POST", { name: draft.name, description: draft.description, config: { toggles: draft.toggles, starter_kit: draft.starter_kit } }));
     if (created) {
       toast(created.merged ? "Dieses Setup gab es schon, du stehst jetzt mit auf dem Vorschlag." : "Vorschlag eingereicht.");
       draft = freshDraft();
@@ -453,7 +555,7 @@ function presetJson(proposal) {
     if (toggle.lore2) entry.lore2 = toggle.lore2;
     preset[toggle.id] = entry;
   }
-  preset._starter_kit = [];
+  preset._starter_kit = proposal.config.starter_kit || [];
   return JSON.stringify(preset, null, 2);
 }
 
@@ -644,6 +746,13 @@ async function init() {
   catalog = catalogData.toggles;
   byId = Object.fromEntries(catalog.map((toggle) => [toggle.id, toggle]));
   descriptions = descriptionData;
+  const items = catalogData.items || [];
+  kitOptions = {
+    items,
+    itemById: Object.fromEntries(items.map((item) => [item.id, item])),
+    enchantments: catalogData.enchantments || [],
+    potions: catalogData.potions || [],
+  };
   loadDraft();
   bindCalendar();
   await refresh();
