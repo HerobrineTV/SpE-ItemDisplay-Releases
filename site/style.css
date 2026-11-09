@@ -188,11 +188,11 @@ dialog h3 { margin-bottom: 12px; }
 #toast.error { border-color: var(--danger); }
 
 @media (max-width: 800px) {
-  .top { flex-wrap: wrap; padding: 10px 16px; gap: 8px 14px; }
+  .top { position: static; flex-wrap: wrap; padding: 10px 16px; gap: 8px 14px; }
   .top nav { order: 3; flex-basis: 100%; }
   #account { margin-left: auto; }
   main { padding: 4px 16px 70px; }
-  html { scroll-padding-top: 100px; }
+  html { scroll-padding-top: 8px; }
   .builder { grid-template-columns: minmax(0, 1fr); }
   .summary { position: static; }
   .day { min-height: 68px; padding: 3px; }
