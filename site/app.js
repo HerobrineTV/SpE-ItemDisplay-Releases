@@ -605,7 +605,7 @@ function showSetup(proposal) {
     html += items.map((toggle) => setupRow(toggle, config) + (toggle.id === "starter_kit" && config.toggles.starter_kit?.value ? setupKitHtml(config.starter_kit || []) : "")).join("");
   }
   const dialog = openDialog(`<h3>${esc(proposal.name)}</h3>
-    <div class="meta">von ${esc(proposal.author)}</div>
+    ${proposal.author ? `<div class="meta">von ${esc(proposal.author)}</div>` : ""}
     ${proposal.description ? `<p>${esc(proposal.description)}</p>` : ""}
     <p class="hint">Vom Standard abweichende Einstellungen sind markiert.</p>
     ${html}
@@ -938,6 +938,198 @@ function renderDayPolls() {
   });
 }
 
+// ---------------------------------------------------------------- Leaderboard and past challenges
+
+let results = [];
+let leaderboardMode = "";
+
+function playerHead(uuid, playerName) {
+  return `<span class="head" aria-hidden="true">${esc((playerName || "?")[0].toUpperCase())}<img loading="lazy" alt="" src="https://mc-heads.net/avatar/${esc(uuid)}/48" onerror="this.remove()"></span>`;
+}
+
+function playerTag(member) {
+  return `<span class="player">${playerHead(member.uuid, member.name)}${esc(member.name)}</span>`;
+}
+
+function formatDuration(seconds) {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  return hours ? `${hours} h ${pad(minutes)} min` : `${minutes} min`;
+}
+
+function formatClock(seconds) {
+  const hours = Math.floor(seconds / 3600);
+  const rest = `${pad(Math.floor((seconds % 3600) / 60))}:${pad(seconds % 60)}`;
+  return hours ? `${hours}:${rest}` : rest.replace(/^0/, "");
+}
+
+function formatDateTime(time) {
+  return new Intl.DateTimeFormat("de-DE", { dateStyle: "medium", timeStyle: "short", timeZone: "Europe/Berlin" }).format(time);
+}
+
+function modeTitle(id) {
+  return byId[id] ? name(byId[id]) : prettyId(id);
+}
+
+function modeIcons(modes) {
+  return modes.length ? modes.map((mode) => icon(mode)).join("") : `<span class="ico" title="Normale Challenge">⚔</span>`;
+}
+
+function placeBadge(place) {
+  return `<span class="place${place <= 3 ? ` p${place}` : ""}">${place ? `#${place}` : "–"}</span>`;
+}
+
+function leaderboardPath() {
+  return `leaderboard${leaderboardMode ? `?mode=${encodeURIComponent(leaderboardMode)}` : ""}`;
+}
+
+async function loadResults() {
+  const [list, board] = await Promise.all([run(() => api("results")), run(() => api(leaderboardPath()))]);
+  if (list) results = list.results;
+  renderResults();
+  fillLeaderboardModes();
+  if (board) renderLeaderboard(board.players);
+}
+
+async function loadLeaderboard() {
+  const board = await run(() => api(leaderboardPath()));
+  if (board) renderLeaderboard(board.players);
+}
+
+function fillLeaderboardModes() {
+  const select = $("#leaderboard-mode");
+  const modes = [...new Set(results.flatMap((result) => result.modes))].sort((a, b) => modeTitle(a).localeCompare(modeTitle(b)));
+  if (leaderboardMode && !modes.includes(leaderboardMode)) modes.push(leaderboardMode);
+  select.innerHTML = `<option value="">Alle Challenges</option>${modes.map((mode) =>
+    `<option value="${esc(mode)}"${mode === leaderboardMode ? " selected" : ""}>${esc(modeTitle(mode))}</option>`).join("")}`;
+  select.onchange = () => { leaderboardMode = select.value; loadLeaderboard(); };
+}
+
+function renderLeaderboard(players) {
+  const body = $("#leaderboard-body");
+  if (!players.length) {
+    body.innerHTML = `<div class="panel empty">${leaderboardMode ? "In dieser Challenge gibt es noch keine Ergebnisse." : "Noch keine Ergebnisse. Nach der ersten beendeten Challenge geht es hier los."}</div>`;
+    return;
+  }
+  let rank = 0;
+  let previous = null;
+  const rows = players.map((player, index) => {
+    const key = `${player.wins}|${player.podiums}|${player.games}`;
+    if (key !== previous) rank = index + 1;
+    previous = key;
+    const rate = player.games ? Math.round((player.wins / player.games) * 100) : 0;
+    return `<tr${rank <= 3 ? ` class="top${rank}"` : ""}>
+      <td>${placeBadge(rank)}</td>
+      <td>${playerTag({ uuid: player.uuid, name: player.name })}</td>
+      <td class="num strong">${player.wins}</td>
+      <td class="num">${player.podiums}</td>
+      <td class="num">${player.games}</td>
+      <td class="num">${rate} %</td>
+    </tr>`;
+  });
+  body.innerHTML = `<div class="panel table-wrap"><table class="board">
+    <thead><tr><th>Platz</th><th>Spieler</th><th class="num">Siege</th><th class="num" title="Platz 1 bis 3">Podest</th><th class="num">Spiele</th><th class="num">Siegquote</th></tr></thead>
+    <tbody>${rows.join("")}</tbody>
+  </table></div>
+  <p class="hint">Siege zählen Platz 1 und gemeinsam geschaffte Challenges (Enderdrache besiegt). Bei Gleichstand entscheiden Podestplätze, dann die Anzahl der Spiele.</p>`;
+}
+
+function outcomeHtml(result) {
+  if (result.winners.length) {
+    return `<div class="winners"><span class="meta">Gewonnen:</span>${result.winners.map((winner) => playerTag(winner)).join("")}</div>`;
+  }
+  return `<div class="meta">${esc(result.outcome || "Kein Gewinner")}</div>`;
+}
+
+function renderResults() {
+  const body = $("#results-body");
+  if (!results.length) {
+    body.innerHTML = `<div class="panel empty">Noch keine beendeten Challenges.</div>`;
+    return;
+  }
+  body.innerHTML = `<div class="row-list">${results.map((result) => `<article class="panel row">
+      <div class="grow">
+        <div class="option-title">${modeIcons(result.modes)}<h3>${esc(result.title)}</h3></div>
+        <div class="meta">${esc(formatDateTime(result.started_at))} · ${esc(formatDuration(result.play_seconds))} · ${result.players} Spieler</div>
+        ${outcomeHtml(result)}
+      </div>
+      <div class="row-actions">
+        <button class="ghost" data-result="${esc(result.id)}">Ergebnis ansehen</button>
+        ${isAdmin() ? `<button class="danger" data-result-delete="${esc(result.id)}">Löschen</button>` : ""}
+      </div>
+    </article>`).join("")}</div>`;
+  body.querySelectorAll("[data-result]").forEach((button) => { button.onclick = () => showResult(button.dataset.result); });
+  body.querySelectorAll("[data-result-delete]").forEach((button) => {
+    button.onclick = () => confirmAction("Dieses Ergebnis löschen? Es zählt dann auch nicht mehr fürs Leaderboard.", async () => {
+      await run(() => api(`results/${button.dataset.resultDelete}`, "DELETE"), "Ergebnis gelöscht.");
+      loadResults();
+    });
+  });
+}
+
+function detailHtml(detail) {
+  const title = [detail.text, detail.time && `nach ${detail.time}`, detail.by && `von ${detail.by}`, detail.joker && "Joker"].filter(Boolean).join(" · ");
+  if (!detail.icon) return `<li>${esc(title)}</li>`;
+  return `<span class="slot filled${detail.joker ? " joker" : ""}" title="${esc(title)}" aria-label="${esc(title)}">${esc(itemLetters(detail.icon))}${itemIcon(detail.icon)}</span>`;
+}
+
+function rankingEntryHtml(entry) {
+  const members = entry.members || [];
+  const team = members.length > 1 || (members.length === 1 && members[0].name !== entry.name);
+  const details = entry.details || [];
+  const withIcons = details.filter((detail) => detail.icon);
+  const texts = details.filter((detail) => !detail.icon);
+  const who = team
+    ? `<strong>${esc(entry.name)}</strong><div class="members">${members.map((member) => playerTag(member)).join("")}</div>`
+    : playerTag(members[0] || { uuid: "", name: entry.name });
+  return `<div class="rank-entry${entry.place === 1 && !entry.dnf ? " first" : ""}">
+    <div class="rank-head">${placeBadge(entry.place)}<div class="grow">${who}</div><span class="score">${esc(entry.score)}</span></div>
+    ${texts.length ? `<ul class="detail-text">${texts.map(detailHtml).join("")}</ul>` : ""}
+    ${withIcons.length ? `<details><summary>${withIcons.length} ${withIcons.length === 1 ? "Eintrag" : "Einträge"} ansehen</summary><div class="kit result-items">${withIcons.map(detailHtml).join("")}</div></details>` : ""}
+  </div>`;
+}
+
+async function showResult(id) {
+  const result = await run(() => api(`results/${encodeURIComponent(id)}`));
+  if (!result) return;
+  const facts = [formatDateTime(result.started_at), `Dauer ${formatDuration(result.play_seconds)}`];
+  if (result.dragon_killed_after != null) facts.push(`Enderdrache nach ${formatClock(result.dragon_killed_after)} besiegt`);
+  const ranking = result.ranking.length
+    ? `<h3 class="group-title">Platzierungen</h3><div class="ranking">${result.ranking.map(rankingEntryHtml).join("")}</div>`
+    : "";
+  const players = result.players.slice().sort((a, b) => (a.place ?? 999) - (b.place ?? 999) || a.name.localeCompare(b.name));
+  const playerRows = players.map((player) => `<tr>
+      <td>${playerTag(player)}</td>
+      <td>${esc(player.team || "–")}</td>
+      <td class="num hide-small">${player.place ? `#${player.place}` : "–"}</td>
+      <td class="num">${player.deaths}</td>
+      <td class="num">${player.won ? '<span class="won">Sieg</span>' : "–"}</td>
+    </tr>`).join("");
+  const outcome = [result.outcome, result.winners.length && `Gewonnen: ${result.winners.join(", ")}`].filter(Boolean).join(" – ");
+  const dialog = openDialog(`<div class="option-title">${modeIcons(result.modes)}<h3>${esc(result.title)}</h3></div>
+    <p class="meta">${esc(facts.join(" · "))}</p>
+    ${outcome ? `<p class="outcome">${esc(outcome)}</p>` : ""}
+    ${result.config ? configTags(result.config) : ""}
+    ${ranking}
+    <h3 class="group-title">Spieler</h3>
+    <div class="table-wrap"><table class="board compact">
+      <thead><tr><th>Spieler</th><th>Team</th><th class="num hide-small">Platz</th><th class="num">Tode</th><th class="num">Ergebnis</th></tr></thead>
+      <tbody>${playerRows}</tbody>
+    </table></div>
+    <div class="dialog-actions">
+      <button class="ghost" id="copy-result">Link kopieren</button>
+      ${result.config ? `<button class="ghost" id="result-setup">Einstellungen ansehen</button>` : ""}
+      <button id="close-dialog">Schließen</button>
+    </div>`, "wide");
+  dialog.querySelector("#close-dialog").onclick = () => dialog.close();
+  dialog.querySelector("#copy-result").onclick = async () => {
+    const link = `${location.origin}${location.pathname}?result=${result.id}`;
+    try { await navigator.clipboard.writeText(link); toast("Link kopiert."); } catch { toast(link); }
+  };
+  const setup = dialog.querySelector("#result-setup");
+  if (setup) setup.onclick = () => showSetup({ name: result.title, config: result.config });
+}
+
 // Running votes come right under the downloads, finished ones go back under the calendar.
 // A section is only moved when its place changes, moving it would take the focus out of its fields.
 function placeVotingSections() {
@@ -979,6 +1171,7 @@ async function refresh() {
   renderShared();
   renderBuilder();
   renderProposals();
+  renderResults();
   await renderAdmin();
 }
 
@@ -1087,6 +1280,12 @@ async function init() {
   await refresh();
   if (new URLSearchParams(location.search).has("voting")) $("#voting").scrollIntoView();
   if (new URLSearchParams(location.search).has("poll")) $("#termine").scrollIntoView();
+  await loadResults();
+  const linkedResult = new URLSearchParams(location.search).get("result");
+  if (linkedResult) {
+    $("#vergangen").scrollIntoView();
+    showResult(linkedResult);
+  }
   setInterval(poll, 20000);
 }
 

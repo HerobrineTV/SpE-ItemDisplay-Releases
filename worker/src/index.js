@@ -523,6 +523,159 @@ async function closeVoting(env, user, id, body) {
   return { winner_id: winner };
 }
 
+// ---------------------------------------------------------------- Results (sent by the Minecraft plugin)
+
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+const ID_PATTERN = /^[a-z0-9_]{1,64}$/;
+const MAX_RESULT_SIZE = 800000;
+
+async function sameSecret(given, expected) {
+  const [a, b] = await Promise.all([given, expected].map((value) => crypto.subtle.digest("SHA-256", encoder.encode(value || ""))));
+  return crypto.subtle.timingSafeEqual(a, b);
+}
+
+function short(value, max) {
+  return typeof value === "string" ? value.trim().slice(0, max) : "";
+}
+
+function count(value, max = 1e15) {
+  return Number.isInteger(value) && value >= 0 && value <= max ? value : null;
+}
+
+function cleanMember(member) {
+  if (!member || !UUID_PATTERN.test(member.uuid || "")) throw new HttpError(400, "Ungültiger Spieler.");
+  return { uuid: member.uuid, name: short(member.name, 32) || "?" };
+}
+
+function list(value, max, field) {
+  if (value === undefined) return [];
+  if (!Array.isArray(value) || value.length > max) throw new HttpError(400, `${field} ist ungültig.`);
+  return value;
+}
+
+function cleanResult(body) {
+  if (!UUID_PATTERN.test(body.id || "")) throw new HttpError(400, "Ungültige Ergebnis-ID.");
+  const startedAt = count(body.started_at);
+  const endedAt = count(body.ended_at);
+  if (startedAt === null || endedAt === null || endedAt < startedAt) throw new HttpError(400, "Ungültige Zeit.");
+  const modes = list(body.modes, 20, "Modi").filter((mode) => ID_PATTERN.test(mode || ""));
+  const ranking = list(body.ranking, 100, "Ranking").map((entry) => {
+    const clean = {
+      name: short(entry?.name, 64) || "?",
+      place: count(entry?.place, 1000) ?? 0,
+      score: short(entry?.score, 40),
+      members: list(entry?.members, 100, "Mitglieder").map(cleanMember),
+      details: list(entry?.details, 400, "Details").map((detail) => {
+        const item = { text: short(detail?.text, 80) };
+        if (ID_PATTERN.test(detail?.icon || "")) item.icon = detail.icon;
+        for (const key of ["time", "by"]) if (detail?.[key]) item[key] = short(detail[key], 32);
+        if (detail?.joker === true) item.joker = true;
+        return item;
+      }),
+    };
+    if (entry?.dnf === true) clean.dnf = true;
+    return clean;
+  });
+  const players = list(body.players, 100, "Spieler").map((player) => {
+    const clean = { ...cleanMember(player), deaths: count(player.deaths, 100000) ?? 0, won: player.won === true };
+    if (count(player.place, 1000)) clean.place = player.place;
+    if (player.team) clean.team = short(player.team, 32);
+    return clean;
+  });
+  let config = null;
+  try { config = body.config ? checkConfig(body.config) : null; } catch { config = null; }
+  const result = {
+    id: body.id,
+    title: short(body.title, 120) || "Challenge",
+    started_at: startedAt,
+    ended_at: endedAt,
+    play_seconds: count(body.play_seconds, 10000000) ?? 0,
+    modes,
+    outcome: short(body.outcome, 120) || null,
+    success: typeof body.success === "boolean" ? body.success : null,
+    dragon_killed_after: count(body.dragon_killed_after, 10000000),
+    ranking,
+    players,
+    winners: players.filter((player) => player.won).map((player) => player.name),
+    config,
+  };
+  if (JSON.stringify(result).length > MAX_RESULT_SIZE) throw new HttpError(413, "Das Ergebnis ist zu groß.");
+  return result;
+}
+
+function berlinDate(time) {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(time);
+}
+
+async function submitResult(request, env, body) {
+  const header = request.headers.get("Authorization") || "";
+  if (!env.RESULTS_TOKEN || !header.startsWith("Bearer ") || !(await sameSecret(header.slice(7), env.RESULTS_TOKEN))) {
+    throw new HttpError(401, "Ungültiger Token.");
+  }
+  const result = cleanResult(body);
+  // The challenge of the day in the calendar gives the result its name
+  const event = await env.DB.prepare(
+    "SELECT e.id, e.title, p.name AS proposal FROM events e LEFT JOIN proposals p ON p.id = e.proposal_id WHERE e.date = ? ORDER BY e.id LIMIT 1"
+  ).bind(berlinDate(result.started_at)).first();
+  const title = (event && (event.proposal || event.title)) || result.title;
+  const inserted = await env.DB.prepare(
+    `INSERT OR IGNORE INTO results (id, title, started_at, ended_at, play_seconds, modes, outcome, data, event_id, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(result.id, title, result.started_at, result.ended_at, result.play_seconds, JSON.stringify(result.modes), result.outcome,
+    JSON.stringify(result), event ? event.id : null, Date.now()).run();
+  if (inserted.meta.changes && result.players.length) {
+    await env.DB.batch(result.players.map((player) => env.DB.prepare(
+      "INSERT OR IGNORE INTO result_players (result_id, uuid, name, place, won) VALUES (?, ?, ?, ?, ?)"
+    ).bind(result.id, player.uuid, player.name, player.place ?? null, player.won ? 1 : 0)));
+  }
+  return { ok: true, id: result.id, duplicate: !inserted.meta.changes };
+}
+
+async function listResults(env) {
+  const { results } = await env.DB.prepare(
+    "SELECT id, title, started_at, ended_at, play_seconds, modes, outcome, event_id FROM results ORDER BY started_at DESC LIMIT 300"
+  ).all();
+  const { results: players } = await env.DB.prepare(
+    "SELECT result_id, uuid, name, place, won FROM result_players WHERE result_id IN (SELECT id FROM results ORDER BY started_at DESC LIMIT 300)"
+  ).all();
+  const byResult = {};
+  for (const player of players) (byResult[player.result_id] ||= []).push(player);
+  return results.map((row) => {
+    const entries = byResult[row.id] || [];
+    return {
+      ...row,
+      modes: JSON.parse(row.modes),
+      players: entries.length,
+      winners: entries.filter((player) => player.won).map((player) => ({ uuid: player.uuid, name: player.name })),
+    };
+  });
+}
+
+async function resultDetails(env, id) {
+  const row = await env.DB.prepare("SELECT id, title, event_id, data FROM results WHERE id = ?").bind(id).first();
+  if (!row) throw new HttpError(404, "Ergebnis nicht gefunden.");
+  return { ...JSON.parse(row.data), title: row.title, event_id: row.event_id };
+}
+
+async function leaderboard(env, mode) {
+  const filter = mode ? "WHERE r.modes LIKE ?" : "";
+  const statement = env.DB.prepare(
+    `SELECT rp.uuid,
+       COUNT(*) AS games,
+       SUM(rp.won) AS wins,
+       SUM(CASE WHEN rp.place BETWEEN 1 AND 3 THEN 1 ELSE 0 END) AS podiums,
+       MIN(rp.place) AS best_place,
+       MAX(r.started_at) AS last_played,
+       (SELECT p2.name FROM result_players p2 JOIN results r2 ON r2.id = p2.result_id WHERE p2.uuid = rp.uuid ORDER BY r2.started_at DESC LIMIT 1) AS name
+     FROM result_players rp JOIN results r ON r.id = rp.result_id ${filter}
+     GROUP BY rp.uuid
+     ORDER BY wins DESC, podiums DESC, games DESC, name
+     LIMIT 200`
+  );
+  const { results } = await (mode ? statement.bind(`%"${mode}"%`) : statement).all();
+  return results;
+}
+
 function eventFields(body) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(body.date || "") || Number.isNaN(Date.parse(body.date))) throw new HttpError(400, "Ungültiges Datum.");
   return {
@@ -540,6 +693,22 @@ async function route(request, env, url, user) {
   const id = parts[1] ? Number(parts[1]) : null;
 
   if (parts[0] === "state" && method === "GET") return state(env, user);
+
+  if (parts[0] === "results") {
+    if (method === "POST" && !parts[1]) return submitResult(request, env, body);
+    if (method === "GET" && !parts[1]) return { results: await listResults(env) };
+    if (method === "GET" && UUID_PATTERN.test(parts[1])) return resultDetails(env, parts[1]);
+    if (method === "DELETE" && UUID_PATTERN.test(parts[1])) {
+      requireAdmin(user);
+      await env.DB.prepare("DELETE FROM results WHERE id = ?").bind(parts[1]).run();
+      return { ok: true };
+    }
+  }
+
+  if (parts[0] === "leaderboard" && method === "GET") {
+    const mode = url.searchParams.get("mode");
+    return { players: await leaderboard(env, mode && ID_PATTERN.test(mode) ? mode : null) };
+  }
 
   if (parts[0] === "proposals") {
     if (method === "POST" && !id) return submitProposal(env, user, body);
