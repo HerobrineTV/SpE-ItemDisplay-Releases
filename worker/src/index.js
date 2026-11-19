@@ -553,6 +553,16 @@ function list(value, max, field) {
   return value;
 }
 
+// Einstellungen einer Modded-Runde: nur kurze Texte, höchstens 40
+function moddedSettingsOf(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return null;
+  const clean = {};
+  for (const [key, entry] of Object.entries(value).slice(0, 40)) {
+    if (typeof entry === "string" || typeof entry === "number" || typeof entry === "boolean") clean[short(key, 60)] = short(String(entry), 60);
+  }
+  return Object.keys(clean).length ? clean : null;
+}
+
 function cleanResult(body) {
   if (!UUID_PATTERN.test(body.id || "")) throw new HttpError(400, "Ungültige Ergebnis-ID.");
   const startedAt = count(body.started_at);
@@ -599,6 +609,8 @@ function cleanResult(body) {
     winners: players.filter((player) => player.won).map((player) => player.name),
     config,
   };
+  const moddedSettings = moddedSettingsOf(body.modded_settings);
+  if (moddedSettings) result.modded_settings = moddedSettings;
   if (JSON.stringify(result).length > MAX_RESULT_SIZE) throw new HttpError(413, "Das Ergebnis ist zu groß.");
   return result;
 }
@@ -657,8 +669,15 @@ async function resultDetails(env, id) {
   return { ...JSON.parse(row.data), title: row.title, event_id: row.event_id };
 }
 
-async function leaderboard(env, mode) {
-  const filter = mode ? "WHERE r.modes LIKE ?" : "";
+// Modded Challenges (SpE Lucky Battles) haben Modus-IDs mit "lucky_" und ein eigenes Leaderboard
+const MODDED_LIKE = `'%"lucky\\_%' ESCAPE '\\'`;
+
+async function leaderboard(env, mode, scope) {
+  const conditions = [];
+  if (mode) conditions.push("r.modes LIKE ?");
+  if (scope === "modded") conditions.push(`r.modes LIKE ${MODDED_LIKE}`);
+  if (scope === "vanilla") conditions.push(`r.modes NOT LIKE ${MODDED_LIKE}`);
+  const filter = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
   const statement = env.DB.prepare(
     `SELECT rp.uuid,
        COUNT(*) AS games,
@@ -707,7 +726,8 @@ async function route(request, env, url, user) {
 
   if (parts[0] === "leaderboard" && method === "GET") {
     const mode = url.searchParams.get("mode");
-    return { players: await leaderboard(env, mode && ID_PATTERN.test(mode) ? mode : null) };
+    const scope = url.searchParams.get("scope");
+    return { players: await leaderboard(env, mode && ID_PATTERN.test(mode) ? mode : null, scope === "modded" || scope === "vanilla" ? scope : null) };
   }
 
   if (parts[0] === "proposals") {

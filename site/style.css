@@ -119,6 +119,8 @@ button.day:hover { border-color: var(--accent); filter: none; }
 .card summary { cursor: pointer; color: var(--accent); }
 .card details ul { padding-left: 18px; margin: 6px 0 0; }
 .card.wide { grid-column: 1 / -1; }
+.modded-modes { margin: 12px 0 22px; }
+#modded .section-head + #modded-leaderboard-body, #modded #modded-results-body { margin-bottom: 8px; }
 .submenu { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
 .submenu .card { background: var(--panel-2); }
 .kit { display: grid; grid-template-columns: repeat(9, minmax(0, 44px)); gap: 3px; }

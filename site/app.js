@@ -9,6 +9,16 @@ const GROUP_NEEDS = { force_battle: "force_item_battle", bingo_options: "item_bi
 const SUBMENUS = { force_item_battle: "force_battle", item_bingo: "bingo_options" };
 const KIT_SLOTS = 36;
 const MOD_TAG = '<a class="mod-tag" href="#downloads" title="Braucht die SpE-Mod">Mod</a>';
+// Modded Challenges (SpE Lucky Battles): ihre Modus-IDs beginnen mit "lucky_"
+const MODDED_PREFIX = "lucky_";
+const MODDED_TITLES = {
+  lucky_skyblock_battle: "Skyblock Battle",
+  lucky_bedwars: "Lucky Block Bedwars",
+  lucky_race: "Lucky Block Race",
+  lucky_tower: "Lucky Block Tower",
+  lucky_solo: "Solo",
+  lucky_teams: "Teams",
+};
 const MONTHS = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
 
 let catalog = [];
@@ -80,8 +90,13 @@ async function run(action, success) {
 
 function icon(id, big) {
   const toggle = byId[id];
-  const letter = toggle ? name(toggle)[0] : "?";
-  return `<span class="ico${big ? " big" : ""}" title="${esc(toggle ? name(toggle) : id)}">${esc(letter)}<img src="icons/${esc(id)}.png" alt="" onerror="this.remove()"></span>`;
+  const title = toggle ? name(toggle) : MODDED_TITLES[id] || id;
+  const letter = toggle || MODDED_TITLES[id] ? title[0] : "?";
+  return `<span class="ico${big ? " big" : ""}" title="${esc(title)}">${esc(letter)}<img src="icons/${esc(id)}.png" alt="" onerror="this.remove()"></span>`;
+}
+
+function isModded(result) {
+  return (result.modes || []).some((mode) => mode.startsWith(MODDED_PREFIX));
 }
 
 function unknownIcon() {
@@ -942,6 +957,7 @@ function renderDayPolls() {
 
 let results = [];
 let leaderboardMode = "";
+let moddedMode = "";
 
 function playerHead(uuid, playerName) {
   return `<span class="head" aria-hidden="true">${esc((playerName || "?")[0].toUpperCase())}<img loading="lazy" alt="" src="https://mc-heads.net/avatar/${esc(uuid)}/48" onerror="this.remove()"></span>`;
@@ -968,11 +984,13 @@ function formatDateTime(time) {
 }
 
 function modeTitle(id) {
-  return byId[id] ? name(byId[id]) : prettyId(id);
+  return byId[id] ? name(byId[id]) : MODDED_TITLES[id] || prettyId(id);
 }
 
 function modeIcons(modes) {
-  return modes.length ? modes.map((mode) => icon(mode)).join("") : `<span class="ico" title="Normale Challenge">⚔</span>`;
+  // "Solo"/"Teams" der Modded Challenges stehen im Titel, nicht als eigenes Bild
+  const shown = modes.filter((mode) => mode !== "lucky_solo" && mode !== "lucky_teams");
+  return shown.length ? shown.map((mode) => icon(mode)).join("") : `<span class="ico" title="Normale Challenge">⚔</span>`;
 }
 
 function placeBadge(place) {
@@ -980,15 +998,22 @@ function placeBadge(place) {
 }
 
 function leaderboardPath() {
-  return `leaderboard${leaderboardMode ? `?mode=${encodeURIComponent(leaderboardMode)}` : ""}`;
+  return `leaderboard?scope=vanilla${leaderboardMode ? `&mode=${encodeURIComponent(leaderboardMode)}` : ""}`;
+}
+
+function moddedLeaderboardPath() {
+  return `leaderboard?scope=modded${moddedMode ? `&mode=${encodeURIComponent(moddedMode)}` : ""}`;
 }
 
 async function loadResults() {
-  const [list, board] = await Promise.all([run(() => api("results")), run(() => api(leaderboardPath()))]);
+  const [list, board, moddedBoard] = await Promise.all([
+    run(() => api("results")), run(() => api(leaderboardPath())), run(() => api(moddedLeaderboardPath()))]);
   if (list) results = list.results;
   renderResults();
   fillLeaderboardModes();
+  fillModdedModes();
   if (board) renderLeaderboard(board.players);
+  if (moddedBoard) renderModdedLeaderboard(moddedBoard.players);
 }
 
 async function loadLeaderboard() {
@@ -996,9 +1021,22 @@ async function loadLeaderboard() {
   if (board) renderLeaderboard(board.players);
 }
 
+async function loadModdedLeaderboard() {
+  const board = await run(() => api(moddedLeaderboardPath()));
+  if (board) renderModdedLeaderboard(board.players);
+}
+
+function fillModdedModes() {
+  const select = $("#modded-mode");
+  const modes = ["lucky_skyblock_battle", "lucky_bedwars", "lucky_solo", "lucky_teams"];
+  select.innerHTML = `<option value="">Alle Modi</option>${modes.map((mode) =>
+    `<option value="${esc(mode)}"${mode === moddedMode ? " selected" : ""}>${esc(MODDED_TITLES[mode])}</option>`).join("")}`;
+  select.onchange = () => { moddedMode = select.value; loadModdedLeaderboard(); };
+}
+
 function fillLeaderboardModes() {
   const select = $("#leaderboard-mode");
-  const modes = [...new Set(results.flatMap((result) => result.modes))].sort((a, b) => modeTitle(a).localeCompare(modeTitle(b)));
+  const modes = [...new Set(results.filter((result) => !isModded(result)).flatMap((result) => result.modes))].sort((a, b) => modeTitle(a).localeCompare(modeTitle(b)));
   if (leaderboardMode && !modes.includes(leaderboardMode)) modes.push(leaderboardMode);
   select.innerHTML = `<option value="">Alle Challenges</option>${modes.map((mode) =>
     `<option value="${esc(mode)}"${mode === leaderboardMode ? " selected" : ""}>${esc(modeTitle(mode))}</option>`).join("")}`;
@@ -1006,9 +1044,20 @@ function fillLeaderboardModes() {
 }
 
 function renderLeaderboard(players) {
-  const body = $("#leaderboard-body");
+  boardHtml($("#leaderboard-body"), players,
+    leaderboardMode ? "In dieser Challenge gibt es noch keine Ergebnisse." : "Noch keine Ergebnisse. Nach der ersten beendeten Challenge geht es hier los.",
+    "Siege zählen Platz 1 und gemeinsam geschaffte Challenges (Enderdrache besiegt). Bei Gleichstand entscheiden Podestplätze, dann die Anzahl der Spiele.");
+}
+
+function renderModdedLeaderboard(players) {
+  boardHtml($("#modded-leaderboard-body"), players,
+    moddedMode ? "In diesem Modus gibt es noch keine Ergebnisse." : "Noch keine Modded-Runden. Nach der ersten beendeten Lucky-Block-Runde geht es hier los.",
+    "Ein Sieg ist Platz 1 einer Runde (im Team zählt er für jedes Mitglied). Bei Gleichstand entscheiden Podestplätze, dann die Anzahl der Spiele.");
+}
+
+function boardHtml(body, players, emptyText, hint) {
   if (!players.length) {
-    body.innerHTML = `<div class="panel empty">${leaderboardMode ? "In dieser Challenge gibt es noch keine Ergebnisse." : "Noch keine Ergebnisse. Nach der ersten beendeten Challenge geht es hier los."}</div>`;
+    body.innerHTML = `<div class="panel empty">${esc(emptyText)}</div>`;
     return;
   }
   let rank = 0;
@@ -1031,7 +1080,7 @@ function renderLeaderboard(players) {
     <thead><tr><th>Platz</th><th>Spieler</th><th class="num">Siege</th><th class="num" title="Platz 1 bis 3">Podest</th><th class="num">Spiele</th><th class="num">Siegquote</th></tr></thead>
     <tbody>${rows.join("")}</tbody>
   </table></div>
-  <p class="hint">Siege zählen Platz 1 und gemeinsam geschaffte Challenges (Enderdrache besiegt). Bei Gleichstand entscheiden Podestplätze, dann die Anzahl der Spiele.</p>`;
+  <p class="hint">${esc(hint)}</p>`;
 }
 
 function outcomeHtml(result) {
@@ -1042,12 +1091,16 @@ function outcomeHtml(result) {
 }
 
 function renderResults() {
-  const body = $("#results-body");
-  if (!results.length) {
-    body.innerHTML = `<div class="panel empty">Noch keine beendeten Challenges.</div>`;
+  renderResultList($("#results-body"), results.filter((result) => !isModded(result)), "Noch keine beendeten Challenges.");
+  renderResultList($("#modded-results-body"), results.filter(isModded), "Noch keine beendeten Modded-Runden.");
+}
+
+function renderResultList(body, list, emptyText) {
+  if (!list.length) {
+    body.innerHTML = `<div class="panel empty">${esc(emptyText)}</div>`;
     return;
   }
-  body.innerHTML = `<div class="row-list">${results.map((result) => `<article class="panel row">
+  body.innerHTML = `<div class="row-list">${list.map((result) => `<article class="panel row">
       <div class="grow">
         <div class="option-title">${modeIcons(result.modes)}<h3>${esc(result.title)}</h3></div>
         <div class="meta">${esc(formatDateTime(result.started_at))} · ${esc(formatDuration(result.play_seconds))} · ${result.players} Spieler</div>
@@ -1110,6 +1163,7 @@ async function showResult(id) {
     <p class="meta">${esc(facts.join(" · "))}</p>
     ${outcome ? `<p class="outcome">${esc(outcome)}</p>` : ""}
     ${result.config ? configTags(result.config) : ""}
+    ${result.modded_settings ? `<div class="tags">${Object.entries(result.modded_settings).map(([key, value]) => `<span class="tag">${esc(key)}: ${esc(value)}</span>`).join("")}</div>` : ""}
     ${ranking}
     <h3 class="group-title">Spieler</h3>
     <div class="table-wrap"><table class="board compact">
@@ -1222,8 +1276,15 @@ function bindCalendar() {
 
 async function showLatestVersion() {
   try {
-    const response = await fetch("https://api.github.com/repos/HerobrineTV/SpE-ItemDisplay-Releases/releases/latest");
-    if (response.ok) $("#latest-version").textContent = ` (${(await response.json()).tag_name})`;
+    // Mehrere Mods teilen sich das Repository: je Mod die neueste Version mit ihrer Datei
+    const response = await fetch("https://api.github.com/repos/HerobrineTV/SpE-ItemDisplay-Releases/releases?per_page=30");
+    if (!response.ok) return;
+    const releases = await response.json();
+    const withAsset = (pattern) => releases.find((release) => !release.draft && !release.prerelease && release.assets.some((asset) => pattern.test(asset.name)));
+    const item = withAsset(/^SpE-ItemDisplay-.+\.jar$/);
+    const lucky = withAsset(/^SpE-LuckyBattles-\d.+\.jar$/);
+    if (item) $("#latest-version").textContent = ` (${item.tag_name})`;
+    if (lucky) $("#lucky-version").textContent = ` (${lucky.tag_name.replace(/^luckybattles-/, "")})`;
   } catch { /* the buttons work without the version */ }
 }
 
@@ -1283,7 +1344,8 @@ async function init() {
   await loadResults();
   const linkedResult = new URLSearchParams(location.search).get("result");
   if (linkedResult) {
-    $("#vergangen").scrollIntoView();
+    const linked = results.find((result) => result.id === linkedResult);
+    (linked && isModded(linked) ? $("#modded") : $("#vergangen")).scrollIntoView();
     showResult(linkedResult);
   }
   setInterval(poll, 20000);

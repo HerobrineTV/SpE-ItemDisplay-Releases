@@ -24,6 +24,7 @@
       <a href="#vorschlaege">Vorschläge</a>
       <a href="#leaderboard">Leaderboard</a>
       <a href="#vergangen">Vergangene Challenges</a>
+      <a href="#modded">Modded Challenges</a>
       <a href="#admin" id="nav-admin" hidden>Admin</a>
     </nav>
     <div id="account"></div>
@@ -87,6 +88,33 @@
       <div class="section-head"><h2 id="h-vergangen">Vergangene Challenges</h2></div>
       <p class="lead">Jede beendete Challenge mit Platzierungen, Gewinnern und allen Einstellungen. Klicke auf eine Runde für das komplette Ergebnis.</p>
       <div id="results-body"></div>
+    </section>
+
+    <section id="modded" aria-labelledby="h-modded">
+      <div class="section-head"><h2 id="h-modded">Modded Challenges</h2></div>
+      <p class="lead">Lucky-Block-Spielmodi im Stil der Lucky Block Battles, auf Forge 1.8.9 mit dem Modpack <strong>All The Lucky Blocks 1</strong> (Lucky Block Mod und rund 50 Lucky-Block-Addons). Jeder Modus geht solo und im Team.</p>
+      <div class="panel row">
+        <p class="grow" style="margin:0"><strong>SpE Lucky Battles</strong><span id="lucky-version"></span>: Der Server braucht die Mod. Im Client ist sie freiwillig, damit gibt es einen eigenen Shop und ein Menü (Taste K). Das Velocity-Plugin verbindet die Rechte mit LuckPerms.</p>
+        <div class="row-actions">
+          <a class="button" href="download/luckybattles/">Mod herunterladen</a>
+          <a class="button ghost" href="download/luckybattles-velocity/">Velocity-Plugin</a>
+        </div>
+      </div>
+      <div class="cards modded-modes">
+        <article class="card"><div class="card-head"><span class="ico big" aria-hidden="true">S</span><h3>Skyblock Battle</h3></div>
+          <p>Jedes Team startet auf einer Insel aus Lucky Blocks mit einem Respawn-Beacon. Solange der Beacon steht, respawnt das Team. Nur Gegner können ihn abbauen. Einstellbar: alle Inseln aus demselben Lucky Block, jedes Team aus einem eigenen oder alle gemischt.</p></article>
+        <article class="card"><div class="card-head"><span class="ico big" aria-hidden="true">B</span><h3>Lucky Block Bedwars</h3></div>
+          <p>Bedwars, nur spawnen auf den Inseln Lucky Blocks statt Bronze. Mit ihnen kauft man beim Villager-Shop Blöcke, Waffen, Rüstung und alle anderen Lucky Blocks, oder man öffnet sie. In der Mitte spawnen seltene Lucky Blocks.</p></article>
+        <article class="card"><div class="card-head"><span class="ico big unknown" aria-hidden="true">?</span><h3>Bald</h3></div>
+          <p>Lucky Block Race und Lucky Block Tower sind in Arbeit.</p></article>
+      </div>
+      <div class="section-head">
+        <h3>Leaderboard</h3>
+        <label class="inline-select"><span>Modus</span><select id="modded-mode"></select></label>
+      </div>
+      <div id="modded-leaderboard-body"></div>
+      <div class="section-head"><h3>Vergangene Runden</h3></div>
+      <div id="modded-results-body"></div>
     </section>
 
     <section id="admin" aria-labelledby="h-admin" hidden>
