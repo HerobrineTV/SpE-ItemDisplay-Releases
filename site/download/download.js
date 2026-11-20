@@ -7,6 +7,7 @@
     mod: /^SpE-ItemDisplay-.+\.jar$/,
     luckybattles: /^SpE-LuckyBattles-\d.+\.jar$/,
     "luckybattles-velocity": /^SpE-LuckyBattles-Velocity-.+\.jar$/,
+    oneblock: /^LuckyOneBlock-1\.8\.9-.+\.jar$/,
   };
   const pattern = assets[document.documentElement.dataset.asset];
   const status = document.querySelector("#status");
