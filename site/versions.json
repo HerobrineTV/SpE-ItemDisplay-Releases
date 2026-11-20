@@ -16,7 +16,7 @@
   },
   "spe-lobby": {
     "name": "SpE-Lobby",
-    "version": "0.5.2",
+    "version": "0.5.3",
     "download": "https://github.com/HerobrineTV/SpE-LuckyBattles/releases"
   },
   "spe-challenges": {
@@ -26,7 +26,7 @@
   },
   "spe-chat": {
     "name": "SpE-Chat",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "download": "https://github.com/HerobrineTV/SpE-Chat/releases"
   },
   "lucky-oneblock": {
