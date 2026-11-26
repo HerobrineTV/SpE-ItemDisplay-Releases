@@ -1,7 +1,7 @@
 {
   "spe-itemdisplay": {
     "name": "SpE ItemDisplay",
-    "version": "1.4.3",
+    "version": "1.4.4",
     "download": "https://herobrinetv.github.io/SpE-ItemDisplay-Releases/download/mod/"
   },
   "spe-luckybattles": {
@@ -11,22 +11,22 @@
   },
   "spe-luckybattles-velocity": {
     "name": "SpE-LuckyBattles-Velocity",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "download": "https://herobrinetv.github.io/SpE-ItemDisplay-Releases/download/luckybattles-velocity/"
   },
   "spe-lobby": {
     "name": "SpE-Lobby",
-    "version": "0.8.0",
+    "version": "0.9.0",
     "download": "https://github.com/HerobrineTV/SpE-LuckyBattles/releases"
   },
   "spe-challenges": {
     "name": "SpE-Challenges",
-    "version": "0.6.5",
+    "version": "0.6.6",
     "download": "https://github.com/HerobrineTV/SpE-Challenges/releases"
   },
   "spe-chat": {
     "name": "SpE-Chat",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "download": "https://github.com/HerobrineTV/SpE-Chat/releases"
   },
   "lucky-oneblock": {
