@@ -1,37 +1,37 @@
 {
   "spe-itemdisplay": {
     "name": "SpE ItemDisplay",
-    "version": "1.3.3",
+    "version": "1.4.0",
     "download": "https://herobrinetv.github.io/SpE-ItemDisplay-Releases/download/mod/"
   },
   "spe-luckybattles": {
     "name": "SpE Lucky Battles",
-    "version": "0.5.1",
+    "version": "0.6.0",
     "download": "https://herobrinetv.github.io/SpE-ItemDisplay-Releases/download/luckybattles/"
   },
   "spe-luckybattles-velocity": {
     "name": "SpE-LuckyBattles-Velocity",
-    "version": "0.2.4",
+    "version": "0.3.0",
     "download": "https://herobrinetv.github.io/SpE-ItemDisplay-Releases/download/luckybattles-velocity/"
   },
   "spe-lobby": {
     "name": "SpE-Lobby",
-    "version": "0.7.0",
+    "version": "0.8.0",
     "download": "https://github.com/HerobrineTV/SpE-LuckyBattles/releases"
   },
   "spe-challenges": {
     "name": "SpE-Challenges",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "download": "https://github.com/HerobrineTV/SpE-Challenges/releases"
   },
   "spe-chat": {
     "name": "SpE-Chat",
-    "version": "0.4.0",
+    "version": "0.5.0",
     "download": "https://github.com/HerobrineTV/SpE-Chat/releases"
   },
   "lucky-oneblock": {
     "name": "Lucky One Block",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "download": "https://herobrinetv.github.io/SpE-ItemDisplay-Releases/download/oneblock/"
   }
 }
