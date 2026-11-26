@@ -668,7 +668,13 @@ function renderBuilder() {
   body.querySelectorAll("details[data-detail]").forEach((item) => { if (open.has(item.dataset.detail)) item.open = true; });
   body.querySelectorAll("[data-slot]").forEach((button) => { button.onclick = () => editSlot(Number(button.dataset.slot)); });
   body.querySelectorAll("[data-toggle]").forEach((input) => {
-    input.onchange =() => { draft.toggles[input.dataset.toggle].value = input.checked; saveDraft(); renderBuilder(); };
+    input.onchange = () => {
+      draft.toggles[input.dataset.toggle].value = input.checked;
+      // Like in the plugin: the Joker comes and goes with the Force Item Battle
+      if (input.dataset.toggle === "force_item_battle" && draft.toggles.joker) draft.toggles.joker.value = input.checked;
+      saveDraft();
+      renderBuilder();
+    };
   });
   body.querySelectorAll("[data-amount]").forEach((input) => {
     input.onchange = () => {
