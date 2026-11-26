@@ -1195,7 +1195,8 @@ function placeVotingSections() {
   ];
   const before = sections.filter(([, active]) => active).map(([section]) => section);
   const after = sections.filter(([, active]) => !active).map(([section]) => section);
-  const wanted = [$("#downloads"), ...before, calendar, ...after, $("#builder")];
+  // Only inside the Events area (nav.js): open votes and polls before the calendar, the others after it
+  const wanted = [...before, calendar, ...after];
   const current = [...calendar.parentElement.children];
   wanted.forEach((section, index) => {
     if (index > 0 && current.indexOf(section) !== current.indexOf(wanted[index - 1]) + 1) {

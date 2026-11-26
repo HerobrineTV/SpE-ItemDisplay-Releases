@@ -2,132 +2,214 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>SpE Challenges</title>
-  <meta name="description" content="Kalender, Voting und Challenge Builder für SpE Challenges">
+  <meta name="description" content="Kalender, Voting, Challenge Builder und Leaderboards für SpE Challenges auf spieleecke.com">
+  <meta name="theme-color" content="#0a0e13">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=__BUILD__">
 </head>
 <body>
   <header class="top">
-    <a class="brand" href="./">SpE <span>Challenges</span></a>
-    <button type="button" class="server" id="server" title="Server-IP kopieren" aria-label="Server-IP spieleecke.com kopieren">
-      <span class="server-dot" id="server-dot"></span>
-      <span class="server-ip">spieleecke.com</span>
-      <span class="server-status" id="server-status">Status wird geladen</span>
-    </button>
-    <nav>
-      <a href="#downloads">Downloads</a>
-      <a href="#kalender">Kalender</a>
-      <a href="#voting">Voting</a>
-      <a href="#termine">Termine</a>
-      <a href="#builder">Builder</a>
-      <a href="#vorschlaege">Vorschläge</a>
-      <a href="#leaderboard">Leaderboard</a>
-      <a href="#vergangen">Vergangene Challenges</a>
-      <a href="#modded">Modded Challenges</a>
-      <a href="#admin" id="nav-admin" hidden>Admin</a>
-    </nav>
-    <div id="account"></div>
+    <div class="top-inner">
+      <a class="brand" href="#start" data-view-link="start">
+        <span class="brand-mark" aria-hidden="true">S</span>
+        <span class="brand-text">SpE <span>Challenges</span></span>
+      </a>
+      <nav class="tabs" aria-label="Bereiche">
+        <a href="#start" data-view-link="start">Start</a>
+        <a href="#events" data-view-link="events">Events</a>
+        <a href="#create" data-view-link="create">Builder</a>
+        <a href="#ranking" data-view-link="ranking">Rangliste</a>
+        <a href="#mods" data-view-link="mods">Modded</a>
+        <a href="#control" data-view-link="control" id="nav-admin" hidden>Admin</a>
+      </nav>
+      <button type="button" class="server" id="server" title="Server-IP kopieren" aria-label="Server-IP spieleecke.com kopieren">
+        <span class="server-dot" id="server-dot"></span>
+        <span class="server-ip">spieleecke.com</span>
+        <span class="server-status" id="server-status">Status wird geladen</span>
+      </button>
+      <div id="account"></div>
+    </div>
   </header>
 
   <main>
-    <section id="downloads" aria-labelledby="h-downloads">
-      <div class="section-head"><h2 id="h-downloads">Downloads</h2></div>
-      <div class="panel row">
-        <p class="grow" style="margin:0">Immer die neueste Version<span id="latest-version"></span>. Der Updater installiert und aktualisiert die Mod automatisch.</p>
-        <div class="row-actions">
-          <a class="button" href="download/updater/">Updater herunterladen</a>
-          <a class="button" href="download/mod/">Mod herunterladen</a>
+    <!-- Start -->
+    <div class="view" data-view="start">
+      <section class="hero" aria-labelledby="h-hero">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <p class="eyebrow">Minecraft Challenges · spieleecke.com</p>
+        <h1 id="h-hero">Gemeinsam die verrücktesten <span class="grad">Challenges</span> spielen.</h1>
+        <p class="hero-lead">Stimme über die nächste Challenge ab, bau deine eigene zusammen und vergleiche dich im Leaderboard. Force Battles, Bingo, Monster Army, Lucky Blocks und vieles mehr.</p>
+        <div class="hero-actions">
+          <button type="button" class="button big" data-copy-ip>IP kopieren: spieleecke.com</button>
+          <a class="button big ghost" href="#events" data-view-link="events">Zum Voting</a>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="kalender" aria-labelledby="h-kalender">
-      <div class="section-head">
-        <h2 id="h-kalender">Kalender</h2>
-        <div class="month-nav">
-          <button class="ghost" id="prev-month" aria-label="Vorheriger Monat">‹</button>
-          <strong id="month-label"></strong>
-          <button class="ghost" id="next-month" aria-label="Nächster Monat">›</button>
+      <div class="quick">
+        <a class="quick-card" href="#events" data-view-link="events">
+          <span class="quick-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 2v3M17 2v3M3 9h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg></span>
+          <strong>Events</strong><span>Voting, Termine und Kalender</span>
+        </a>
+        <a class="quick-card" href="#create" data-view-link="create">
+          <span class="quick-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></span>
+          <strong>Builder</strong><span>Eigene Challenge vorschlagen</span>
+        </a>
+        <a class="quick-card" href="#ranking" data-view-link="ranking">
+          <span class="quick-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></span>
+          <strong>Rangliste</strong><span>Leaderboard und alte Runden</span>
+        </a>
+        <a class="quick-card" href="#mods" data-view-link="mods">
+          <span class="quick-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l9 5v10l-9 5-9-5V7zM12 12l9-5M12 12v10M12 12L3 7"/></svg></span>
+          <strong>Modded</strong><span>Lucky Battles auf Forge 1.8.9</span>
+        </a>
+      </div>
+
+      <section id="downloads" aria-labelledby="h-downloads">
+        <div class="section-head"><h2 id="h-downloads">Downloads</h2></div>
+        <div class="download-grid">
+          <article class="panel download">
+            <div class="download-head"><span class="pill">Empfohlen</span><h3>SpE Mod-Updater</h3></div>
+            <p>Installiert und aktualisiert alle SpE-Mods in deinen Launchern: SpE ItemDisplay (Fabric), SpE Lucky Battles und Lucky One Block (Forge 1.8.9).</p>
+            <a class="button" href="download/updater/">Updater herunterladen</a>
+          </article>
+          <article class="panel download">
+            <div class="download-head"><span class="pill ghost-pill">Fabric</span><h3>SpE ItemDisplay</h3></div>
+            <p>Die Client-Mod für Challenges: HUD, Einstellungen, Wellen-Editor und mehr. Immer die neueste Version<span id="latest-version"></span>.</p>
+            <a class="button ghost" href="download/mod/">Mod herunterladen</a>
+          </article>
         </div>
-      </div>
-      <div id="calendar"></div>
-      <p class="hint" id="calendar-hint"></p>
-    </section>
+      </section>
+    </div>
 
-    <section id="voting" aria-labelledby="h-voting">
-      <div class="section-head"><h2 id="h-voting">Aktuelles Voting</h2></div>
-      <div id="voting-body"></div>
-    </section>
+    <!-- Events -->
+    <div class="view" data-view="events" hidden>
+      <section id="voting" aria-labelledby="h-voting">
+        <div class="section-head"><h2 id="h-voting">Aktuelles Voting</h2></div>
+        <div id="voting-body"></div>
+      </section>
 
-    <section id="termine" aria-labelledby="h-termine">
-      <div class="section-head"><h2 id="h-termine">Terminabstimmung</h2></div>
-      <div id="polls-body"></div>
-    </section>
+      <section id="termine" aria-labelledby="h-termine">
+        <div class="section-head"><h2 id="h-termine">Terminabstimmung</h2></div>
+        <div id="polls-body"></div>
+      </section>
 
-    <section id="builder" aria-labelledby="h-builder">
-      <div class="section-head"><h2 id="h-builder">Challenge Builder</h2></div>
-      <p class="lead">Stelle eine Challenge mit allen Einstellungen zusammen und schlage sie vor. Admins können Vorschläge in ein Voting aufnehmen.</p>
-      <div id="builder-body"></div>
-    </section>
-
-    <section id="vorschlaege" aria-labelledby="h-proposals">
-      <div class="section-head"><h2 id="h-proposals">Vorschläge</h2></div>
-      <div id="proposals-body"></div>
-    </section>
-
-    <section id="leaderboard" aria-labelledby="h-leaderboard">
-      <div class="section-head">
-        <h2 id="h-leaderboard">Leaderboard</h2>
-        <label class="inline-select"><span>Challenge</span><select id="leaderboard-mode"></select></label>
-      </div>
-      <div id="leaderboard-body"></div>
-    </section>
-
-    <section id="vergangen" aria-labelledby="h-vergangen">
-      <div class="section-head"><h2 id="h-vergangen">Vergangene Challenges</h2></div>
-      <p class="lead">Jede beendete Challenge mit Platzierungen, Gewinnern und allen Einstellungen. Klicke auf eine Runde für das komplette Ergebnis.</p>
-      <div id="results-body"></div>
-    </section>
-
-    <section id="modded" aria-labelledby="h-modded">
-      <div class="section-head"><h2 id="h-modded">Modded Challenges</h2></div>
-      <p class="lead">Lucky-Block-Spielmodi im Stil der Lucky Block Battles, auf Forge 1.8.9 mit dem Modpack <strong>All The Lucky Blocks 1</strong> (Lucky Block Mod und rund 50 Lucky-Block-Addons). Jeder Modus geht solo und im Team.</p>
-      <div class="panel row">
-        <p class="grow" style="margin:0"><strong>SpE Lucky Battles</strong><span id="lucky-version"></span>: Der Server braucht die Mod. Im Client ist sie freiwillig, damit gibt es einen eigenen Shop und ein Menü (Taste K). Das Velocity-Plugin verbindet die Rechte mit LuckPerms.</p>
-        <div class="row-actions">
-          <a class="button" href="download/luckybattles/">Mod herunterladen</a>
-          <a class="button ghost" href="download/luckybattles-velocity/">Velocity-Plugin</a>
+      <section id="kalender" aria-labelledby="h-kalender">
+        <div class="section-head">
+          <h2 id="h-kalender">Kalender</h2>
+          <div class="month-nav">
+            <button class="ghost" id="prev-month" aria-label="Vorheriger Monat">‹</button>
+            <strong id="month-label"></strong>
+            <button class="ghost" id="next-month" aria-label="Nächster Monat">›</button>
+          </div>
         </div>
-      </div>
-      <div class="cards modded-modes">
-        <article class="card"><div class="card-head"><span class="ico big" aria-hidden="true">S</span><h3>Skyblock Battle</h3></div>
-          <p>Jedes Team startet auf einer Insel aus Lucky Blocks mit einem Respawn-Beacon. Solange der Beacon steht, respawnt das Team. Nur Gegner können ihn abbauen. Einstellbar: alle Inseln aus demselben Lucky Block, jedes Team aus einem eigenen oder alle gemischt.</p></article>
-        <article class="card"><div class="card-head"><span class="ico big" aria-hidden="true">B</span><h3>Lucky Block Bedwars</h3></div>
-          <p>Bedwars, nur spawnen auf den Inseln Lucky Blocks statt Bronze. Mit ihnen kauft man beim Villager-Shop Blöcke, Waffen, Rüstung und alle anderen Lucky Blocks, oder man öffnet sie. In der Mitte spawnen seltene Lucky Blocks.</p></article>
-        <article class="card"><div class="card-head"><span class="ico big unknown" aria-hidden="true">?</span><h3>Bald</h3></div>
-          <p>Lucky Block Race und Lucky Block Tower sind in Arbeit.</p></article>
-      </div>
-      <div class="section-head">
-        <h3>Leaderboard</h3>
-        <label class="inline-select"><span>Modus</span><select id="modded-mode"></select></label>
-      </div>
-      <div id="modded-leaderboard-body"></div>
-      <div class="section-head"><h3>Vergangene Runden</h3></div>
-      <div id="modded-results-body"></div>
-    </section>
+        <div id="calendar"></div>
+        <p class="hint" id="calendar-hint"></p>
+      </section>
+    </div>
 
-    <section id="admin" aria-labelledby="h-admin" hidden>
-      <div class="section-head"><h2 id="h-admin">Admin</h2></div>
-      <div id="admin-body"></div>
-    </section>
+    <!-- Builder -->
+    <div class="view" data-view="create" hidden>
+      <section id="builder" aria-labelledby="h-builder">
+        <div class="section-head"><h2 id="h-builder">Challenge Builder</h2></div>
+        <p class="lead">Stelle eine Challenge mit allen Einstellungen zusammen und schlage sie vor. Admins können Vorschläge in ein Voting aufnehmen.</p>
+        <div id="builder-body"></div>
+      </section>
+
+      <section id="vorschlaege" aria-labelledby="h-proposals">
+        <div class="section-head"><h2 id="h-proposals">Vorschläge</h2></div>
+        <div id="proposals-body"></div>
+      </section>
+    </div>
+
+    <!-- Rangliste -->
+    <div class="view" data-view="ranking" hidden>
+      <section id="leaderboard" aria-labelledby="h-leaderboard">
+        <div class="section-head">
+          <h2 id="h-leaderboard">Leaderboard</h2>
+          <label class="inline-select"><span>Challenge</span><select id="leaderboard-mode"></select></label>
+        </div>
+        <div id="leaderboard-body"></div>
+      </section>
+
+      <section id="vergangen" aria-labelledby="h-vergangen">
+        <div class="section-head"><h2 id="h-vergangen">Vergangene Challenges</h2></div>
+        <p class="lead">Jede beendete Challenge mit Platzierungen, Gewinnern und allen Einstellungen. Klicke auf eine Runde für das komplette Ergebnis.</p>
+        <div id="results-body"></div>
+      </section>
+    </div>
+
+    <!-- Modded -->
+    <div class="view" data-view="mods" hidden>
+      <section id="modded" aria-labelledby="h-modded">
+        <div class="section-head"><h2 id="h-modded">Modded Challenges</h2></div>
+        <p class="lead">Lucky-Block-Spielmodi im Stil der Lucky Block Battles, auf Forge 1.8.9 mit dem Modpack <strong>All The Lucky Blocks 1</strong> (Lucky Block Mod und rund 50 Lucky-Block-Addons). Jeder Modus geht solo und im Team.</p>
+        <div class="download-grid">
+          <article class="panel download">
+            <div class="download-head"><span class="pill">Forge 1.8.9</span><h3>SpE Lucky Battles<span id="lucky-version"></span></h3></div>
+            <p>Der Server braucht die Mod. Im Client ist sie freiwillig, damit gibt es einen eigenen Shop und ein Menü (Taste K).</p>
+            <div class="row-actions">
+              <a class="button" href="download/luckybattles/">Mod herunterladen</a>
+              <a class="button ghost" href="download/luckybattles-velocity/">Velocity-Plugin</a>
+            </div>
+          </article>
+          <article class="panel download">
+            <div class="download-head"><span class="pill ghost-pill">Forge 1.8.9</span><h3>Lucky One Block</h3></div>
+            <p>One-Block-Welt aus Lucky Blocks: der abgebaute Block kommt sofort zufällig nach.</p>
+            <a class="button ghost" href="download/oneblock/">Mod herunterladen</a>
+          </article>
+        </div>
+        <div class="cards modded-modes">
+          <article class="card"><div class="card-head"><span class="ico big" aria-hidden="true">S</span><h3>Skyblock Battle</h3></div>
+            <p>Jedes Team startet auf einer Insel aus Lucky Blocks mit einem Respawn-Beacon. Solange der Beacon steht, respawnt das Team. Nur Gegner können ihn abbauen. Einstellbar: alle Inseln aus demselben Lucky Block, jedes Team aus einem eigenen oder alle gemischt.</p></article>
+          <article class="card"><div class="card-head"><span class="ico big" aria-hidden="true">B</span><h3>Lucky Block Bedwars</h3></div>
+            <p>Bedwars, nur spawnen auf den Inseln Lucky Blocks statt Bronze. Mit ihnen kauft man beim Villager-Shop Blöcke, Waffen, Rüstung und alle anderen Lucky Blocks, oder man öffnet sie. In der Mitte spawnen seltene Lucky Blocks.</p></article>
+          <article class="card"><div class="card-head"><span class="ico big unknown" aria-hidden="true">?</span><h3>Bald</h3></div>
+            <p>Lucky Block Race und Lucky Block Tower sind in Arbeit.</p></article>
+        </div>
+        <div class="section-head sub">
+          <h3>Leaderboard</h3>
+          <label class="inline-select"><span>Modus</span><select id="modded-mode"></select></label>
+        </div>
+        <div id="modded-leaderboard-body"></div>
+        <div class="section-head sub"><h3>Vergangene Runden</h3></div>
+        <div id="modded-results-body"></div>
+      </section>
+    </div>
+
+    <!-- Admin -->
+    <div class="view" data-view="control" hidden>
+      <section id="admin" aria-labelledby="h-admin" hidden>
+        <div class="section-head"><h2 id="h-admin">Admin</h2></div>
+        <div id="admin-body"></div>
+      </section>
+    </div>
   </main>
 
-  <footer class="credits">Item-Icons von <a href="https://mc.nerothe.com/" rel="noopener">mc.nerothe.com</a> und dem <a href="https://minecraft.wiki/" rel="noopener">Minecraft Wiki</a>. Minecraft ist eine Marke von Mojang Studios. Diese Seite ist kein offizielles Minecraft-Produkt und steht in keiner Verbindung zu Mojang oder Microsoft.</footer>
+  <footer class="credits">
+    <div class="credits-inner">
+      <span class="brand-text">SpE <span>Challenges</span></span>
+      <p>Item-Icons von <a href="https://mc.nerothe.com/" rel="noopener">mc.nerothe.com</a> und dem <a href="https://minecraft.wiki/" rel="noopener">Minecraft Wiki</a>. Minecraft ist eine Marke von Mojang Studios. Diese Seite ist kein offizielles Minecraft-Produkt und steht in keiner Verbindung zu Mojang oder Microsoft.</p>
+    </div>
+  </footer>
+
+  <!-- Mobile: Bereiche unten -->
+  <nav class="bottom-tabs" aria-label="Bereiche">
+    <a href="#start" data-view-link="start"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>Start</span></a>
+    <a href="#events" data-view-link="events"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2v3M17 2v3M3 9h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg><span>Events</span></a>
+    <a href="#create" data-view-link="create"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg><span>Builder</span></a>
+    <a href="#ranking" data-view-link="ranking"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg><span>Rangliste</span></a>
+    <a href="#mods" data-view-link="mods"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7zM12 12l9-5M12 12v10M12 12L3 7"/></svg><span>Modded</span></a>
+    <a href="#control" data-view-link="control" id="nav-admin-mobile" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2V21a2 2 0 0 1-4 0v-.1A1.7 1.7 0 0 0 7 19.4a1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 1.2 14H1a2 2 0 0 1 0-4h.1A1.7 1.7 0 0 0 4.6 7a1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 10 1.2V1a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A1.7 1.7 0 0 0 21.8 10H23a2 2 0 0 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span>Admin</span></a>
+  </nav>
 
   <dialog id="dialog"></dialog>
   <div id="toast" role="status" aria-live="polite"></div>
   <script src="config.js?v=__BUILD__"></script>
+  <script src="nav.js?v=__BUILD__"></script>
   <script src="app.js?v=__BUILD__"></script>
 </body>
 </html>

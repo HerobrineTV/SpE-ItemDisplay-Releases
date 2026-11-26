@@ -11,22 +11,42 @@ permissions:
   pages: write
   id-token: write
 
+# Only one deployment at a time; a running one finishes (cancelling it half way left the site without a deployment)
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
-  deploy:
+  # Packs the site. A job of its own, so the artifact is registered before the deploy job asks for it
+  # (in one job deploy-pages sometimes found "0 artifacts" right after the upload and failed).
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - name: Make browsers load the new files after every deploy
-        run: sed -i "s/__BUILD__/${GITHUB_SHA::8}/g" site/index.html
+        run: |
+          for file in $(grep -rl "__BUILD__" site --include="*.html"); do
+            sed -i "s/__BUILD__/${GITHUB_SHA::8}/g" "$file"
+          done
+      - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.retry.outputs.page_url || steps.deployment.outputs.page_url }}
+    steps:
       - id: deployment
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+      # Second try after a short wait, the artifact API of GitHub is sometimes a bit late
+      - name: Wait before retrying
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 20
+      - id: retry
+        if: steps.deployment.outcome == 'failure'
         uses: actions/deploy-pages@v4
