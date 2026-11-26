@@ -2164,6 +2164,21 @@
       "midRound": false,
       "lore1": "§3The timer counts up, no time limit",
       "lore2": "§3The challenge ends with /stop"
+    },
+    {
+      "id": "same_seed",
+      "kind": "setting",
+      "display": "§3Same Seed for all",
+      "group": "world_options",
+      "page": 0,
+      "slot": 28,
+      "material": "wheat_seeds",
+      "value": false,
+      "setAmount": 0,
+      "hasAmount": false,
+      "numberOnly": false,
+      "midRound": false,
+      "lore1": "§3Every generated world gets the same seed"
     }
   ],
   "items": [

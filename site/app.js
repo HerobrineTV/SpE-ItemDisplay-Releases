@@ -5,9 +5,9 @@ const TOKEN_KEY = "spe_token";
 const DRAFT_KEY = "spe_builder_draft";
 const GROUP_TITLES = { timer: "Timer", health: "Leben", force_battle: "Force Battle", bingo_options: "Item Bingo", oneblock_options: "OneBlock", army_options: "Monster Army", army_mobs: "Mob-Limits", misc: "Allgemein" };
 const GROUP_ORDER = ["timer", "health", "force_battle", "bingo_options", "oneblock_options", "army_options", "army_mobs", "misc"];
-const GROUP_NEEDS = { force_battle: "force_item_battle", bingo_options: "item_bingo", oneblock_options: "oneblock_race", army_options: "monster_army", army_mobs: "monster_army" };
+const GROUP_NEEDS = { force_battle: "force_item_battle", bingo_options: "item_bingo", oneblock_options: "oneblock_race", army_options: "monster_army", army_mobs: "monster_army", world_options: "generate_world" };
 // Options of a challenge, shown under it while it is on (like the submenus in the game)
-const SUBMENUS = { force_item_battle: ["force_battle"], item_bingo: ["bingo_options"], oneblock_race: ["oneblock_options"], monster_army: ["army_options", "army_mobs"] };
+const SUBMENUS = { force_item_battle: ["force_battle"], item_bingo: ["bingo_options"], oneblock_race: ["oneblock_options"], monster_army: ["army_options", "army_mobs"], generate_world: ["world_options"] };
 const SUBMENU_GROUPS = Object.values(SUBMENUS).flat();
 const isMobLimit = (toggle) => toggle.id.startsWith("army_mob_");
 function submenuOf(id) {
