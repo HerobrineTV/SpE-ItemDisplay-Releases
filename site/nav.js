@@ -9,6 +9,19 @@
   const links = [...document.querySelectorAll("[data-view-link]")];
   const DEFAULT_VIEW = "start";
 
+  // Tabs inside an area (Rangliste: Challenges / Modded): one pane is shown, links into the other pane switch over
+  const rankTabs = [...document.querySelectorAll("[data-rank-tab]")];
+  const rankPanes = [...document.querySelectorAll("[data-rank-pane]")];
+  function showRankTab(name) {
+    for (const tab of rankTabs) tab.setAttribute("aria-selected", String(tab.dataset.rankTab === name));
+    for (const pane of rankPanes) pane.hidden = pane.dataset.rankPane !== name;
+  }
+  function revealPane(element) {
+    const pane = element && element.closest ? element.closest("[data-rank-pane]") : null;
+    if (pane && pane.hidden) showRankTab(pane.dataset.rankPane);
+  }
+  for (const tab of rankTabs) tab.addEventListener("click", () => showRankTab(tab.dataset.rankTab));
+
   function viewOf(element) {
     const view = element && element.closest ? element.closest("[data-view]") : null;
     return view ? view.dataset.view : null;
@@ -48,6 +61,7 @@
     const area = viewOf(target);
     if (area) {
       show(area, { scroll: false });
+      revealPane(target);
       requestAnimationFrame(() => nativeScroll.call(target, { behavior: "smooth", block: "start" }));
     } else {
       show(DEFAULT_VIEW);
@@ -58,6 +72,7 @@
   const nativeScroll = Element.prototype.scrollIntoView;
   Element.prototype.scrollIntoView = function (...args) {
     const area = viewOf(this);
+    revealPane(this);
     if (area && document.body.dataset.view !== area) {
       show(area, { scroll: false });
       history.replaceState(null, "", location.pathname + location.search + "#" + area);

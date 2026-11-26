@@ -1152,7 +1152,7 @@ function boardHtml(body, players, emptyText, hint) {
       <td class="num">${rate} %</td>
     </tr>`;
   });
-  body.innerHTML = `<div class="panel table-wrap"><table class="board">
+  body.innerHTML = `<div class="panel table-wrap scroll-frame"><table class="board">
     <thead><tr><th>Platz</th><th>Spieler</th><th class="num">Siege</th><th class="num" title="Platz 1 bis 3">Podest</th><th class="num">Spiele</th><th class="num">Siegquote</th></tr></thead>
     <tbody>${rows.join("")}</tbody>
   </table></div>
@@ -1176,7 +1176,7 @@ function renderResultList(body, list, emptyText) {
     body.innerHTML = `<div class="panel empty">${esc(emptyText)}</div>`;
     return;
   }
-  body.innerHTML = `<div class="row-list">${list.map((result) => `<article class="panel row">
+  body.innerHTML = `<div class="scroll-frame results-frame"><div class="row-list">${list.map((result) => `<article class="panel row">
       <div class="grow">
         <div class="option-title">${modeIcons(result.modes)}<h3>${esc(result.title)}</h3></div>
         <div class="meta">${esc(formatDateTime(result.started_at))} · ${esc(formatDuration(result.play_seconds))} · ${result.players} Spieler</div>
@@ -1186,7 +1186,7 @@ function renderResultList(body, list, emptyText) {
         <button class="ghost" data-result="${esc(result.id)}">Ergebnis ansehen</button>
         ${isAdmin() ? `<button class="danger" data-result-delete="${esc(result.id)}">Löschen</button>` : ""}
       </div>
-    </article>`).join("")}</div>`;
+    </article>`).join("")}</div></div>`;
   body.querySelectorAll("[data-result]").forEach((button) => { button.onclick = () => showResult(button.dataset.result); });
   body.querySelectorAll("[data-result-delete]").forEach((button) => {
     button.onclick = () => confirmAction("Dieses Ergebnis löschen? Es zählt dann auch nicht mehr fürs Leaderboard.", async () => {

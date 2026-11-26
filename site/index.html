@@ -127,6 +127,12 @@
 
     <!-- Rangliste -->
     <div class="view" data-view="ranking" hidden>
+      <div class="seg-tabs" role="tablist" aria-label="Rangliste">
+        <button type="button" role="tab" id="rank-tab-vanilla" data-rank-tab="vanilla" aria-controls="rank-vanilla" aria-selected="true">Challenges</button>
+        <button type="button" role="tab" id="rank-tab-modded" data-rank-tab="modded" aria-controls="rank-modded" aria-selected="false">Modded <span class="pill">Lucky Battles</span></button>
+      </div>
+
+      <div class="rank-pane" id="rank-vanilla" role="tabpanel" aria-labelledby="rank-tab-vanilla" data-rank-pane="vanilla">
       <section id="leaderboard" aria-labelledby="h-leaderboard">
         <div class="section-head">
           <h2 id="h-leaderboard">Leaderboard</h2>
@@ -140,7 +146,9 @@
         <p class="lead">Jede beendete Challenge mit Platzierungen, Gewinnern und allen Einstellungen. Klicke auf eine Runde für das komplette Ergebnis.</p>
         <div id="results-body"></div>
       </section>
+      </div>
 
+      <div class="rank-pane" id="rank-modded" role="tabpanel" aria-labelledby="rank-tab-modded" data-rank-pane="modded" hidden>
       <section id="modded-ranking" aria-labelledby="h-modded-ranking">
         <div class="section-head">
           <h2 id="h-modded-ranking">Modded Leaderboard <span class="pill">Lucky Battles</span></h2>
@@ -150,6 +158,7 @@
         <div class="section-head sub"><h3>Vergangene Modded-Runden</h3></div>
         <div id="modded-results-body"></div>
       </section>
+      </div>
     </div>
 
     <!-- Modded -->
