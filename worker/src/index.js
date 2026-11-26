@@ -695,6 +695,56 @@ async function leaderboard(env, mode, scope) {
   return results;
 }
 
+// Crash reports of the game servers: uploaded with the RESULTS_TOKEN, readable for admins only
+const MAX_CRASH_REPORT = 900000;
+const CRASH_ID_PATTERN = /^[0-9a-f]{64}$/;
+// Frames of these packages are the game itself, the first other frame names the mod that crashed
+const ENGINE_FRAMES = /^(java\.|javax\.|sun\.|jdk\.|com\.sun\.|net\.minecraft\.|net\.minecraftforge\.|cpw\.mods\.|com\.google\.|io\.netty\.|org\.apache\.|org\.lwjgl\.|com\.mojang\.|LZ4|kotlin\.)/;
+
+function analyzeCrash(report) {
+  const lines = report.split(/\r?\n/);
+  const description = (lines.find((line) => line.startsWith("Description:")) || "").slice(12).trim() || null;
+  // The exception: the first line after the description that looks like "some.Exception: message"
+  const start = Math.max(0, lines.findIndex((line) => line.startsWith("Description:")) + 1);
+  const cause = lines.slice(start, start + 40).map((line) => line.trim())
+    .find((line) => /^[\w.$]+(Exception|Error|Throwable)(:|$)/.test(line)) || null;
+  let culprit = null;
+  for (const line of lines.slice(start, start + 400)) {
+    const frame = line.trim().match(/^at ([\w.$]+)\.[\w$<>]+\(/);
+    if (frame && !ENGINE_FRAMES.test(frame[1])) {
+      culprit = frame[1];
+      break;
+    }
+  }
+  return { description: description && description.slice(0, 200), cause: cause && cause.slice(0, 300), culprit: culprit && culprit.slice(0, 200) };
+}
+
+async function submitCrash(request, env, body) {
+  const header = request.headers.get("Authorization") || "";
+  if (!env.RESULTS_TOKEN || !header.startsWith("Bearer ") || !(await sameSecret(header.slice(7), env.RESULTS_TOKEN))) {
+    throw new HttpError(401, "Ungültiger Token.");
+  }
+  const report = typeof body.report === "string" ? body.report.slice(0, MAX_CRASH_REPORT) : "";
+  if (report.length < 20) throw new HttpError(400, "Kein Crash-Report.");
+  const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", encoder.encode(report)));
+  const id = [...digest].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+  const crashedAt = Number.isFinite(body.crashed_at) && body.crashed_at > 0 ? Math.floor(body.crashed_at) : Date.now();
+  const { description, cause, culprit } = analyzeCrash(report);
+  const inserted = await env.DB.prepare(
+    `INSERT OR IGNORE INTO crashes (id, server, source, file_name, crashed_at, description, cause, culprit, report, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(id, short(body.server, 80) || "?", short(body.source, 80) || "?", short(body.file_name, 160) || "crash.txt", crashedAt,
+    description, cause, culprit, report, Date.now()).run();
+  return { ok: true, id, duplicate: !inserted.meta.changes };
+}
+
+async function listCrashes(env) {
+  const { results } = await env.DB.prepare(
+    "SELECT id, server, source, file_name, crashed_at, description, cause, culprit, resolved, LENGTH(report) AS size FROM crashes ORDER BY crashed_at DESC LIMIT 200"
+  ).all();
+  return results;
+}
+
 function eventFields(body) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(body.date || "") || Number.isNaN(Date.parse(body.date))) throw new HttpError(400, "Ungültiges Datum.");
   return {
@@ -721,6 +771,27 @@ async function route(request, env, url, user) {
       requireAdmin(user);
       await env.DB.prepare("DELETE FROM results WHERE id = ?").bind(parts[1]).run();
       return { ok: true };
+    }
+  }
+
+  if (parts[0] === "crashes") {
+    if (method === "POST" && !parts[1]) return submitCrash(request, env, body);
+    requireAdmin(user);
+    if (method === "GET" && !parts[1]) return { crashes: await listCrashes(env) };
+    if (parts[1] && CRASH_ID_PATTERN.test(parts[1])) {
+      if (method === "GET") {
+        const crash = await env.DB.prepare("SELECT * FROM crashes WHERE id = ?").bind(parts[1]).first();
+        if (!crash) throw new HttpError(404, "Crash nicht gefunden.");
+        return crash;
+      }
+      if (method === "POST" && parts[2] === "resolve") {
+        await env.DB.prepare("UPDATE crashes SET resolved = ? WHERE id = ?").bind(body.resolved === false ? 0 : 1, parts[1]).run();
+        return { ok: true };
+      }
+      if (method === "DELETE") {
+        await env.DB.prepare("DELETE FROM crashes WHERE id = ?").bind(parts[1]).run();
+        return { ok: true };
+      }
     }
   }
 

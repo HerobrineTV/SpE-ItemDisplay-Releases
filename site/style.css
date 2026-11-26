@@ -292,6 +292,12 @@ span.slot { display: flex; align-items: center; justify-content: center; border-
 .row .grow { flex: 1; min-width: 180px; }
 .row-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; align-items: start; }
+.crash-panel { grid-column: 1 / -1; }
+.crash-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.crash-row .grow { min-width: 0; }
+.crash-row.resolved { opacity: .55; }
+.crash-cause { display: block; margin: 6px 0 2px; white-space: pre-wrap; word-break: break-word; font-size: .85em; color: var(--danger, #ff6b6b); }
+.crash-report { max-height: 60vh; overflow: auto; padding: 12px; border-radius: 10px; background: rgba(0, 0, 0, .35); font-size: 12px; line-height: 1.45; white-space: pre; }
 .check { display: flex; gap: 8px; align-items: center; padding: 3px 0; }
 
 /* ------------------------------------------------------------------ Dialog, toast */

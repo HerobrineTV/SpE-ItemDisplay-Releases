@@ -3,10 +3,18 @@
 const API = window.SPE_API;
 const TOKEN_KEY = "spe_token";
 const DRAFT_KEY = "spe_builder_draft";
-const GROUP_TITLES = { timer: "Timer", health: "Leben", force_battle: "Force Battle", bingo_options: "Item Bingo", misc: "Allgemein" };
-const GROUP_ORDER = ["timer", "health", "force_battle", "bingo_options", "misc"];
-const GROUP_NEEDS = { force_battle: "force_item_battle", bingo_options: "item_bingo" };
-const SUBMENUS = { force_item_battle: "force_battle", item_bingo: "bingo_options" };
+const GROUP_TITLES = { timer: "Timer", health: "Leben", force_battle: "Force Battle", bingo_options: "Item Bingo", oneblock_options: "OneBlock", army_options: "Monster Army", army_mobs: "Mob-Limits", misc: "Allgemein" };
+const GROUP_ORDER = ["timer", "health", "force_battle", "bingo_options", "oneblock_options", "army_options", "army_mobs", "misc"];
+const GROUP_NEEDS = { force_battle: "force_item_battle", bingo_options: "item_bingo", oneblock_options: "oneblock_race", army_options: "monster_army", army_mobs: "monster_army" };
+// Options of a challenge, shown under it while it is on (like the submenus in the game)
+const SUBMENUS = { force_item_battle: ["force_battle"], item_bingo: ["bingo_options"], oneblock_race: ["oneblock_options"], monster_army: ["army_options", "army_mobs"] };
+const SUBMENU_GROUPS = Object.values(SUBMENUS).flat();
+const isMobLimit = (toggle) => toggle.id.startsWith("army_mob_");
+function submenuOf(id) {
+  const groups = SUBMENUS[id] || [];
+  return catalog.filter((item) => groups.includes(item.group))
+    .sort((a, b) => groups.indexOf(a.group) - groups.indexOf(b.group) || a.page - b.page || a.slot - b.slot);
+}
 const KIT_SLOTS = 36;
 const MOD_TAG = '<a class="mod-tag" href="#downloads" title="Braucht die SpE-Mod">Mod</a>';
 // Modded Challenges (SpE Lucky Battles): ihre Modus-IDs beginnen mit "lucky_"
@@ -402,14 +410,15 @@ function cardHtml(toggle) {
   const entry = draft.toggles[toggle.id];
   const info = description(toggle);
   const block = blockReason(toggle);
-  const alwaysOn = toggle.hasAmount && toggle.value;
+  // Pure numbers have no switch; the mob limits keep theirs (on = may spawn)
+  const alwaysOn = toggle.numberOnly || (toggle.hasAmount && toggle.value && !isMobLimit(toggle));
   const modeList = info.modes ? `<ul>${toggle.modes.map((mode) => info.modes[mode] ? `<li><strong>${esc(mode)}:</strong> ${esc(info.modes[mode])}</li>` : "").join("")}</ul>` : "";
   const more = info.details || modeList ? `<details data-detail="${toggle.id}"><summary>Details</summary>${info.details ? `<div>${esc(info.details)}</div>` : ""}${modeList}</details>` : "";
   const switcher = alwaysOn ? "" : `<label class="switch"><input type="checkbox" aria-label="${esc(name(toggle))}" data-toggle="${toggle.id}"${entry.value ? " checked" : ""}${block ? " disabled" : ""}><span></span></label>`;
   const controls = [];
-  if (toggle.hasAmount && entry.value) controls.push(`<input type="number" min="1" max="100000" aria-label="Wert für ${esc(name(toggle))}" data-amount="${toggle.id}" value="${entry.setAmount}">`);
+  if (toggle.hasAmount && entry.value) controls.push(`<input type="number" min="${isMobLimit(toggle) ? 0 : 1}" max="100000"${isMobLimit(toggle) ? ' title="0 = kein Limit pro Welle"' : ""} aria-label="Wert für ${esc(name(toggle))}" data-amount="${toggle.id}" value="${entry.setAmount}">`);
   if (toggle.modes && entry.value) controls.push(`<select aria-label="Modus für ${esc(name(toggle))}" data-mode="${toggle.id}">${toggle.modes.map((mode, index) => `<option value="${index}"${index === entry.currentMode ? " selected" : ""}>${esc(mode)}</option>`).join("")}</select>`);
-  const submenuItems = SUBMENUS[toggle.id] && entry.value ? catalog.filter((item) => item.group === SUBMENUS[toggle.id]).sort((a, b) => a.page - b.page || a.slot - b.slot) : [];
+  const submenuItems = entry.value ? submenuOf(toggle.id) : [];
   const submenu = submenuItems.length ? `<div class="submenu"><div class="cards">${submenuItems.map(cardHtml).join("")}</div></div>` : "";
   const kit = toggle.id === "starter_kit" && entry.value ? kitHtml() : "";
   return `<article class="card${entry.value ? " on" : ""}${block && (!entry.value || toggle.id === "auto_stop") ? " blocked" : ""}${submenu || kit ? " wide" : ""}">
@@ -607,10 +616,10 @@ function showSetup(proposal) {
   const inMenuOrder = (a, b) => a.page - b.page || a.slot - b.slot;
   let html = `<h3 class="group-title">Challenges</h3>`;
   html += activeChallenges(config).sort(inMenuOrder).map((toggle) => {
-    const items = SUBMENUS[toggle.id] ? catalog.filter((item) => item.group === SUBMENUS[toggle.id]).sort(inMenuOrder) : [];
+    const items = submenuOf(toggle.id);
     return setupRow(toggle, config) + (items.length ? `<div class="view-sub">${items.map((item) => setupRow(item, config)).join("")}</div>` : "");
   }).join("");
-  const submenuGroups = Object.values(SUBMENUS);
+  const submenuGroups = SUBMENU_GROUPS;
   const groups = [...new Set(catalog.filter((toggle) => toggle.kind === "setting" && !submenuGroups.includes(toggle.group)).map((toggle) => toggle.group))]
     .sort((a, b) => (GROUP_ORDER.indexOf(a) + 1 || 99) - (GROUP_ORDER.indexOf(b) + 1 || 99));
   for (const group of groups) {
@@ -632,7 +641,7 @@ function renderBuilder() {
   if (!isAdmin() && draft.toggles.auto_stop) draft.toggles.auto_stop.value = true;
   const open = new Set([...document.querySelectorAll("#builder-body details[open]")].map((item) => item.dataset.detail));
   const challenges = catalog.filter((toggle) => toggle.kind === "challenge").sort((a, b) => a.page - b.page || a.slot - b.slot);
-  const submenuGroups = Object.values(SUBMENUS);
+  const submenuGroups = SUBMENU_GROUPS;
   const groups = [...new Set(catalog.filter((toggle) => toggle.kind === "setting" && !submenuGroups.includes(toggle.group)).map((toggle) => toggle.group))]
     .sort((a, b) => (GROUP_ORDER.indexOf(a) + 1 || 99) - (GROUP_ORDER.indexOf(b) + 1 || 99));
   let html = `<h3 class="group-title">Challenges</h3><div class="cards">${challenges.map(cardHtml).join("")}</div>`;
@@ -663,7 +672,9 @@ function renderBuilder() {
   });
   body.querySelectorAll("[data-amount]").forEach((input) => {
     input.onchange = () => {
-      draft.toggles[input.dataset.amount].setAmount = Math.min(100000, Math.max(1, Math.round(Number(input.value)) || 1));
+      const min = input.dataset.amount.startsWith("army_mob_") ? 0 : 1;
+      const value = Math.round(Number(input.value));
+      draft.toggles[input.dataset.amount].setAmount = Math.min(100000, Math.max(min, Number.isFinite(value) ? value : min));
       saveDraft();
       renderBuilder();
     };
@@ -792,7 +803,9 @@ async function renderAdmin() {
       </form>
     </div>
     <div class="panel"><h3 style="margin-bottom:12px">Benutzer und Rollen</h3><div class="row-list" id="users">Lädt …</div></div>
+    <div class="panel crash-panel"><div class="crash-head"><h3>Server-Crashes</h3><label class="check"><input type="checkbox" id="crash-show-resolved"${crashFilter.resolved ? " checked" : ""}><span>Erledigte zeigen</span></label></div><div class="row-list" id="crashes">Lädt …</div></div>
   </div>`;
+  renderCrashes();
   $("#day-poll-form").onsubmit = async (submit) => {
     submit.preventDefault();
     const data = new FormData(submit.target);
@@ -838,6 +851,63 @@ async function renderAdmin() {
       renderAdmin();
     };
   });
+}
+
+/* Crash reports of the game servers (uploaded by SpE Lucky Battles) */
+
+const crashFilter = { resolved: false };
+
+async function renderCrashes() {
+  const toggle = $("#crash-show-resolved");
+  if (toggle) toggle.onchange = () => { crashFilter.resolved = toggle.checked; renderCrashes(); };
+  const data = await run(() => api("crashes"));
+  const list = $("#crashes");
+  if (!data || !list) return;
+  const open = data.crashes.filter((crash) => !crash.resolved).length;
+  const shown = data.crashes.filter((crash) => crashFilter.resolved || !crash.resolved);
+  if (!shown.length) {
+    list.innerHTML = `<p class="meta">${data.crashes.length ? "Keine offenen Crashes." : "Noch keine Crashes gemeldet."}</p>`;
+    return;
+  }
+  list.innerHTML = `<p class="meta">${open} offen, ${data.crashes.length} insgesamt</p>` + shown.map((crash) => `<div class="row crash-row${crash.resolved ? " resolved" : ""}">
+      <div class="grow">
+        <strong>${esc(crash.description || "Unbekannter Crash")}</strong>
+        <div class="meta">${esc(crash.server)} · ${esc(formatDateTime(crash.crashed_at))} · ${esc(crash.source)}</div>
+        ${crash.cause ? `<code class="crash-cause">${esc(crash.cause)}</code>` : ""}
+        ${crash.culprit ? `<div class="meta">Vermutlich aus: <code>${esc(crash.culprit)}</code></div>` : ""}
+      </div>
+      <div class="row-actions">
+        <button class="ghost" data-crash-open="${esc(crash.id)}">Bericht</button>
+        <button class="ghost" data-crash-resolve="${esc(crash.id)}" data-resolved="${crash.resolved ? "0" : "1"}">${crash.resolved ? "Wieder öffnen" : "Erledigt"}</button>
+        <button class="danger" data-crash-delete="${esc(crash.id)}">Löschen</button>
+      </div>
+    </div>`).join("");
+  list.querySelectorAll("[data-crash-open]").forEach((button) => { button.onclick = () => showCrash(button.dataset.crashOpen); });
+  list.querySelectorAll("[data-crash-resolve]").forEach((button) => {
+    button.onclick = async () => {
+      await run(() => api(`crashes/${button.dataset.crashResolve}/resolve`, "POST", { resolved: button.dataset.resolved === "1" }));
+      renderCrashes();
+    };
+  });
+  list.querySelectorAll("[data-crash-delete]").forEach((button) => {
+    button.onclick = async () => {
+      if (!confirm("Diesen Crash-Bericht endgültig löschen?")) return;
+      await run(() => api(`crashes/${button.dataset.crashDelete}`, "DELETE"), "Crash gelöscht.");
+      renderCrashes();
+    };
+  });
+}
+
+async function showCrash(id) {
+  const crash = await run(() => api(`crashes/${id}`));
+  if (!crash) return;
+  const dialog = openDialog(`<h3>${esc(crash.description || "Crash")}</h3>
+    <div class="meta">${esc(crash.server)} · ${esc(formatDateTime(crash.crashed_at))} · ${esc(crash.file_name)} · ${esc(crash.source)}</div>
+    ${crash.culprit ? `<p>Vermutlich aus: <code>${esc(crash.culprit)}</code></p>` : ""}
+    <pre class="crash-report">${esc(crash.report)}</pre>
+    <div class="dialog-actions"><button type="button" class="ghost" id="copy-crash">Kopieren</button><button type="button" id="close-dialog">Schließen</button></div>`, "wide");
+  dialog.querySelector("#close-dialog").onclick = () => dialog.close();
+  dialog.querySelector("#copy-crash").onclick = () => navigator.clipboard.writeText(crash.report).then(() => toast("Bericht kopiert."), () => toast("Kopieren fehlgeschlagen.", true));
 }
 
 /* Start */
