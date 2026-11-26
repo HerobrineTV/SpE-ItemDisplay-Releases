@@ -1,7 +1,7 @@
 {
   "spe-itemdisplay": {
     "name": "SpE ItemDisplay",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "download": "https://herobrinetv.github.io/SpE-ItemDisplay-Releases/download/mod/"
   },
   "spe-luckybattles": {
@@ -21,7 +21,7 @@
   },
   "spe-challenges": {
     "name": "SpE-Challenges",
-    "version": "0.6.1",
+    "version": "0.6.2",
     "download": "https://github.com/HerobrineTV/SpE-Challenges/releases"
   },
   "spe-chat": {
