@@ -1,17 +1,17 @@
 {
   "spe-itemdisplay": {
     "name": "SpE ItemDisplay",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "download": "https://herobrinetv.github.io/SpE-ItemDisplay-Releases/download/mod/"
   },
   "spe-luckybattles": {
     "name": "SpE Lucky Battles",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "download": "https://herobrinetv.github.io/SpE-ItemDisplay-Releases/download/luckybattles/"
   },
   "spe-luckybattles-velocity": {
     "name": "SpE-LuckyBattles-Velocity",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "download": "https://herobrinetv.github.io/SpE-ItemDisplay-Releases/download/luckybattles-velocity/"
   },
   "spe-lobby": {
@@ -21,7 +21,7 @@
   },
   "spe-challenges": {
     "name": "SpE-Challenges",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "download": "https://github.com/HerobrineTV/SpE-Challenges/releases"
   },
   "spe-chat": {
