@@ -1872,6 +1872,21 @@
       "midRound": false
     },
     {
+      "id": "auto_respawn",
+      "kind": "setting",
+      "display": "§3Auto Respawn",
+      "group": "health",
+      "page": 1,
+      "slot": 10,
+      "material": "respawn_anchor",
+      "value": true,
+      "setAmount": 0,
+      "hasAmount": false,
+      "numberOnly": false,
+      "midRound": true,
+      "lore1": "§3Skips the death screen, you respawn right away"
+    },
+    {
       "id": "generate_world",
       "kind": "setting",
       "display": "§3Generate World",
