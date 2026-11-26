@@ -16,12 +16,12 @@
   },
   "spe-lobby": {
     "name": "SpE-Lobby",
-    "version": "0.9.1",
+    "version": "0.9.2",
     "download": "https://github.com/HerobrineTV/SpE-LuckyBattles/releases"
   },
   "spe-challenges": {
     "name": "SpE-Challenges",
-    "version": "0.6.7",
+    "version": "0.6.8",
     "download": "https://github.com/HerobrineTV/SpE-Challenges/releases"
   },
   "spe-chat": {
