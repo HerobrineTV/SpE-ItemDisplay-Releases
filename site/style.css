@@ -49,7 +49,16 @@ a { color: var(--accent); text-underline-offset: 3px; }
   border-bottom: 1px solid transparent; transition: border-color .2s, box-shadow .2s;
 }
 .top.scrolled { border-bottom-color: var(--line); box-shadow: 0 6px 24px rgba(0, 0, 0, .25); }
-.top-inner { max-width: 1200px; margin: 0 auto; height: var(--header-h); padding: 0 24px; display: flex; align-items: center; gap: 18px; }
+/* The bar uses the whole width: brand and areas on the left, server and login on the right */
+.top-inner {
+  height: var(--header-h); padding: 0 clamp(16px, 3vw, 40px);
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; grid-template-areas: "brand tabs server account";
+  align-items: center; gap: 18px;
+}
+.top-inner > .brand { grid-area: brand; }
+.top-inner > .tabs { grid-area: tabs; }
+.top-inner > .server { grid-area: server; }
+.top-inner > #account { grid-area: account; }
 .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; flex: none; }
 .brand-mark {
   width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font-weight: 800; color: var(--accent-ink);
@@ -83,7 +92,7 @@ a { color: var(--accent); text-underline-offset: 3px; }
 
 /* ------------------------------------------------------------------ Layout */
 
-main { max-width: 1200px; margin: 0 auto; padding: 8px 24px 64px; }
+main { max-width: 1360px; margin: 0 auto; padding: 8px clamp(16px, 3vw, 40px) 64px; }
 .view { animation: fade-in .25s ease; }
 @keyframes fade-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 section { padding-top: 40px; }
@@ -129,6 +138,13 @@ section { padding-top: 40px; }
 .download-head { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
 .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: .76rem; font-weight: 700; }
 .ghost-pill { background: var(--panel-2); color: var(--muted); }
+h2 .pill { vertical-align: middle; margin-left: 6px; font-size: .74rem; }
+.jump {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 18px;
+  color: var(--text); text-decoration: none; transition: border-color .15s, background .15s;
+}
+.jump span { color: var(--accent); font-weight: 600; }
+.jump:hover { border-color: rgba(45, 212, 191, .45); background: var(--panel-2); }
 
 /* ------------------------------------------------------------------ Buttons and inputs */
 
@@ -362,17 +378,28 @@ main > section:only-child .button { margin: 6px 0; }
 /* ------------------------------------------------------------------ Footer */
 
 .credits { border-top: 1px solid var(--line); margin-top: 24px; }
-.credits-inner { max-width: 1200px; margin: 0 auto; padding: 26px 24px 40px; color: var(--muted); font-size: .8rem; display: grid; gap: 6px; }
+.credits-inner { max-width: 1360px; margin: 0 auto; padding: 26px clamp(16px, 3vw, 40px) 40px; color: var(--muted); font-size: .8rem; display: grid; gap: 6px; }
 .credits-inner p { margin: 0; max-width: 90ch; }
 
 /* ------------------------------------------------------------------ Phone tab bar */
 
 .bottom-tabs { display: none; }
 
-@media (max-width: 1140px) {
-  .server-status { display: none; }
-  .brand-text { display: none; }
-  .top-inner { gap: 12px; }
+/* Tablets and small laptops: two rows, the areas get the whole second row */
+@media (max-width: 1180px) {
+  :root { --header-h: 108px; }
+  .top-inner {
+    height: auto; padding-top: 10px; row-gap: 6px;
+    grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "brand server account" "tabs tabs tabs";
+  }
+  .top-inner > .server { justify-self: end; }
+  .tabs { padding-bottom: 8px; margin: 0 -6px; }
+  .tabs a { flex: 1 0 auto; text-align: center; }
+}
+
+@media (max-width: 1180px) and (min-width: 821px) {
+  /* Scrollable areas get faded edges instead of a hard cut */
+  .tabs { -webkit-mask-image: linear-gradient(90deg, transparent, #000 12px, #000 calc(100% - 12px), transparent); mask-image: linear-gradient(90deg, transparent, #000 12px, #000 calc(100% - 12px), transparent); padding-left: 6px; padding-right: 6px; }
 }
 
 @media (max-width: 1020px) {
@@ -382,9 +409,10 @@ main > section:only-child .button { margin: 6px 0; }
 @media (max-width: 820px) {
   :root { --header-h: 58px; }
   body { font-size: 15px; padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
-  .top-inner { padding: 0 16px; gap: 10px; }
+  .top-inner { height: var(--header-h); padding: 0 16px; gap: 10px; grid-template-areas: "brand server account"; }
   .tabs { display: none; }
-  .server { margin-left: auto; padding: 6px 10px; }
+  .server { padding: 6px 10px; }
+  .server-status { display: none; }
   .brand-text { display: none; }
   main { padding: 4px 16px 32px; }
   section { padding-top: 30px; }

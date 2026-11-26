@@ -140,6 +140,16 @@
         <p class="lead">Jede beendete Challenge mit Platzierungen, Gewinnern und allen Einstellungen. Klicke auf eine Runde für das komplette Ergebnis.</p>
         <div id="results-body"></div>
       </section>
+
+      <section id="modded-ranking" aria-labelledby="h-modded-ranking">
+        <div class="section-head">
+          <h2 id="h-modded-ranking">Modded Leaderboard <span class="pill">Lucky Battles</span></h2>
+          <label class="inline-select"><span>Modus</span><select id="modded-mode"></select></label>
+        </div>
+        <div id="modded-leaderboard-body"></div>
+        <div class="section-head sub"><h3>Vergangene Modded-Runden</h3></div>
+        <div id="modded-results-body"></div>
+      </section>
     </div>
 
     <!-- Modded -->
@@ -170,13 +180,10 @@
           <article class="card"><div class="card-head"><span class="ico big unknown" aria-hidden="true">?</span><h3>Bald</h3></div>
             <p>Lucky Block Race und Lucky Block Tower sind in Arbeit.</p></article>
         </div>
-        <div class="section-head sub">
-          <h3>Leaderboard</h3>
-          <label class="inline-select"><span>Modus</span><select id="modded-mode"></select></label>
-        </div>
-        <div id="modded-leaderboard-body"></div>
-        <div class="section-head sub"><h3>Vergangene Runden</h3></div>
-        <div id="modded-results-body"></div>
+        <a class="panel jump" href="#modded-ranking">
+          <strong>Leaderboard und vergangene Runden</strong>
+          <span>Stehen jetzt in der Rangliste →</span>
+        </a>
       </section>
     </div>
 

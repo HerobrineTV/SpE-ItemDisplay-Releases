@@ -1346,7 +1346,7 @@ async function init() {
   const linkedResult = new URLSearchParams(location.search).get("result");
   if (linkedResult) {
     const linked = results.find((result) => result.id === linkedResult);
-    (linked && isModded(linked) ? $("#modded") : $("#vergangen")).scrollIntoView();
+    (linked && isModded(linked) ? $("#modded-ranking") : $("#vergangen")).scrollIntoView();
     showResult(linkedResult);
   }
   setInterval(poll, 20000);
